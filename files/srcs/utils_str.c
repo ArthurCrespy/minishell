@@ -6,7 +6,7 @@
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:40:39 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:40:39 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/05/19 17:26:19 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,28 @@ char	*ft_strdup(t_data data, const char *str)
 		i++;
 	}
 	return (result);
+}
+
+char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+	size_t	length;
+
+	i = 0;
+	length = 0;
+	if (start > ft_strlen(s))
+		return (ft_strdup(data, ""));
+	while (s[start + length] && length < len)
+		length++;
+	str = malloc((length + 1) * sizeof(char));
+	if (!str)
+		ft_exit(&data, MALLOC_ERROR, "ft_substr malloc error");
+	while (s[start + i] && i < length)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

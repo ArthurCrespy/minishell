@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_launch.c                                    :+:      :+:    :+:   */
+/*   command_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 13:36:34 by acrespy          ###   ########.fr       */
+/*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
+/*   Updated: 2023/05/19 17:24:24 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	prompt_launch(t_data *data)
+void	command_free(t_data *data)
 {
-	char	*input;
+	ft_free_tab(data->command);
+}
 
-	data->history = NULL;
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-			break ;
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break ;
-		}
-		if (ft_strcmp(input, "") != 0)
-			history_add(data, input);
-		command_parsing(data, input);
-		key_processing(data, '\n');
-		free(input);
-	}
+void	command_parsing(t_data *data, char *command)
+{
+	data->command = ft_split(*data, command, ' ');
+	command_free(data);
 }

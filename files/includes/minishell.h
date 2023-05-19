@@ -36,6 +36,10 @@ typedef struct s_data
 	t_history	*history;
 }				t_data;
 
+// ------- CMD PARSING ------ //
+void	command_free(t_data *data);
+void	command_parsing(t_data *data, char *command);
+
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);
 void	ft_free(t_data data);
@@ -51,9 +55,14 @@ void	key_processing(t_data *data, int key);
 // ------- PRPT LAUNCH ------ //
 void	prompt_launch(t_data *data);
 
+// ------- UTILS SPLIT ------ //
+void	ft_free_tab(char **tab);
+char	**ft_split(t_data data, char const *s, char c);
+
 // -------- UTILS STR ------- //
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(t_data data, const char *str);
+char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 
 #endif
