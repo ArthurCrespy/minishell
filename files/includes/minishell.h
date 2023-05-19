@@ -33,6 +33,10 @@ typedef struct s_data
 	t_history	*history;
 }				t_data;
 
+// ---------- FREE ---------- //
+void    ft_exit(t_data *data, int status, char *msg);
+void	ft_free(t_data data);
+
 // ------ PRPT HISTORY ------ //
 void	history_add(t_data *data, char *cmd);
 void	history_print(t_data *data);
