@@ -14,9 +14,11 @@ NAME        := minishell
 
 SRC_DIR     := srcs
 SRCS := \
+			free.c \
 			main.c \
 			prompt_history.c \
 			prompt_keys.c \
+			prompt_launch.c \
 			utils_str.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
