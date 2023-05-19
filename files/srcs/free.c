@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void    ft_exit(t_data *data, int status, char *msg)
+void	ft_exit(t_data *data, int status, char *msg)
 {
 	if (data)
 		ft_free(*data);
@@ -20,7 +20,7 @@ void    ft_exit(t_data *data, int status, char *msg)
 	exit(status);
 }
 
-void ft_free(t_data data)
+void	ft_free(t_data data)
 {
 	history_free(&data);
 }

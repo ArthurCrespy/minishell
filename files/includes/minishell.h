@@ -37,7 +37,7 @@ typedef struct s_data
 }				t_data;
 
 // ---------- FREE ---------- //
-void    ft_exit(t_data *data, int status, char *msg);
+void	ft_exit(t_data *data, int status, char *msg);
 void	ft_free(t_data data);
 
 // ------ PRPT HISTORY ------ //
