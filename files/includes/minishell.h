@@ -20,6 +20,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define MALLOC_ERROR 1
+# define TERMIOS_ERROR 2
+
 typedef struct s_history
 {
 	int					id;
@@ -51,6 +54,6 @@ void	prompt_launch(t_data *data);
 // -------- UTILS STR ------- //
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
-char	*ft_strdup(const char *str);
+char	*ft_strdup(t_data data, const char *str);
 
 #endif

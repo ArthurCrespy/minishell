@@ -19,9 +19,9 @@ void	history_add(t_data *data, char *cmd)
 
 	new = (t_history *) malloc(sizeof(t_history));
 	if (!new)
-		return ;
+		ft_exit(data, MALLOC_ERROR, "history_add malloc error");
 	new->id = 0;
-	new->cmd = ft_strdup(cmd);
+	new->cmd = ft_strdup(*data, cmd);
 	new->prev = NULL;
 	new->next = NULL;
 	if (!data->history)

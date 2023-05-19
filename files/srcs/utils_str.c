@@ -41,7 +41,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup(t_data data, const char *str)
 {
 	int		i;
 	char	*result;
@@ -49,7 +49,7 @@ char	*ft_strdup(const char *str)
 	i = 0;
 	result = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!result)
-		return (NULL);
+		ft_exit(&data, MALLOC_ERROR, "ft_strdup malloc error");
 	while (i <= (int)ft_strlen(str))
 	{
 		result[i] = str[i];

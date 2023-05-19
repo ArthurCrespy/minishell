@@ -19,15 +19,15 @@ int	key_read(void)
 	struct termios	new_termios;
 
 	if (!tcgetattr(STDIN_FILENO, &old_termios))
-		return (-1);
+		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
 	new_termios = old_termios;
 	new_termios.c_lflag &= ~(ICANON | ECHO);
 	if (!tcsetattr(STDIN_FILENO, TCSANOW, &new_termios))
-		return (-1);
+		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
 	if (read(STDIN_FILENO, &c, 1) == -1)
 		c = 0;
 	if (!tcsetattr(STDIN_FILENO, TCSANOW, &old_termios))
-		return (-1);
+		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
 	return (c);
 }
 
