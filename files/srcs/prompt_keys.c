@@ -18,13 +18,16 @@ int	key_read(void)
 	struct termios	old_termios;
 	struct termios	new_termios;
 
-	tcgetattr(STDIN_FILENO, &old_termios);
+	if (!tcgetattr(STDIN_FILENO, &old_termios))
+		return (-1);
 	new_termios = old_termios;
 	new_termios.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+	if (!tcsetattr(STDIN_FILENO, TCSANOW, &new_termios))
+		return (-1);
 	if (read(STDIN_FILENO, &c, 1) == -1)
 		c = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
+	if (!tcsetattr(STDIN_FILENO, TCSANOW, &old_termios))
+		return (-1);
 	return (c);
 }
 
@@ -36,7 +39,7 @@ void	key_arrows(t_data *data, int key)
 		rl_replace_line(data->history->cmd, 1);
 		rl_redisplay();
 	}
-	if (key == 66 && data->history != NULL && data->history->next != NULL)
+	else if (key == 66 && data->history != NULL && data->history->next != NULL)
 	{
 		data->history = data->history->next;
 		rl_replace_line(data->history->cmd, 1);
@@ -46,38 +49,30 @@ void	key_arrows(t_data *data, int key)
 
 void	key_operators(t_data *data, int key)
 {
-	if (key == 10)
+	t_history	*prev;
+
+	if (key == 10 && data->history != NULL)
 	{
-		if (data->history != NULL)
-		{
-			rl_replace_line("", 1);
-			rl_redisplay();
-			data->history = NULL;
-		}
+		rl_replace_line("", 1);
+		rl_redisplay();
+		data->history = NULL;
 	}
-	if (key == 127)
+	else if (key == 127 && data->history != NULL)
 	{
-		if (data->history != NULL)
+		prev = data->history->prev;
+		if (prev != NULL)
 		{
-			t_history *prev = data->history->prev;
-			if (prev != NULL)
-			{
-				prev->next = data->history->next;
-				if (data->history->next != NULL)
-					data->history->next->prev = prev;
-				free(data->history->cmd);
-				free(data->history);
-				data->history = prev;
-			}
-			else
-			{
-				free(data->history->cmd);
-				free(data->history);
-				data->history = NULL;
-			}
-			rl_replace_line("", 1);
-			rl_redisplay();
+			prev->next = data->history->next;
+			if (data->history->next != NULL)
+				data->history->next->prev = prev;
+			data->history = prev;
 		}
+		else
+			data->history = NULL;
+		rl_replace_line("", 1);
+		rl_redisplay();
+		free(data->history->cmd);
+		free(data->history);
 	}
 }
 

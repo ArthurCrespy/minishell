@@ -18,6 +18,8 @@ void	history_add(t_data *data, char *cmd)
 	t_history	*new;
 
 	new = (t_history *) malloc(sizeof(t_history));
+	if (!new)
+		return ;
 	new->id = 0;
 	new->cmd = ft_strdup(cmd);
 	new->prev = NULL;
@@ -37,6 +39,7 @@ void	history_add(t_data *data, char *cmd)
 	free(new->cmd);
 	free(new);
 }
+
 void	history_free(t_data *data)
 {
 	t_history	*ptr;
