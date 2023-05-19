@@ -41,6 +41,9 @@ void	history_free(t_data *data);
 // -------- PRPT KEYS ------- //
 void	key_processing(t_data *data, int key);
 
+// ------- PRPT LAUNCH ------ //
+void	prompt_launch(t_data *data);
+
 // -------- UTILS STR ------- //
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
