@@ -49,7 +49,7 @@ void	key_arrows(t_data *data, int key)
 
 void	key_operators(t_data *data, int key)
 {
-	t_history	*prev;
+	t_command	*prev;
 
 	if (key == 10 && data->history != NULL)
 	{

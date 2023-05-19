@@ -23,17 +23,17 @@
 # define MALLOC_ERROR 1
 # define TERMIOS_ERROR 2
 
-typedef struct s_history
+typedef struct s_command
 {
-	int					id;
 	char				*cmd;
-	struct s_history	*prev;
-	struct s_history	*next;
-}				t_history;
+	struct s_command	*prev;
+	struct s_command	*next;
+}				t_command;
 
 typedef struct s_data
 {
-	t_history	*history;
+	t_command	*history;
+	char		**command;
 }				t_data;
 
 // ------- CMD PARSING ------ //
