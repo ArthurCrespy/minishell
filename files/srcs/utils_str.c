@@ -41,7 +41,24 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char	*ft_strdup(t_data data, const char *str)
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	if (!c)
+		return (str + ft_strlen(str));
+	while (s[i] && s[i] != (char)c)
+		i++;
+	if (i == ft_strlen(s))
+		return (NULL);
+	else
+		return (str + i);
+}
+
+char	*ft_strdup(t_data data, char *str)
 {
 	int		i;
 	char	*result;
