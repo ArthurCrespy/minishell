@@ -42,13 +42,12 @@ void	command_quotes(t_data **data)
 
 void	command_parsing(t_data *data, char *command)
 {
+	int	i;
+
+	i = 0;
 	command = ft_replace(data, command, ' ');
 	command = ft_replace(data, command, '\t');
-
-
 	data->command = ft_split(*data, command, '\x1F');
-
-	int i = 0;
 	while (data->command[i])
 	{
 		printf("command[%d] = %s\n", i, data->command[i]);

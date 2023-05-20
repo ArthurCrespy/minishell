@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_strplc(const char* str, int c)
+char	*ft_strplc(const char *str, int c)
 {
 	int		i;
 	char	*result;
@@ -35,16 +35,16 @@ char	*ft_strplc(const char* str, int c)
 	return (result);
 }
 
-char	*ft_replace(t_data* data, char* command, int c)
+char	*ft_replace(t_data *data, char *command, int c)
 {
-	(void)data;
 	char	*tmp;
 
+	(void) data;
 	if (strchr(command, c))
 	{
 		tmp = ft_strplc(command, c);
 		free(command);
 		command = tmp;
 	}
-    return (command);
+	return (command);
 }
