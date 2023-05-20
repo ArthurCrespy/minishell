@@ -23,6 +23,8 @@
 # define MALLOC_ERROR 1
 # define TERMIOS_ERROR 2
 
+# define USER "acrespy"
+
 typedef struct s_command
 {
 	char				*cmd;
@@ -55,6 +57,9 @@ void	key_processing(t_data *data, int key);
 // ------- PRPT LAUNCH ------ //
 void	prompt_launch(t_data *data);
 
+// ------ UTILS REPLACE ----- //
+char	*ft_replace(t_data* data, char* command, int c);
+
 // ------- UTILS SPLIT ------ //
 void	ft_free_tab(char **tab);
 char	**ft_split(t_data data, char const *s, char c);
@@ -62,7 +67,8 @@ char	**ft_split(t_data data, char const *s, char c);
 // -------- UTILS STR ------- //
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
-char	*ft_strdup(t_data data, const char *str);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(t_data data, char *str);
 char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 
 #endif
