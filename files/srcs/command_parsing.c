@@ -12,9 +12,32 @@
 
 #include "../includes/minishell.h"
 
-void	command_free(t_data *data)
+void	command_quotes(t_data **data)
 {
-	ft_free_tab(data->command);
+	int		i;
+	int		j;
+	int		len;
+	int		quotes;
+	char	*word;
+
+	i = 0;
+	quotes = 0;
+	while ((*data)->command[i])
+	{
+		j = 0;
+		len = ft_strlen((*data)->command[i]);
+		word = (*data)->command[i];
+		while (j < len)
+		{
+			if (word[j] == '\'' || word[j] == '\"')
+				quotes *= -1;
+			else
+				word[i++] = word[j];
+			j++;
+		}
+		word[i] = '\0';
+		printf("word = %s\n", word);
+	}
 }
 
 void	command_parsing(t_data *data, char *command)
