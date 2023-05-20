@@ -23,4 +23,5 @@ void	ft_exit(t_data *data, int status, char *msg)
 void	ft_free(t_data data)
 {
 	history_free(&data);
+	ft_free_tab(data.command);
 }
