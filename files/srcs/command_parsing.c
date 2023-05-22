@@ -48,6 +48,7 @@ void	command_parsing(t_data *data, char *command)
 	command = ft_replace(data, command, ' ');
 	command = ft_replace(data, command, '\t');
 	data->command = ft_split(*data, command, '\x1F');
+	free(command);
 	while (data->command[i])
 	{
 		printf("command[%d] = %s\n", i, data->command[i]);
