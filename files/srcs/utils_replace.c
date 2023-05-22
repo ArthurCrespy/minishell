@@ -84,3 +84,59 @@ char	*ft_operators_replace(t_data *data, char *command)
 	free(command);
 	return (tmp);
 }
+
+void	ft_quotes_check(const char *command, char *tmp, int *i, int *j)
+{
+	int		y;
+	int		closed;
+	char	c;
+
+	y = *i + 1;
+	closed = -1;
+	c = command[(*i)];
+	printf("command[%d] = %c\n", *i, command[*i]);
+	printf("c = %c\n", c);
+	printf("y = %d\n", y);
+	while (command[(y)] && command[(y)] != c)
+		y++;
+	printf("command[%d] = %c\n", y, command[y]);
+	if (command[y] == '\0' || command[y] == '\x1F')
+		closed = 0;
+	else if (command[y] == c)
+		closed = 1;
+	printf("command[%d] = %c\n", *i, command[*i]);
+	printf("closed ? %d\n", closed);
+	if (closed == 0)
+	{
+		printf("closed = 0\n");
+		tmp[(*j)++] = c;
+	}
+	(*i)++;
+}
+
+char	*ft_quotes_replace(t_data *data, char *command)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(command);
+	tmp = malloc(sizeof(char) * ((len * 2) + 1));
+	if (!tmp)
+		ft_exit(data, MALLOC_ERROR, "ft_quotes malloc error");
+	while (command[i])
+	{
+		if (command[i] == '\'' || command[i] == '"')
+		{
+			ft_quotes_check(command, tmp, &i, &j);
+		}
+		else
+			tmp[j++] = command[i++];
+	}
+	tmp[j] = '\0';
+	free(command);
+	return (tmp);
+}
