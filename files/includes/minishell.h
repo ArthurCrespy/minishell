@@ -21,7 +21,7 @@
 # include <readline/history.h>
 
 # define MALLOC_ERROR 1
-# define TERMIOS_ERROR 2
+# define TCGETATTR_ERROR 2
 
 # define USER "acrespy"
 

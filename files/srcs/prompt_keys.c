@@ -15,19 +15,19 @@
 int	key_read(void)
 {
 	char			c;
-	struct termios	old_termios;
-	struct termios	new_termios;
+	struct termios	attr_old;
+	struct termios	attr_new;
 
-	if (!tcgetattr(STDIN_FILENO, &old_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
-	new_termios = old_termios;
-	new_termios.c_lflag &= ~(ICANON | ECHO);
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &new_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
+	if (!tcgetattr(STDIN_FILENO, &attr_old))
+		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr error");
+	attr_new = attr_old;
+	attr_new.c_lflag &= ~(ICANON | ECHO);
+	if (!tcsetattr(STDIN_FILENO, TCSANOW, &attr_new))
+		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr error");
 	if (read(STDIN_FILENO, &c, 1) == -1)
 		c = 0;
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &old_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
+	if (!tcsetattr(STDIN_FILENO, TCSANOW, &attr_old))
+		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr error");
 	return (c);
 }
 
@@ -44,6 +44,16 @@ void	key_arrows(t_data *data, int key)
 		data->history = data->history->next;
 		rl_replace_line(data->history->cmd, 1);
 		rl_redisplay();
+	}
+}
+
+void	key_others(t_data *data)
+{
+	if (data->history != NULL)
+	{
+		rl_replace_line("", 1);
+		rl_redisplay();
+		data->history = NULL;
 	}
 }
 
@@ -73,16 +83,6 @@ void	key_operators(t_data *data, int key)
 		rl_redisplay();
 		free(data->history->cmd);
 		free(data->history);
-	}
-}
-
-void	key_others(t_data *data)
-{
-	if (data->history != NULL)
-	{
-		rl_replace_line("", 1);
-		rl_redisplay();
-		data->history = NULL;
 	}
 }
 
