@@ -25,20 +25,63 @@ char	*ft_replace_char(t_data *data, char *command, int c)
 			command[i] = '\x1F';
 		i++;
 	}
-	result[i] = '\0';
-	return (result);
+	return (command);
 }
 
-char	*ft_replace(t_data *data, char *command, int c)
+void	ft_separate_char(const char *command, char *tmp, int *i, int *j)
 {
+	int		count;
+	char	c;
+
+	count = 0;
+	c = command[(*i)];
+	while (command[(*i)] == c)
+	{
+		count++;
+		(*i)++;
+	}
+	if (count == 1)
+		tmp[((*j))++] = c;
+	else if (count == 2)
+	{
+		tmp[(*j)++] = c;
+		tmp[(*j)++] = c;
+	}
+	else
+	{
+		while (count--)
+		{
+			tmp[(*j)++] = c;
+		}
+	}
+	tmp[(*j)++] = '\x1F';
+}
+
+char	*ft_replace_operators(t_data *data, char *command)
+{
+	int		i;
+	int		j;
+	int		len;
 	char	*tmp;
 
-	(void) data;
-	if (strchr(command, c))
+	i = 0;
+	j = 0;
+	len = ft_strlen(command);
+	tmp = malloc(sizeof(char *) * ((len * 3) + 1));
+	if (!tmp)
+		ft_exit(data, MALLOC_ERROR, "ft_operators malloc error");
+	while (command[i])
 	{
-		tmp = ft_strplc(command, c);
-		free(command);
-		command = tmp;
+		if (command[i] == '<' || command[i] == '>' || command[i] == '|'
+			|| command[i] == ';')
+		{
+			tmp[j++] = '\x1F';
+			ft_separate_char(command, tmp, &i, &j);
+		}
+		else
+			tmp[j++] = command[i++];
 	}
-	return (command);
+	tmp[j] = '\0';
+	free(command);
+	return (tmp);
 }
