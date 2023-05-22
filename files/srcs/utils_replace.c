@@ -72,8 +72,7 @@ char	*ft_replace_operators(t_data *data, char *command)
 		ft_exit(data, MALLOC_ERROR, "ft_operators malloc error");
 	while (command[i])
 	{
-		if (command[i] == '<' || command[i] == '>' || command[i] == '|'
-			|| command[i] == ';')
+		if (command[i] == '<' || command[i] == '>' || command[i] == '|')
 		{
 			tmp[j++] = '\x1F';
 			ft_separate_char(command, tmp, &i, &j);
