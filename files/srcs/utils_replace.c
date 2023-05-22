@@ -12,23 +12,17 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_strplc(const char *str, int c)
+char	*ft_replace_char(t_data *data, char *command, int c)
 {
-	int		i;
-	char	*result;
+	int	i;
 
 	i = 0;
-	if (!str || !c)
-		return (NULL);
-	result = malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	while (str[i])
+	if (!data || !command || !c)
+		return (command);
+	while (command[i])
 	{
-		if (str[i] == c)
-			result[i] = '\x1F';
-		else
-			result[i] = str[i];
+		if (command[i] == c)
+			command[i] = '\x1F';
 		i++;
 	}
 	result[i] = '\0';
