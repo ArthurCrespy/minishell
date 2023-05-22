@@ -25,7 +25,7 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-int	ft_size_word(char const *s, char c, int i)
+int	ft_word_size(char const *s, char c, int i)
 {
 	int	size;
 
@@ -38,7 +38,7 @@ int	ft_size_word(char const *s, char c, int i)
 	return (size);
 }
 
-int	ft_count_word(char const *s, char c)
+int	ft_word_count(char const *s, char c)
 {
 	int	i;
 	int	word;
@@ -69,7 +69,7 @@ char	**ft_split(t_data data, char const *s, char c)
 
 	i = 0;
 	j = 0;
-	word = ft_count_word(s, c);
+	word = ft_word_count(s, c);
 	strs = (char **)malloc((word + 1) * sizeof(char *));
 	if (strs == NULL)
 		ft_exit(&data, MALLOC_ERROR, "ft_split malloc error");
@@ -77,7 +77,7 @@ char	**ft_split(t_data data, char const *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		size = ft_size_word(s, c, i);
+		size = ft_word_size(s, c, i);
 		strs[j] = ft_substr(data, s, i, size);
 		if (!strs[j])
 			ft_free_tab(strs);

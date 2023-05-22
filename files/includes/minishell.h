@@ -58,8 +58,8 @@ void	key_processing(t_data *data, int key);
 void	prompt_launch(t_data *data);
 
 // ------ UTILS REPLACE ----- //
-char	*ft_replace_char(t_data *data, char *command, int c);
-char	*ft_replace_operators(t_data *data, char *command);
+char	*ft_char_replace(t_data *data, char *command, int c);
+char	*ft_operators_replace(t_data *data, char *command);
 
 // ------- UTILS SPLIT ------ //
 void	ft_free_tab(char **tab);

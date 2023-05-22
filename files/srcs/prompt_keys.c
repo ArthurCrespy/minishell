@@ -31,6 +31,16 @@ int	key_read(void)
 	return (c);
 }
 
+void	key_others(t_data *data)
+{
+	if (data->history != NULL)
+	{
+		rl_replace_line("", 1);
+		rl_redisplay();
+		data->history = NULL;
+	}
+}
+
 void	key_arrows(t_data *data, int key)
 {
 	if (key == 65 && data->history != NULL && data->history->prev != NULL)
@@ -44,16 +54,6 @@ void	key_arrows(t_data *data, int key)
 		data->history = data->history->next;
 		rl_replace_line(data->history->cmd, 1);
 		rl_redisplay();
-	}
-}
-
-void	key_others(t_data *data)
-{
-	if (data->history != NULL)
-	{
-		rl_replace_line("", 1);
-		rl_redisplay();
-		data->history = NULL;
 	}
 }
 

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	*ft_replace_char(t_data *data, char *command, int c)
+char	*ft_char_replace(t_data *data, char *command, int c)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ char	*ft_replace_char(t_data *data, char *command, int c)
 	return (command);
 }
 
-void	ft_separate_char(const char *command, char *tmp, int *i, int *j)
+void	ft_operators_separate(const char *command, char *tmp, int *i, int *j)
 {
 	int		count;
 	char	c;
@@ -57,7 +57,7 @@ void	ft_separate_char(const char *command, char *tmp, int *i, int *j)
 	tmp[(*j)++] = '\x1F';
 }
 
-char	*ft_replace_operators(t_data *data, char *command)
+char	*ft_operators_replace(t_data *data, char *command)
 {
 	int		i;
 	int		j;
@@ -75,7 +75,7 @@ char	*ft_replace_operators(t_data *data, char *command)
 		if (command[i] == '<' || command[i] == '>' || command[i] == '|')
 		{
 			tmp[j++] = '\x1F';
-			ft_separate_char(command, tmp, &i, &j);
+			ft_operators_separate(command, tmp, &i, &j);
 		}
 		else
 			tmp[j++] = command[i++];
