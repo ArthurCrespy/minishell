@@ -6,7 +6,7 @@
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:40:39 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:40:39 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/05/19 17:26:19 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,24 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char	*ft_strdup(t_data data, const char *str)
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	if (!c)
+		return (str + ft_strlen(str));
+	while (s[i] && s[i] != (char)c)
+		i++;
+	if (i == ft_strlen(s))
+		return (NULL);
+	else
+		return (str + i);
+}
+
+char	*ft_strdup(t_data data, char *str)
 {
 	int		i;
 	char	*result;
@@ -56,4 +73,28 @@ char	*ft_strdup(t_data data, const char *str)
 		i++;
 	}
 	return (result);
+}
+
+char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+	size_t	length;
+
+	i = 0;
+	length = 0;
+	if (start > ft_strlen(s))
+		return (ft_strdup(data, ""));
+	while (s[start + length] && length < len)
+		length++;
+	str = malloc((length + 1) * sizeof(char));
+	if (!str)
+		ft_exit(&data, MALLOC_ERROR, "ft_substr malloc error");
+	while (s[start + i] && i < length)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -29,7 +29,7 @@ void	prompt_launch(t_data *data)
 		}
 		if (ft_strcmp(input, "") != 0)
 			history_add(data, input);
+		command_parsing(data, input);
 		key_processing(data, '\n');
-		free(input);
 	}
 }
