@@ -94,22 +94,19 @@ void	ft_quotes_check(const char *command, char *tmp, int *i, int *j)
 	y = *i + 1;
 	closed = -1;
 	c = command[(*i)];
-	printf("command[%d] = %c\n", *i, command[*i]);
-	printf("c = %c\n", c);
-	printf("y = %d\n", y);
 	while (command[(y)] && command[(y)] != c)
 		y++;
-	printf("command[%d] = %c\n", y, command[y]);
 	if (command[y] == '\0' || command[y] == '\x1F')
 		closed = 0;
 	else if (command[y] == c)
 		closed = 1;
-	printf("command[%d] = %c\n", *i, command[*i]);
-	printf("closed ? %d\n", closed);
 	if (closed == 0)
-	{
-		printf("closed = 0\n");
 		tmp[(*j)++] = c;
+	if (closed == 1)
+	{
+		(*i)++;
+		while (command[(*i)] != c)
+			tmp[(*j)++] = command[(*i)++];
 	}
 	(*i)++;
 }
@@ -130,9 +127,7 @@ char	*ft_quotes_replace(t_data *data, char *command)
 	while (command[i])
 	{
 		if (command[i] == '\'' || command[i] == '"')
-		{
 			ft_quotes_check(command, tmp, &i, &j);
-		}
 		else
 			tmp[j++] = command[i++];
 	}
