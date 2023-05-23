@@ -21,8 +21,10 @@ SRCS := \
 			prompt_history.c \
 			prompt_keys.c \
 			prompt_launch.c \
+			utils_gnl.c \
 			utils_split.c \
 			utils_str.c \
+			utils_str_mem.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 

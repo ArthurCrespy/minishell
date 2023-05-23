@@ -23,6 +23,8 @@
 # define MALLOC_ERROR 1
 # define TCGETATTR_ERROR 2
 
+# define BUFFER_SIZE 1024
+
 # define USER "acrespy"
 
 typedef struct s_command
@@ -70,7 +72,11 @@ char	**ft_split(t_data data, char const *s, char c);
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(t_data data, char *str);
 char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+
+// ------ UTILS STR MEM ----- //
+char	*ft_strdup(t_data data, char *str);
+char	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

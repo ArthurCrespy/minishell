@@ -58,23 +58,6 @@ char	*ft_strchr(const char *s, int c)
 		return (str + i);
 }
 
-char	*ft_strdup(t_data data, char *str)
-{
-	int		i;
-	char	*result;
-
-	i = 0;
-	result = malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!result)
-		ft_exit(&data, MALLOC_ERROR, "ft_strdup malloc error");
-	while (i <= (int)ft_strlen(str))
-	{
-		result[i] = str[i];
-		i++;
-	}
-	return (result);
-}
-
 char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
 {
 	char	*str;
@@ -97,4 +80,32 @@ char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i_s1;
+	int		i_s2;
+	char	*result;
+
+	i_s1 = 0;
+	i_s2 = 0;
+	result = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
+	if (!result)
+		return (NULL);
+	if (s1)
+	{
+		while (s1[i_s1])
+		{
+			result[i_s1] = s1[i_s1];
+			i_s1++;
+		}
+	}
+	while (s2[i_s2])
+	{
+		result[i_s1 + i_s2] = s2[i_s2];
+		i_s2++;
+	}
+	result[i_s1 + i_s2] = '\0';
+	return (result);
 }
