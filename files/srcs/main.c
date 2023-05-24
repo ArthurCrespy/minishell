@@ -12,11 +12,11 @@
 
 #include "../includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	ft_env_save(&data);
+	env_save(&data, argc, argv, envp);
 	prompt_launch(&data);
 	ft_free(data);
 	return (0);

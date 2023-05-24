@@ -51,7 +51,7 @@ char	*ft_quotes_replace(t_data *data, char *command);
 
 // ------- ENV REPLACE ------ //
 char	*ft_env_replace(t_data *data, char *command);
-void	ft_env_save(t_data *data);
+void	env_save(t_data *data, int argc, char **argv, char **envp);
 
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);

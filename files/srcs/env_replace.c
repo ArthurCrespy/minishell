@@ -19,13 +19,11 @@ size_t	ft_env_replace_size(t_data *data, char *command)
 	return (1000);
 }
 
-void	ft_env_save(t_data *data)
+void	env_save(t_data *data, int argc, char **argv, char **envp)
 {
-	int			i;
-	extern char	**environ;
-
-	i = 0;
-	data->env = environ;
+	(void)argc;
+	(void)argv;
+	data->env = envp;
 }
 
 void	ft_env_check(const char *command, char *tmp, int *i, int *j)
