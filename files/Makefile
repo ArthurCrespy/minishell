@@ -26,6 +26,7 @@ SRCS := \
 			utils_split.c \
 			utils_str.c \
 			utils_str_mem.c \
+			utils_tab.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 

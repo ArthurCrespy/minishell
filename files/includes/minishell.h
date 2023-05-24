@@ -42,7 +42,6 @@ typedef struct s_data
 }				t_data;
 
 // ------- CMD PARSING ------ //
-void	command_free(t_data *data);
 void	command_parsing(t_data *data, char *command);
 
 // ------ CMD REPLACE ----- //
@@ -61,7 +60,6 @@ void	ft_free(t_data data);
 
 // ------ PRPT HISTORY ------ //
 void	history_add(t_data *data, char *cmd);
-void	history_print(t_data *data);
 void	history_free(t_data *data);
 
 // -------- PRPT KEYS ------- //
@@ -74,10 +72,10 @@ void	prompt_launch(t_data *data);
 char	*get_next_line(int fd);
 
 // ------- UTILS SPLIT ------ //
-char	**ft_split(t_data data, char const *s, char c);
+char	**ft_strsplit(t_data data, char const *s, char c);
 
 // -------- UTILS STR ------- //
-size_t	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
@@ -87,4 +85,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(t_data data, char *str);
 char	*ft_calloc(size_t nmemb, size_t size);
 
+// -------- UTILS STR ------- //
+int		ft_tablen(char **tab);
+int		ft_tabchr(char **tab, const char *str);
 #endif
