@@ -38,14 +38,25 @@ typedef struct s_data
 {
 	t_command	*history;
 	char		**command;
+	char		**env;
 }				t_data;
 
 // ------- CMD PARSING ------ //
 void	command_free(t_data *data);
 void	command_parsing(t_data *data, char *command);
 
+// ------ CMD REPLACE ----- //
+char	*ft_char_replace(t_data *data, char *command, int c);
+char	*ft_operators_replace(t_data *data, char *command);
+char	*ft_quotes_replace(t_data *data, char *command);
+
+// ------- ENV REPLACE ------ //
+char	*ft_env_replace(t_data *data, char *command);
+void	ft_env_save(t_data *data);
+
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);
+void	ft_free_tab(char **tab);
 void	ft_free(t_data data);
 
 // ------ PRPT HISTORY ------ //
@@ -59,13 +70,10 @@ void	key_processing(t_data *data, int key);
 // ------- PRPT LAUNCH ------ //
 void	prompt_launch(t_data *data);
 
-// ------ UTILS REPLACE ----- //
-char	*ft_char_replace(t_data *data, char *command, int c);
-char	*ft_operators_replace(t_data *data, char *command);
-char	*ft_quotes_replace(t_data *data, char *command);
+// -------- UTILS GNL ------- //
+char	*get_next_line(int fd);
 
 // ------- UTILS SPLIT ------ //
-void	ft_free_tab(char **tab);
 char	**ft_split(t_data data, char const *s, char c);
 
 // -------- UTILS STR ------- //

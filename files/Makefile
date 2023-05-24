@@ -16,6 +16,7 @@ SRC_DIR     := srcs
 SRCS := \
 			command_parsing.c \
 			command_replace.c \
+			env_replace.c \
 			free.c \
 			main.c \
 			prompt_history.c \

@@ -23,6 +23,7 @@ void	command_parsing(t_data *data, char *command)
 	command = ft_char_replace(data, command, '\v');
 	command = ft_operators_replace(data, command);
 	command = ft_quotes_replace(data, command);
+	command = ft_env_replace(data, command);
 	data->command = ft_split(*data, command, '\x1F');
 	while (data->command[i])
 	{

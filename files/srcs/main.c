@@ -16,6 +16,7 @@ int	main(void)
 {
 	t_data	data;
 
+	ft_env_save(&data);
 	prompt_launch(&data);
 	ft_free(data);
 	return (0);
