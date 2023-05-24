@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int ft_tablen(char **tab)
+int	ft_tablen(char **tab)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int ft_tablen(char **tab)
 	return (i);
 }
 
-int ft_tabchr(char **tab, const char *str)
+int	ft_tabchr(char **tab, const char *str)
 {
 	int	i;
 	int	j;

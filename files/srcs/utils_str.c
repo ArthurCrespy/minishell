@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 char	*ft_strchr(const char *s, int c)
 {
-	int 	i;
+	int		i;
 	char	*str;
 
 	i = 0;
