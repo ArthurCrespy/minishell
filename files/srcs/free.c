@@ -20,6 +20,19 @@ void	ft_exit(t_data *data, int status, char *msg)
 	exit(status);
 }
 
+void	ft_free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
 void	ft_free(t_data data)
 {
 	if (data.history)

@@ -12,19 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	ft_free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
 int	ft_word_size(char const *s, char c, int i)
 {
 	int	size;
