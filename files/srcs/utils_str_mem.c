@@ -18,7 +18,7 @@ char	*ft_strdup(t_data data, char *str)
 	char	*result;
 
 	i = 0;
-	result = malloc((ft_strlen(str) + 1) * sizeof(char));
+	result = malloc((ft_strlen(str) + 2) * sizeof(char));
 	if (!result)
 		ft_exit(&data, MALLOC_ERROR, "ft_strdup malloc error");
 	while (i <= (int)ft_strlen(str))
@@ -26,6 +26,7 @@ char	*ft_strdup(t_data data, char *str)
 		result[i] = str[i];
 		i++;
 	}
+	result[i] = '\0';
 	return (result);
 }
 
