@@ -38,7 +38,7 @@ int	ft_tabchr(char **tab, const char *str)
 		while (tab[i][j] && str[j] && tab[i][j] == str[j])
 			j++;
 		if (str[j] == '\0')
-			return (i);
+			return (i + 1);
 		i++;
 	}
 	return (0);
