@@ -14,9 +14,6 @@
 
 void	command_parsing(t_data *data, char *command)
 {
-	int	i;
-
-	i = 0;
 	command = ft_char_replace(data, command, ' ');
 	command = ft_char_replace(data, command, '\t');
 	command = ft_char_replace(data, command, '\n');
