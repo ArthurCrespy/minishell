@@ -46,7 +46,7 @@ void	command_parsing(t_data *data, char *command);
 // ------ CMD REPLACE ----- //
 char	*ft_char_replace(t_data *data, char *command, int c);
 char	*ft_operators_replace(t_data *data, char *command);
-char	*ft_quotes_replace(t_data *data, char *command);
+char	*ft_quotes_replace(t_data *data, char *command, char c);
 
 // ------- ENV REPLACE ------ //
 char	*ft_env_replace(t_data *data, char *command);

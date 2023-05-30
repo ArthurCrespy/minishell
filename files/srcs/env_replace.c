@@ -12,6 +12,14 @@
 
 #include "../includes/minishell.h"
 
+void	env_save(t_data *data, int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	data->env = envp;
+	data->return_value = 0;
+}
+
 int	ft_env_size(t_data *data, const char *command)
 {
 	int		i;
@@ -39,14 +47,6 @@ int	ft_env_size(t_data *data, const char *command)
 		i++;
 	}
 	return (size + i);
-}
-
-void	env_save(t_data *data, int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	data->env = envp;
-	data->return_value = 0;
 }
 
 void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
@@ -96,6 +96,7 @@ void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
 		while (command_value[f])
 			tmp[(*j)++] = command_value[f++];
 		tmp[(*j)++] = '\x1F';
+		free(var_value);
 		return ;
 	}
 }
