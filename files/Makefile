@@ -16,13 +16,18 @@ SRC_DIR     := srcs
 SRCS := \
 			command_parsing.c \
 			command_replace.c \
+			env_replace.c \
 			free.c \
 			main.c \
 			prompt_history.c \
 			prompt_keys.c \
 			prompt_launch.c \
+			utils_atoi.c \
+			utils_gnl.c \
 			utils_split.c \
 			utils_str.c \
+			utils_str_mem.c \
+			utils_tab.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 
