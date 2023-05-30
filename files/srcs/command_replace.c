@@ -111,7 +111,7 @@ void	ft_quotes_check(const char *command, char *tmp, int *i, int *j)
 	(*i)++;
 }
 
-char	*ft_quotes_replace(t_data *data, char *command)
+char	*ft_quotes_replace(t_data *data, char *command, char c)
 {
 	int		i;
 	int		j;
@@ -126,7 +126,7 @@ char	*ft_quotes_replace(t_data *data, char *command)
 		ft_exit(data, MALLOC_ERROR, "ft_quotes malloc error");
 	while (command[i])
 	{
-		if (command[i] == '\'' || command[i] == '"')
+		if (command[i] == c)
 			ft_quotes_check(command, tmp, &i, &j);
 		else
 			tmp[j++] = command[i++];
