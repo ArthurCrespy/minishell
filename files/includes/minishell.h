@@ -68,6 +68,9 @@ void	key_processing(t_data *data, int key);
 // ------- PRPT LAUNCH ------ //
 void	prompt_launch(t_data *data);
 
+// ------- UTILS ATOI ------- //
+char	*ft_itoa(int n);
+
 // -------- UTILS GNL ------- //
 char	*get_next_line(int fd);
 
