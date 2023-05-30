@@ -51,41 +51,59 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	data->env = envp;
+	data->return_value = 273;
 }
 
-char	*replace_var(t_data *data, char *var, char *command)
+void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
 {
-	char	*tmp = NULL;
-	char	*tmp2 = NULL;
-	char	*env_value = NULL;
+	int		k;
+	int 	f;
+	char	*var_value;
+	char	*return_value;
+	char	*command_value;
 
-	if (command[ft_strlen(command) - 1] != '\0')
-		command[ft_strlen(command) - 1] = '\0';
-	if (command[0] == '?')
+	k = 0;
+	f = 0;
+	return_value = NULL;
+	command_value = NULL;
+	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
+	if (!var_value)
+		ft_exit(data, MALLOC_ERROR, "replace_var malloc error");
+	(*i)++;
+	if (command[(*i)] == '\x1F' || command[(*i)] == '\0')
 	{
-		tmp = ft_strjoin(var, command + 1);
-		free(var);
-		free(command);
-		return (tmp);
+		tmp[(*j)++] = command[(*i)++];
+		return ;
 	}
-	else if (!ft_tabchr(data->env, var))
+	else if (command[(*i)] == '?')
 	{
-		tmp = ft_strjoin("$", var);
-		tmp = ft_strjoin(tmp, command + 1);
-		free(var);
-		free(command);
-		return (tmp);
+		(*i)++;
+		return_value = ft_itoa(data->return_value);
+		while (return_value[f])
+			tmp[(*j)++] = return_value[f++];
+		tmp[(*j)++] = '\x1F';
+		free(return_value);
+		return ;
+	}
+	while (command[(*i)] && command[(*i)] != ' ' && command[(*i)] != '\x1F')
+		var_value[k++] = command[(*i)++];
+	var_value[k] = '\0';
+	if (!ft_tabchr(data->env, var_value))
+	{
+		tmp[(*j)++] = '$';
+		(*i) -= k;
+		free(var_value);
+		return ;
 	}
 	else
 	{
-		env_value = data->env[ft_tabchr(data->env, var) - 1] + strlen(var) + 1;
-		env_value[ft_strlen(env_value) - 1] = '\x1F';
-		tmp2 = ft_strjoin(env_value, command + 1);
-		tmp = ft_strjoin(var, tmp2);
-		free(var);
-		free(tmp2);
-		free(command);
-		return (tmp);
+		(*i)++;
+		f = ft_strlen(var_value) + 1;
+		command_value = data->env[ft_tabchr(data->env, var_value) - 1];
+		while (command_value[f])
+			tmp[(*j)++] = command_value[f++];
+		tmp[(*j)++] = '\x1F';
+		return ;
 	}
 }
 
@@ -93,35 +111,23 @@ char	*ft_env_replace(t_data *data, char *command)
 {
 	int		i;
 	int		j;
-	char	*var;
 	char	*tmp;
 
 	if (!data || !command)
 		return (NULL);
 	i = 0;
 	j = 0;
-	var = malloc(sizeof(char) * (ft_env_size(data, command) + 2));
-	tmp = malloc(sizeof(char) * (ft_env_size(data, command) + 1));
-
+	tmp = ft_calloc(sizeof(char), (ft_env_size(data, command) + 1));
 	if (!tmp)
 		ft_exit(data, MALLOC_ERROR, "ft_env_replace malloc error");
-
 	while (command[i])
 	{
 		if (command[i] == '$')
-		{
-			i++;
-			j = 0;
-			while (command[i] && command[i] != ' ' && command[i] != '\x1F')
-				var[j++] = command[i++];
-			var[j] = '\0';
-			return replace_var(data, var, command + i);
-		}
+			replace_var(data, command, tmp, &i, &j);
 		else
 			tmp[j++] = command[i++];
 	}
 	tmp[j] = '\0';
 	free(command);
 	return (tmp);
-
 }

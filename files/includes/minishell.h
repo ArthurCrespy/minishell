@@ -25,8 +25,6 @@
 
 # define BUFFER_SIZE 1024
 
-# define USER "acrespy"
-
 typedef struct s_command
 {
 	char				*cmd;
@@ -39,6 +37,7 @@ typedef struct s_data
 	t_command	*history;
 	char		**command;
 	char		**env;
+	int			return_value;
 }				t_data;
 
 // ------- CMD PARSING ------ //
