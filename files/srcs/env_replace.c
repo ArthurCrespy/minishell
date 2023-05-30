@@ -38,7 +38,7 @@ int	ft_env_size(t_data *data, const char *command)
 		}
 		i++;
 	}
-	return (size += i);
+	return (size + i);
 }
 
 void	env_save(t_data *data, int argc, char **argv, char **envp)
@@ -46,7 +46,7 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	data->env = envp;
-	data->return_value = 273;
+	data->return_value = 0;
 }
 
 void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
@@ -59,8 +59,6 @@ void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
 
 	k = 0;
 	f = 0;
-	return_value = NULL;
-	command_value = NULL;
 	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
 	if (!var_value)
 		ft_exit(data, MALLOC_ERROR, "replace_var malloc error");
@@ -109,8 +107,6 @@ char	*ft_env_replace(t_data *data, char *command)
 	int		quotes;
 	char	*tmp;
 
-	if (!data || !command)
-		return (NULL);
 	i = 0;
 	j = 0;
 	quotes = 1;
