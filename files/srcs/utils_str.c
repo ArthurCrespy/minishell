@@ -90,7 +90,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i_s1 = 0;
 	i_s2 = 0;
-	result = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
+	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
 	if (!result)
 		return (NULL);
 	if (s1)
