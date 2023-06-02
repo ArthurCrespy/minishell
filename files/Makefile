@@ -17,6 +17,7 @@ SRCS := \
 			command_parsing.c \
 			command_replace.c \
 			env_replace.c \
+			env_save.c \
 			free.c \
 			main.c \
 			prompt_history.c \
