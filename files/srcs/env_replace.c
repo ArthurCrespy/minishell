@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	ft_env_size(t_data *data, const char *command)
+int	ft_env_size(t_data *data, char *command)
 {
 	int		i;
 	int		j;
@@ -21,7 +21,7 @@ int	ft_env_size(t_data *data, const char *command)
 
 	i = 0;
 	size = 0;
-	while (command[i] && command[i] != '\0')
+	while (command && command[i])
 	{
 		if (command[i++] == '$')
 		{
@@ -41,54 +41,21 @@ int	ft_env_size(t_data *data, const char *command)
 	return (size + i);
 }
 
-void	env_save(t_data *data, int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	data->env = envp;
-	data->return_value = 0;
-}
-
-void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
+void	ft_dollar_replace(t_data *data, char *command, char *tmp, int *i, int *j)
 {
 	int		k;
 	int		f;
 	char	*var_value;
-	char	*return_value;
 	char	*command_value;
 
 	k = 0;
-	f = 0;
 	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
 	if (!var_value)
-		ft_exit(data, MALLOC_ERROR, "replace_var malloc error");
-	(*i)++;
-	if (command[(*i)] == '\x1F' || command[(*i)] == '\0')
-	{
-		tmp[(*j)++] = command[(*i)++];
-		return ;
-	}
-	else if (command[(*i)] == '?')
-	{
-		(*i)++;
-		return_value = ft_itoa(data->return_value);
-		while (return_value[f])
-			tmp[(*j)++] = return_value[f++];
-		tmp[(*j)++] = '\x1F';
-		free(return_value);
-		return ;
-	}
+		ft_exit(data, MALLOC_ERROR, "ft_dollar_replace malloc error");
 	while (command[(*i)] && command[(*i)] != ' ' && command[(*i)] != '\x1F')
 		var_value[k++] = command[(*i)++];
 	var_value[k] = '\0';
-	if (!ft_tabchr(data->env, var_value))
-	{
-		tmp[(*j)++] = '$';
-		(*i) -= k;
-		free(var_value);
-		return ;
-	}
-	else
+	if (ft_tabchr(data->env, var_value))
 	{
 		(*i)++;
 		f = ft_strlen(var_value) + 1;
@@ -96,8 +63,34 @@ void	replace_var(t_data *data, char *command, char *tmp, int *i, int *j)
 		while (command_value[f])
 			tmp[(*j)++] = command_value[f++];
 		tmp[(*j)++] = '\x1F';
-		return ;
 	}
+	free(var_value);
+}
+
+void	ft_dollar_check(t_data *data, char *command, char *tmp, int *i, int *j)
+{
+	int		k;
+	char	*var_value;
+	char	*return_value;
+
+	k = 0;
+	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
+	if (!var_value)
+		ft_exit(data, MALLOC_ERROR, "ft_dollar_check malloc error");
+	(*i)++;
+	if (command[(*i)] == '\x1F' || command[(*i)] == '\0')
+		tmp[(*j)++] = command[(*i) - 1];
+	else if (command[(*i)] == '?')
+	{
+		(*i)++;
+		return_value = ft_itoa(data->return_value);
+		while (return_value[k])
+			tmp[(*j)++] = return_value[k++];
+		tmp[(*j)++] = '\x1F';
+	}
+	else
+		ft_dollar_replace(data, command, tmp, i, j);
+	free(var_value);
 }
 
 char	*ft_env_replace(t_data *data, char *command)
@@ -118,7 +111,7 @@ char	*ft_env_replace(t_data *data, char *command)
 		if (command[i] == '\'')
 			quotes *= -1;
 		if (command[i] == '$' && quotes == 1)
-			replace_var(data, command, tmp, &i, &j);
+			ft_dollar_check(data, command, tmp, &i, &j);
 		else
 			tmp[j++] = command[i++];
 	}
