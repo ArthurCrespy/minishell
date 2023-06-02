@@ -13,6 +13,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "./minishell_utils.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -60,7 +62,5 @@ void	key_processing(t_data *data, int key);
 
 // ------- PRPT LAUNCH ------ //
 void	prompt_launch(t_data *data);
-
-# include "./minishell_utils.h"
 
 #endif
