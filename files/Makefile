@@ -16,6 +16,7 @@ SRC_DIR     := srcs
 SRCS := \
 			command_parsing.c \
 			command_replace.c \
+			env_modify.c \
 			env_replace.c \
 			env_save.c \
 			free.c \
@@ -36,7 +37,7 @@ OBJ_DIR     := .objs
 OBJS := ${SRCS:${SRC_DIR}/%.c=${OBJ_DIR}/%.o}
 
 CC          := clang
-CFLAGS      := -Wall -Wextra -Werror -g
+CFLAGS      := -Wall -Wextra  -g
 
 RM          := rm -rf
 MAKEFLAGS   += --no-print-directory
@@ -45,13 +46,13 @@ DIR_DUP     = mkdir -p ${@D}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${OBJS} -o ${NAME} -lreadline
+	${CC} ${OBJS} -o ${NAME} -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
 	${info EXECUTABLE CREATED: ${NAME}}
 
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	${DIR_DUP}
-	${CC} ${CFLAGS} -c -o $@ $<
+	${CC} ${CFLAGS} -c -o $@ $< -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
 	${info OBJECT CREATED: $@}
 
 clean:

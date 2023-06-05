@@ -24,6 +24,7 @@
 
 # define MALLOC_ERROR 1
 # define TCGETATTR_ERROR 2
+# define ENV_ERROR 3
 
 # define BUFFER_SIZE 1024
 
@@ -47,6 +48,11 @@ void	command_parsing(t_data *data, char *command);
 
 // -------- ENV SAVE -------- //
 void	env_save(t_data *data, int argc, char **argv, char **envp);
+
+// ------- ENV MODIFY ------- //
+void	env_update(t_data *data, char *name, char *value);
+void	env_add(t_data *data, char *name, char *value);
+void	env_delete(t_data *data, char *name);
 
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);
