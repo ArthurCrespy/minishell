@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   prompt_launch.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:31:36 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:31:36 by acrespy          ###   ########.fr       */
+/*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
+/*   Updated: 2023/05/19 13:36:34 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/minishell.h"
 
-# include "./minishell_include.h"
-# include "./minishell_define.h"
-# include "./minishell_typedef.h"
-# include "./minishell_struct.h"
-# include "./minishell_global.h"
-# include "./minishell_cmd.h"
-# include "./minishell_cmd_utils.h"
+void	prompt_launch(t_data *data)
+{
+	char	*input;
 
-#endif
+	data->history = NULL;
+	while (1)
+	{
+		input = readline("minishell> ");
+		if (!input)
+			break ;
+		if (ft_strcmp(input, "") != 0)
+			history_add(data, input);
+		command_parsing(data, input);
+		key_processing(data, '\n');
+	}
+}

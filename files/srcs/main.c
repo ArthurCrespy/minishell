@@ -14,9 +14,11 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	data;
+	t_data		data;
 
+	g_data_access = &data;
 	env_save(&data, argc, argv, envp);
+	signal_handle(&data);
 	prompt_launch(&data);
 	ft_free(data);
 	return (0);

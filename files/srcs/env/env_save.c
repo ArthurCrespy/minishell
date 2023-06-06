@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	env_save(t_data *data, int argc, char **argv, char **envp)
 {
@@ -21,10 +21,10 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (!envp || !envp[0])
-		ft_exit(data, ENV_ERROR, "minishell need an valid working environment");
+		ft_exit(data, ENV_ERROR, "non-valid environment - FROM: env_save");
 	env = malloc(sizeof(char *) * ft_tablen(envp));
 	if (!env)
-		ft_exit(data, MALLOC_ERROR, "env_save malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: env_save");
 	while (envp[i])
 	{
 		data->env[i] = ft_strdup(*data, envp[i]);

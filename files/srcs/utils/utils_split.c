@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_word_size(char const *s, char c, int i)
 {
@@ -59,7 +59,7 @@ char	**ft_strsplit(t_data data, char const *s, char c)
 	word = ft_word_count(s, c);
 	strs = (char **)malloc((word + 1) * sizeof(char *));
 	if (strs == NULL)
-		ft_exit(&data, MALLOC_ERROR, "ft_strsplit malloc error");
+		ft_exit(&data, MALLOC_ERROR, "malloc failed - FROM: ft_strsplit");
 	while (j < word)
 	{
 		while (s[i] == c)

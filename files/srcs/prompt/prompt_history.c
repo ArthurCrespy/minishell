@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	history_add(t_data *data, char *cmd)
 {
@@ -19,7 +19,7 @@ void	history_add(t_data *data, char *cmd)
 
 	new = (t_command *) malloc(sizeof(t_command));
 	if (!new)
-		ft_exit(data, MALLOC_ERROR, "history_add malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: history_add");
 	new->cmd = ft_strdup(*data, cmd);
 	new->prev = NULL;
 	new->next = NULL;

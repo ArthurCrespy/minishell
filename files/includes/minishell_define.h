@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_launch.c                                    :+:      :+:    :+:   */
+/*   minishell_define.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 13:36:34 by acrespy          ###   ########.fr       */
+/*   Created: 2023/06/06 14:53:38 by acrespy           #+#    #+#             */
+/*   Updated: 2023/06/06 14:53:38 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef MINISHELL_DEFINE_H
+# define MINISHELL_DEFINE_H
 
-void	prompt_launch(t_data *data)
-{
-	char	*input;
+# define MALLOC_ERROR 1
+# define TCGETATTR_ERROR 2
+# define TCSETATTR_ERROR 3
+# define ENV_ERROR 4
 
-	data->history = NULL;
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-			break ;
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break ;
-		}
-		if (ft_strcmp(input, "") != 0)
-			history_add(data, input);
-		command_parsing(data, input);
-		key_processing(data, '\n');
-	}
-}
+# define BUFFER_SIZE 1024
+
+#endif

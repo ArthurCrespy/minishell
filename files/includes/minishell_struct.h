@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:31:36 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:31:36 by acrespy          ###   ########.fr       */
+/*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
+/*   Updated: 2023/06/06 14:55:20 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_STRUCT_H
+# define MINISHELL_STRUCT_H
 
-# include "./minishell_include.h"
-# include "./minishell_define.h"
-# include "./minishell_typedef.h"
-# include "./minishell_struct.h"
-# include "./minishell_global.h"
-# include "./minishell_cmd.h"
-# include "./minishell_cmd_utils.h"
+typedef struct s_command
+{
+	char				*cmd;
+	struct s_command	*prev;
+	struct s_command	*next;
+}				t_command;
+
+typedef struct s_data
+{
+	t_signal	sig;
+	t_command	*history;
+	char		**command;
+	char		**env;
+	int			return_value;
+}				t_data;
 
 #endif

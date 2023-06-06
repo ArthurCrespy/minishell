@@ -1,45 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tab.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 15:43:13 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/24 15:43:13 by acrespy          ###   ########.fr       */
+/*   Created: 2023/05/19 17:25:56 by acrespy           #+#    #+#             */
+/*   Updated: 2023/05/19 17:26:33 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	ft_tablen(char **tab)
+void	ft_exit(t_data *data, int status, char *msg)
 {
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return (0);
-	while (tab[i])
-		i++;
-	return (i);
+	if (data)
+		ft_free(*data);
+	printf("ERROR CODE: %d - DEFAULT: %s\n", status, msg);
+	exit(status);
 }
 
-int	ft_tabchr(char **tab, const char *str)
+void	ft_free_tab(char **tab)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	if (!tab || !str)
-		return (0);
 	while (tab[i])
 	{
-		j = 0;
-		while (tab[i][j] && tab[i][j] == str[j] && str[j])
-			j++;
-		if (tab[i][j] == '=' && str[j] == '\0')
-			return (i + 1);
+		free(tab[i]);
 		i++;
 	}
-	return (0);
+}
+
+void	ft_free(t_data data)
+{
+	if (data.history)
+		history_free(&data);
+	if (data.command)
+		ft_free_tab(data.command);
+	if (data.env)
+		ft_free_tab(data.env);
 }
