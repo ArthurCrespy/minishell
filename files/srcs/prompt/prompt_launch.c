@@ -17,7 +17,6 @@ void	prompt_launch(t_data *data)
 	char	*input;
 
 	data->history = NULL;
-	data->prompt_status = 0;
 	while (1)
 	{
 		input = readline("minishell> ");

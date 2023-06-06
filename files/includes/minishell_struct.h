@@ -27,7 +27,6 @@ typedef struct s_data
 	char		**command;
 	char		**env;
 	int			return_value;
-	int			prompt_status;
 }				t_data;
 
 #endif
