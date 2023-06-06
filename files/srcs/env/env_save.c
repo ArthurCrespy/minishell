@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   env_save.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 17:25:56 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 17:26:33 by acrespy          ###   ########.fr       */
+/*   Created: 2023/06/02 13:01:59 by acrespy           #+#    #+#             */
+/*   Updated: 2023/06/02 13:01:59 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_exit(t_data *data, int status, char *msg)
+void	env_save(t_data *data, int argc, char **argv, char **envp)
 {
-	if (data)
-		ft_free(*data);
-	printf("CODE: %d - ERROR: %s\n", status, msg);
-	exit(status);
-}
-
-void	ft_free_tab(char **tab)
-{
-	int	i;
+	int		i;
+	char	**env;
 
 	i = 0;
-	while (tab[i])
+	(void)argc;
+	(void)argv;
+	if (!envp || !envp[0])
+		ft_exit(data, ENV_ERROR, "non-valid environment - FROM: env_save");
+	env = malloc(sizeof(char *) * ft_tablen(envp));
+	if (!env)
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: env_save");
+	while (envp[i])
 	{
-		free(tab[i]);
+		data->env[i] = ft_strdup(*data, envp[i]);
 		i++;
 	}
-}
-
-void	ft_free(t_data data)
-{
-	if (data.history)
-		history_free(&data);
-	if (data.command)
-		ft_free_tab(data.command);
-	if (data.env)
-		ft_free_tab(data.env);
+	data->return_value = 0;
 }

@@ -51,7 +51,7 @@ void	ft_dollar_replace(t_data *data, char *command, char *tmp, int *i, int *j)
 	k = 0;
 	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
 	if (!var_value)
-		ft_exit(data, MALLOC_ERROR, "ft_dollar_replace malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: ft_dollar_replace");
 	while (command[(*i)] && command[(*i)] != ' ' && command[(*i)] != '\x1F')
 		var_value[k++] = command[(*i)++];
 	var_value[k] = '\0';
@@ -76,7 +76,7 @@ void	ft_dollar_check(t_data *data, char *command, char *tmp, int *i, int *j)
 	k = 0;
 	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
 	if (!var_value)
-		ft_exit(data, MALLOC_ERROR, "ft_dollar_check malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: ft_dollar_check");
 	(*i)++;
 	if (command[(*i)] == '\x1F' || command[(*i)] == '\0')
 		tmp[(*j)++] = command[(*i) - 1];
@@ -105,7 +105,7 @@ char	*ft_env_replace(t_data *data, char *command)
 	quotes = 1;
 	tmp = ft_calloc(sizeof(char), (ft_env_size(data, command) + 1));
 	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "ft_env_replace malloc error");
+		ft_exit(data, MALLOC_ERROR, "(c)malloc failed - FROM: ft_env_replace");
 	while (command[i])
 	{
 		if (command[i] == '\'')

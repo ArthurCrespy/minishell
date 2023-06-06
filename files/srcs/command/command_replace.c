@@ -69,7 +69,7 @@ char	*ft_operators_replace(t_data *data, char *command)
 	len = ft_strlen(command);
 	tmp = malloc(sizeof(char *) * ((len * 3) + 1));
 	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "ft_operators malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: ft_operators");
 	while (command[i])
 	{
 		if (command[i] == '<' || command[i] == '>' || command[i] == '|')
@@ -123,7 +123,7 @@ char	*ft_quotes_replace(t_data *data, char *command, char c)
 	len = ft_strlen(command);
 	tmp = malloc(sizeof(char) * ((len * 2) + 1));
 	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "ft_quotes malloc error");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: ft_quotes");
 	while (command[i])
 	{
 		if (command[i] == c)
