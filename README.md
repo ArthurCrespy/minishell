@@ -9,13 +9,17 @@ Functions **without** ```ft_``` are main commands and **with** ```ft_``` are uti
 Main is calling simple ```void``` functions with the ```t_data``` struct where all data is stored</br></br>
 
 #### -> global
-There is one global variable named ```g_data_access``` who point on t_data struct</br>
-Not used yet but may be util for the signal handling</br></br>
+There is one global variable named ```g_data_access``` who point on ```t_data struct```</br>
+Not used yet but may be utilized for the signal handling</br></br>
+
+#### -> exit
+If the program ends correctly it should call the ```ft_free``` function</br>
+Else call ```ft_exit``` who call first ```ft_free``` and then ```exit```</br></br>
 
 #### -> parsing
 The command send by the user is stored in the ```char **command``` where each row contains separate instructions</br> 
  --- So ```echo '$USER' <<<  ouistiti | cat "/home/file.pdf" ```</br>
- --- Is ```echo``` ```acrespy``` ```<<<``` ```|``` ```cat``` ```/home/file.pdf```</br></br>
+ --- Is ```echo``` ```acrespy``` ```<<<``` ```ouistiti``` ```|``` ```cat``` ```/home/file.pdf```</br></br>
 
 #### -> env
 You can modify the environement with (data, name (without =), value)</br>
