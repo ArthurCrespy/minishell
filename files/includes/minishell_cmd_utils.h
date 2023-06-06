@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_UTILS_H
-# define MINISHELL_UTILS_H
+#ifndef MINISHELL_CMD_UTILS_H
+# define MINISHELL_CMD_UTILS_H
 
 // ------ CMD REPLACE ----- //
 char	*ft_char_replace(t_data *data, char *command, int c);

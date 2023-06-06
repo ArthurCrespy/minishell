@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:27:02 by acrespy          ###   ########.fr       */
+/*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
+/*   Updated: 2023/06/06 14:55:20 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef MINISHELL_STRUCT_H
+# define MINISHELL_STRUCT_H
 
-int	main(int argc, char **argv, char **envp)
+typedef struct s_command
 {
-	t_data		data;
+	char				*cmd;
+	struct s_command	*prev;
+	struct s_command	*next;
+}				t_command;
 
-	g_data_access = &data;
-	env_save(&data, argc, argv, envp);
-	signal_handle(&data);
-	prompt_launch(&data);
-	ft_free(data);
-	return (0);
-}
+typedef struct s_data
+{
+	t_signal	sig;
+	t_command	*history;
+	char		**command;
+	char		**env;
+	int			return_value;
+	int			prompt_status;
+}				t_data;
+
+#endif

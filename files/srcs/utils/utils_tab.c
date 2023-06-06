@@ -1,25 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:27:02 by acrespy          ###   ########.fr       */
+/*   Created: 2023/05/24 15:43:13 by acrespy           #+#    #+#             */
+/*   Updated: 2023/05/24 15:43:13 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_tablen(char **tab)
 {
-	t_data		data;
+	int	i;
 
-	g_data_access = &data;
-	env_save(&data, argc, argv, envp);
-	signal_handle(&data);
-	prompt_launch(&data);
-	ft_free(data);
+	i = 0;
+	if (!tab)
+		return (0);
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+int	ft_tabchr(char **tab, const char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!tab || !str)
+		return (0);
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j] && tab[i][j] == str[j] && str[j])
+			j++;
+		if (tab[i][j] == '=' && str[j] == '\0')
+			return (i + 1);
+		i++;
+	}
 	return (0);
 }

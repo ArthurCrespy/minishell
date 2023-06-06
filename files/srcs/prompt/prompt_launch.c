@@ -1,45 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tab.c                                        :+:      :+:    :+:   */
+/*   prompt_launch.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 15:43:13 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/24 15:43:13 by acrespy          ###   ########.fr       */
+/*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
+/*   Updated: 2023/05/19 13:36:34 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	ft_tablen(char **tab)
+void	prompt_launch(t_data *data)
 {
-	int	i;
+	char	*input;
 
-	i = 0;
-	if (!tab)
-		return (0);
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-int	ft_tabchr(char **tab, const char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (!tab || !str)
-		return (0);
-	while (tab[i])
+	data->history = NULL;
+	data->prompt_status = 0;
+	while (1)
 	{
-		j = 0;
-		while (tab[i][j] && tab[i][j] == str[j] && str[j])
-			j++;
-		if (tab[i][j] == '=' && str[j] == '\0')
-			return (i + 1);
-		i++;
+		input = readline("minishell> ");
+		if (!input)
+			break ;
+		if (ft_strcmp(input, "") != 0)
+			history_add(data, input);
+		command_parsing(data, input);
+		key_processing(data, '\n');
 	}
-	return (0);
 }

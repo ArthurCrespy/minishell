@@ -14,22 +14,23 @@ NAME        := minishell
 
 SRC_DIR     := srcs
 SRCS := \
-			command_parsing.c \
-			command_replace.c \
-			env_modify.c \
-			env_replace.c \
-			env_save.c \
-			free.c \
+			command/command_parsing.c \
+			command/command_replace.c \
+			env/env_modify.c \
+			env/env_replace.c \
+			env/env_save.c \
+			free/free.c \
 			main.c \
-			prompt_history.c \
-			prompt_keys.c \
-			prompt_launch.c \
-			utils_atoi.c \
-			utils_gnl.c \
-			utils_split.c \
-			utils_str.c \
-			utils_str_mem.c \
-			utils_tab.c \
+			prompt/prompt_history.c \
+			prompt/prompt_keys.c \
+			prompt/prompt_launch.c \
+			signal/signal_receiver.c \
+			utils/utils_atoi.c \
+			utils/utils_gnl.c \
+			utils/utils_split.c \
+			utils/utils_str.c \
+			utils/utils_str_mem.c \
+			utils/utils_tab.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 
@@ -37,7 +38,7 @@ OBJ_DIR     := .objs
 OBJS := ${SRCS:${SRC_DIR}/%.c=${OBJ_DIR}/%.o}
 
 CC          := clang
-CFLAGS      := -Wall -Wextra  -g
+CFLAGS      := -Wall -Wextra -Werror -g
 
 RM          := rm -rf
 MAKEFLAGS   += --no-print-directory
@@ -46,13 +47,13 @@ DIR_DUP     = mkdir -p ${@D}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${OBJS} -o ${NAME} -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
+	${CC} ${OBJS} -o ${NAME} -lreadline -L/usr/local/opt/readline/lib
 	${info EXECUTABLE CREATED: ${NAME}}
 
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	${DIR_DUP}
-	${CC} ${CFLAGS} -c -o $@ $< -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
+	${CC} ${CFLAGS} -c -o $@ $< -I/usr/local/opt/readline/include
 	${info OBJECT CREATED: $@}
 
 clean:

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_strlen(const char *str)
 {
@@ -72,7 +72,7 @@ char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
 		length++;
 	str = malloc((length + 1) * sizeof(char));
 	if (!str)
-		ft_exit(&data, MALLOC_ERROR, "ft_substr malloc error");
+		ft_exit(&data, MALLOC_ERROR, "malloc failed - FROM: ft_substr");
 	while (s[start + i] && i < length)
 	{
 		str[i] = s[start + i];
