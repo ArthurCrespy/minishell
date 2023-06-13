@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handle.c                                    :+:      :+:    :+:   */
+/*   signal_receiver.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:44:19 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/05 16:44:19 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/06/13 11:42:48 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();
-        printf("\n");
-        rl_replace_line("", 0);
-        rl_redisplay();
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 		rl_on_new_line();
@@ -48,5 +48,4 @@ void	signal_handle(t_data *data)
 	sigaction(SIGTERM, &data->sig, NULL);
 //	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
 //		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr error");
-
 }
