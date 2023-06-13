@@ -46,6 +46,10 @@ void	signal_handle(t_data *data)
 	sigaction(SIGINT, &data->sig, NULL);
 	sigaction(SIGQUIT, &data->sig, NULL);
 	sigaction(SIGTERM, &data->sig, NULL);
-//	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
-//		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr error");
 }
+
+/*  -- restore old termios --
+    -- IDK why I don't have to do it --
+
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
+		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr error");*/
