@@ -12,31 +12,30 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_env_size(t_data *data, char *command)
+int	ft_env_size(t_data *data, char *command, int i)
 {
-	int		i;
 	int		j;
 	int		size;
 	char	*tmp;
 
-	i = 0;
 	size = 0;
 	while (command && command[i])
 	{
-		if (command[i++] == '$')
+		if (command[i] == '$')
 		{
 			j = 0;
 			tmp = malloc(sizeof(char) * (ft_strlen(command)));
 			while (command[i] && command[i] != ' ' && command[i] != '\x1F')
-				tmp[j++] = command[i++];
+			tmp[j++] = command[i++];
 			tmp[j] = '\0';
 			if (!ft_tabchr(data->env, tmp))
-				size += ft_strlen(tmp) + 1;
+			size += ft_strlen(tmp) + 1;
 			else
-				size += ft_strlen(data->env[ft_tabchr(data->env, tmp) - 1]) - j;
+			size += ft_strlen(data->env[ft_tabchr(data->env, tmp) - 1]) - j;
 			free(tmp);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (size + i);
 }
@@ -103,7 +102,7 @@ char	*ft_env_replace(t_data *data, char *command)
 	i = 0;
 	j = 0;
 	quotes = 1;
-	tmp = ft_calloc(sizeof(char), (ft_env_size(data, command) + 1));
+	tmp = ft_calloc(sizeof(char), (ft_env_size(data, command, 0) + 1));
 	if (!tmp)
 		ft_exit(data, MALLOC_ERROR, "(c)malloc failed - FROM: ft_env_replace");
 	while (command[i])

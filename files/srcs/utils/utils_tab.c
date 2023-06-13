@@ -6,7 +6,7 @@
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 15:43:13 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/24 15:43:13 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/06/13 12:14:39 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_tablen(char **tab)
 	int	i;
 
 	i = 0;
-	if (!tab)
+	if (!tab || !tab[0])
 		return (0);
 	while (tab[i])
 		i++;
