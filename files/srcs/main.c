@@ -6,7 +6,7 @@
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 12:27:02 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/06/13 12:15:29 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	main(int argc, char **argv, char **envp)
 	env_save(&data, argc, argv, envp);
 	signal_handle(&data);
 	prompt_launch(&data);
-	ft_free(data);
+	ft_free(&data);
 	return (0);
 }

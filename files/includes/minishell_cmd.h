@@ -6,7 +6,7 @@
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/06 14:59:22 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/06/13 11:55:25 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	env_delete(t_data *data, char *name);
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);
 void	ft_free_tab(char **tab);
-void	ft_free(t_data data);
+void	ft_free(t_data *data);
 
 // ------ PRPT HISTORY ------ //
 void	history_add(t_data *data, char *cmd);

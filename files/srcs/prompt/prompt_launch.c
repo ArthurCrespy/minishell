@@ -26,5 +26,6 @@ void	prompt_launch(t_data *data)
 			history_add(data, input);
 		command_parsing(data, input);
 		key_processing(data, '\n');
+		ft_free_tab(data->command);
 	}
 }
