@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_update.c                                       :+:      :+:    :+:   */
+/*   env_modify.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:32:06 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/02 18:32:10 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/06/13 11:48:04 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	env_add(t_data *data, char *name, char *value)
 		return (env_update(data, name, value));
 	name_tmp = ft_strjoin(name, "=");
 	value_tmp = ft_strjoin(name_tmp, value);
-	new_env = malloc(sizeof(char *) * (ft_tablen(data->env) + 2));
+	new_env = malloc(sizeof(char *) * (ft_tablen(data->env) + 10));
 	if (!new_env)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: env_add");
 	while (data->env[i])
@@ -51,6 +51,7 @@ void	env_add(t_data *data, char *name, char *value)
 		new_env[i] = ft_strdup(*data, data->env[i]);
 		i++;
 	}
+	new_env[i] = NULL;
 	ft_free_tab(data->env);
 	free(name_tmp);
 	new_env[i] = value_tmp;
@@ -65,7 +66,7 @@ void	env_delete(t_data *data, char *name)
 	i = 0;
 	if (!ft_tabchr(data->env, name))
 		return ;
-	new_env = malloc(sizeof(char *) * (ft_tablen(data->env)));
+	new_env = malloc(sizeof(char *) * (ft_tablen(data->env) + 8));
 	if (!new_env)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: env_delete");
 	while (i != ft_tabchr(data->env, name) - 1)
@@ -79,6 +80,7 @@ void	env_delete(t_data *data, char *name)
 		new_env[i - 1] = ft_strdup(*data, data->env[i]);
 		i++;
 	}
+	new_env[i] = NULL;
 	ft_free_tab(data->env);
 	data->env = new_env;
 }
