@@ -17,6 +17,7 @@
 # define TCGETATTR_ERROR 2
 # define TCSETATTR_ERROR 3
 # define ENV_ERROR 4
+# define ARG_ERROR 5
 
 # define STDIN 0
 # define STDOUT 1

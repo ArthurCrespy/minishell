@@ -19,8 +19,8 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
-	if (!envp || !envp[0])
-		ft_exit(data, ENV_ERROR, "non-valid environment - FROM: env_save");
+	if (!envp || !*envp || !envp[0])
+		ft_exit(data, ENV_ERROR, "non-valid environment - ORIGIN: env_save");
 	data->env = malloc(sizeof(char *) * ft_tablen(envp) + 8);
 	if (!data->env)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_save");
