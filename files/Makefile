@@ -15,6 +15,7 @@ NAME        := minishell
 SRC_DIR     := srcs
 SRCS := \
 			command/command_parsing.c \
+			command/command_processing.c \
 			command/command_replace.c \
 			env/env_modify.c \
 			env/env_replace.c \

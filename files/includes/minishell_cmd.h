@@ -16,6 +16,9 @@
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
 
+// ------- CMD PROCESS ------ //
+void	command_processing(t_data *data);
+
 // -------- ENV SAVE -------- //
 void	env_save(t_data *data, int argc, char **argv, char **envp);
 
