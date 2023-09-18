@@ -16,7 +16,8 @@ void	ft_exit(t_data *data, int status, char *msg)
 {
 	if (data)
 		ft_free(data);
-	printf("ERROR CODE: %d - DEFAULT: %s\n", status, msg);
+	if (msg)
+		printf("ERROR CODE: %d - DEFAULT: %s\n", status, msg);
 	exit(status);
 }
 
