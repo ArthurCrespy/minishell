@@ -23,7 +23,7 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 		ft_exit(data, ENV_ERROR, "non-valid environment - FROM: env_save");
 	data->env = malloc(sizeof(char *) * ft_tablen(envp) + 8);
 	if (!data->env)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - FROM: env_save");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_save");
 	while (envp[i])
 	{
 		data->env[i] = ft_strdup(*data, envp[i]);

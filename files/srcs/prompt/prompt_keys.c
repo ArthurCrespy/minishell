@@ -19,15 +19,15 @@ int	key_read(void)
 	struct termios	attr_new;
 
 	if (tcgetattr(STDIN_FILENO, &attr_old) != 0)
-		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr failed - FROM: key_read");
+		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr failed - ORIGIN: key_read");
 	attr_new = attr_old;
 	attr_new.c_lflag &= ~(ICANON | ECHO);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_new) != 0)
-		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr failed - FROM: key_read");
+		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr failed - ORIGIN: key_read");
 	if (read(STDIN_FILENO, &c, 1) == -1)
 		c = 0;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
-		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr failed - FROM: key_read");
+		ft_exit(NULL, TCGETATTR_ERROR, "tcgetattr failed - ORIGIN: key_read");
 	return (c);
 }
 
