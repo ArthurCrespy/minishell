@@ -24,11 +24,25 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
+	{
 		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void	signal_handle(t_data *data)
 {
+	data->sig.sa_sigaction = signal_processing;
+	sigemptyset(&data->sig.sa_mask);
+	data->sig.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &data->sig, NULL);
+	sigaction(SIGQUIT, &data->sig, NULL);
+	sigaction(SIGTERM, &data->sig, NULL);
+}
+
+/*  -- termios management --
+    -- I think needed when running on iMac --
+
 	t_termios	attr_old;
 	t_termios	attr_new;
 
@@ -40,16 +54,8 @@ void	signal_handle(t_data *data)
 	attr_new.c_lflag ^= ECHOCTL;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_new) != 0)
 		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr error");
-	data->sig.sa_sigaction = signal_processing;
-	sigemptyset(&data->sig.sa_mask);
-	data->sig.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &data->sig, NULL);
-	sigaction(SIGQUIT, &data->sig, NULL);
-	sigaction(SIGTERM, &data->sig, NULL);
-}
 
-/*  -- restore old termios --
-    -- IDK why I don't have to do it --
+    // CODE
 
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
 		ft_exit(NULL, TCSETATTR_ERROR, "tcsetattr error");*/
