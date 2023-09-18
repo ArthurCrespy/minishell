@@ -12,6 +12,18 @@
 
 #include "../../includes/minishell.h"
 
+void    print_command(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (data->command[i])
+	{
+		printf("command[%d] = %s\n", i, data->command[i]);
+		i++;
+	}
+}
+
 void	prompt_launch(t_data *data)
 {
 	char	*input;
@@ -26,6 +38,7 @@ void	prompt_launch(t_data *data)
 			history_add(data, input);
 		command_parsing(data, input);
 		key_processing(data, '\n');
+		print_command(data);
 		ft_free_tab(data->command);
 	}
 }
