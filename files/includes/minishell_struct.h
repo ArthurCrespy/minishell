@@ -24,11 +24,11 @@ typedef struct s_exec
 {
 	int				type;
 	char			*cmd;
-	char            *flags;
+	char			*flags;
 	char			*args;
-	char            *in;
-	char            **out;
-	int 			out_pipe;
+	char			*in;
+	char			**out;
+	int				out_pipe;
 	struct s_exec	*prev;
 	struct s_exec	*next;
 }				t_exec;
@@ -37,7 +37,7 @@ typedef struct s_data
 {
 	t_signal	sig;
 	t_command	*history;
-	t_exec      *exec;
+	t_exec		*exec;
 	char		**command;
 	char		**env;
 	int			return_value;

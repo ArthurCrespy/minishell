@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-void    print_command(t_data *data)
+void	print_command(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->command[i])

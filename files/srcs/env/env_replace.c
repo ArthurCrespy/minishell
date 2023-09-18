@@ -26,12 +26,12 @@ int	ft_env_size(t_data *data, char *command, int i)
 			j = 0;
 			tmp = malloc(sizeof(char) * (ft_strlen(command)));
 			while (command[i] && command[i] != ' ' && command[i] != '\x1F')
-			tmp[j++] = command[i++];
+				tmp[j++] = command[i++];
 			tmp[j] = '\0';
 			if (!ft_tabchr(data->env, tmp))
-			size += ft_strlen(tmp) + 1;
+				size += ft_strlen(tmp) + 1;
 			else
-			size += ft_strlen(data->env[ft_tabchr(data->env, tmp) - 1]) - j;
+				size += ft_strlen(data->env[ft_tabchr(data->env, tmp) - 1]) - j;
 			free(tmp);
 		}
 		else
