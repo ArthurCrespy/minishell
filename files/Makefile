@@ -19,7 +19,7 @@ SRCS := \
 			command/command_replace.c \
 			env/env_modify.c \
 			env/env_replace.c \
-			env/env_save.c \
+			env/env_utils.c \
 			free/free.c \
 			main.c \
 			prompt/prompt_history.c \
