@@ -32,3 +32,12 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	data->env[i] = NULL;
 	data->return_value = 0;
 }
+
+char    *env_return(t_data *data, char *name)
+{
+	if (!data || !name)
+		return (NULL);
+	if (ft_tabchr(data->env, name) - 1 < 0)
+		return (NULL);
+	return (data->env[ft_tabchr(data->env, name) - 1] + ft_strlen(name) + 1);
+}
