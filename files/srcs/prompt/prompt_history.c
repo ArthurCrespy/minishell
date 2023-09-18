@@ -47,8 +47,9 @@ void	history_free(t_data *data)
 	while (ptr != NULL)
 	{
 		tmp = ptr;
+		if (!ptr->next)
+			break ;
 		ptr = ptr->next;
-		free(tmp->cmd);
 		free(tmp);
 	}
 	data->history = NULL;
