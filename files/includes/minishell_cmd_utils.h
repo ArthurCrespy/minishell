@@ -21,6 +21,10 @@ char	*ft_quotes_replace(t_data *data, char *command, char c);
 // ------- ENV REPLACE ------ //
 char	*ft_env_replace(t_data *data, char *command);
 
+// ---------- PATH ---------- //
+char	*ft_path(t_data *data);
+char	*ft_device(t_data *data);
+
 // ------- UTILS ATOI ------- //
 char	*ft_itoa(int n);
 

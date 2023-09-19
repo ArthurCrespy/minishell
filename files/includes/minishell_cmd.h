@@ -33,10 +33,6 @@ void	ft_exit(t_data *data, int status, char *msg);
 void	ft_free_tab(char **tab);
 void	ft_free(t_data *data);
 
-// ---------- PATH ---------- //
-char	*ft_path(t_data *data);
-char	*ft_device(t_data *data);
-
 // ------ PRPT HISTORY ------ //
 void	history_add(t_data *data, char *cmd);
 void	history_free(t_data *data);
@@ -48,6 +44,7 @@ void	key_processing(t_data *data, int key);
 void	prompt_launch(t_data *data);
 
 // ------- SIG HANDLE ------- //
+int		signal_status(int status, int set);
 void	signal_handle(t_data *data);
 
 #endif

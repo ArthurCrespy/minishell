@@ -36,6 +36,7 @@ typedef struct s_exec
 typedef struct s_data
 {
 	t_signal	sig;
+	t_signal	sig_quit;
 	t_command	*history;
 	t_exec		*exec;
 	char		**command;

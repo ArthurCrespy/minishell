@@ -53,6 +53,7 @@ void	prompt_launch(t_data *data)
 	char	*input;
 
 	data->history = NULL;
+	signal_status(0, 1);
 	while (1)
 	{
 		prompt = prompt_welcome(data);

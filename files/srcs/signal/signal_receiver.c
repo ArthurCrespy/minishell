@@ -12,12 +12,25 @@
 
 #include "../../includes/minishell.h"
 
+int		signal_status(int status, int set)
+{
+	static int	sig;
+
+	if (set > 0)
+		sig = -1;
+	else if (status > 0)
+		sig = status;
+	return (sig);
+}
+
 void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 {
 	(void)siginfo;
 	(void)content;
 	if (sig == SIGINT)
 	{
+		signal_status(SIGINT, 0);
+		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
@@ -25,18 +38,28 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	}
 	else if (sig == SIGQUIT)
 	{
-		rl_on_new_line();
-		rl_redisplay();
+		signal_status(SIGQUIT, 0);
+		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
+	}
+	else if (sig == SIGTERM)
+	{
+		signal_status(SIGTERM, 0);
+		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
 	}
 }
 
 void	signal_handle(t_data *data)
 {
+
 	data->sig.sa_sigaction = signal_processing;
+	data->sig_quit.sa_sigaction = signal_processing;
 	sigemptyset(&data->sig.sa_mask);
+	sigemptyset(&data->sig_quit.sa_mask);
 	data->sig.sa_flags = SA_SIGINFO;
+	data->sig_quit.sa_flags = SA_SIGINFO;
+	data->sig_quit.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &data->sig, NULL);
-	sigaction(SIGQUIT, &data->sig, NULL);
+	sigaction(SIGQUIT, &data->sig_quit, NULL);
 	sigaction(SIGTERM, &data->sig, NULL);
 }
 
