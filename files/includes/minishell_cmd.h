@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cmd.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/13 11:55:25 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/19 15:03:01 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
+t_exec	ft_parse(t_data *data);
 
 // ------- CMD PROCESS ------ //
 void	command_processing(t_data *data);

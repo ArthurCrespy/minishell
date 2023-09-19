@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_receiver.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:44:19 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/13 11:42:48 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/19 15:27:02 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	if (sig == SIGINT)
 	{
 		signal_status(SIGINT, 0);
-		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
+		//printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
