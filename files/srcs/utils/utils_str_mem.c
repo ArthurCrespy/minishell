@@ -50,3 +50,27 @@ char	*ft_calloc(size_t nmemb, size_t size)
 	}
 	return (result);
 }
+
+char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+	size_t	length;
+
+	i = 0;
+	length = 0;
+	if ((int)start > ft_strlen(s))
+		return (ft_strdup(data, ""));
+	while (s[start + length] && length < len)
+		length++;
+	str = malloc((length + 1) * sizeof(char));
+	if (!str)
+		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_substr");
+	while (s[start + i] && i < length)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

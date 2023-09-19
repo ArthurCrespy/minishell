@@ -24,21 +24,49 @@ void	print_command(t_data *data)
 	}
 }
 
+char	*prompt_welcome(t_data *data)
+{
+	char	*tmp;
+	char	*path;
+	char	*device;
+	char	*result;
+
+	path = ft_path(data);
+	device = ft_device(data);
+	result = ft_strjoin(env_return(data, "USER"), "@");
+	tmp = ft_strjoin(result, device);
+	free(result);
+	result = ft_strjoin(tmp, ":");
+	free(tmp);
+	tmp = ft_strjoin(result, path);
+	free(result);
+	result = ft_strjoin(tmp, "> ");
+	free(tmp);
+	free(path);
+	free(device);
+	return (result);
+}
+
 void	prompt_launch(t_data *data)
 {
+	char	*prompt;
 	char	*input;
 
 	data->history = NULL;
 	while (1)
 	{
-		input = readline("minishell> ");
+		prompt = prompt_welcome(data);
+		input = readline(prompt);
+		free(prompt);
 		if (!input)
 			break ;
 		if (ft_strcmp(input, "") != 0)
+		{
 			history_add(data, input);
-		command_parsing(data, input);
-		key_processing(data, '\n');
-		print_command(data);
-		ft_free_tab(data->command);
+			command_parsing(data, input);
+			key_processing(data, '\n');
+			print_command(data);
+			ft_free_tab(data->command);
+		}
 	}
 }

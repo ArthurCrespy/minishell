@@ -33,7 +33,7 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	data->return_value = 0;
 }
 
-char    *env_return(t_data *data, char *name)
+char	*env_return(t_data *data, char *name)
 {
 	if (!data || !name)
 		return (NULL);

@@ -41,6 +41,25 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+int	ft_strncmp(char *s1, char *s2, int i)
+{
+	int	j;
+
+	j = 0;
+	if (!s1 || !s2 || i == 0)
+		return (0);
+	while (s1[j] && s2[j] && j < i)
+	{
+		if (s1[j] == s2[j])
+			j++;
+		if (s1[j] <= s2[j] || s1[j] >= s2[j])
+			return (s1[j] - s2[j]);
+	}
+	if (j == i)
+		return (0);
+	return (s1[j] - s2[j]);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -56,30 +75,6 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 	else
 		return (str + i);
-}
-
-char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-	size_t	i;
-	size_t	length;
-
-	i = 0;
-	length = 0;
-	if ((int)start > ft_strlen(s))
-		return (ft_strdup(data, ""));
-	while (s[start + length] && length < len)
-		length++;
-	str = malloc((length + 1) * sizeof(char));
-	if (!str)
-		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_substr");
-	while (s[start + i] && i < length)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

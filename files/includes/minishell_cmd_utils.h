@@ -33,13 +33,14 @@ char	**ft_strsplit(t_data data, char const *s, char c);
 // -------- UTILS STR ------- //
 int		ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, int i);
 char	*ft_strchr(const char *s, int c);
-char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 // ------ UTILS STR MEM ----- //
 char	*ft_strdup(t_data data, char *str);
 char	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 
 // -------- UTILS STR ------- //
 int		ft_tablen(char **tab);

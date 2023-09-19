@@ -21,6 +21,7 @@ SRCS := \
 			env/env_replace.c \
 			env/env_utils.c \
 			free/free.c \
+			path/path.c \
 			main.c \
 			prompt/prompt_history.c \
 			prompt/prompt_keys.c \
