@@ -43,3 +43,27 @@ int	ft_tabchr(char **tab, const char *str)
 	}
 	return (0);
 }
+
+int ft_tabcount(char **tab, const char c)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (!tab || !c)
+		return (0);
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] == c)
+				count++;
+			j++;
+		}
+		i++;
+	}
+	return (count);
+}

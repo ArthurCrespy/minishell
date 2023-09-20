@@ -30,7 +30,7 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	if (sig == SIGINT)
 	{
 		signal_status(SIGINT, 0);
-		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
+		//printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
