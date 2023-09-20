@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 21:28:25 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:19:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ t_exec	*exec_new_node(t_data *data)
 	exec = (t_exec *)malloc(sizeof(t_exec) + 1);
 	if (!exec)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: exec_new_node");
+	exec->cmd = NULL;
+	exec->flags = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
+	exec->args = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
+	exec->in = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
+	exec->out = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
+	exec->out_append = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
+	exec->delimiter = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
 	exec->flags_nb = 0;
 	exec->args_nb = 0;
 	exec->in_nb = 0;
@@ -52,20 +59,13 @@ t_exec	*exec_new_node(t_data *data)
 
 t_exec	*exec_old_node(t_exec *exec)
 {
-	if (!exec->cmd)
-		exec->cmd = NULL;
-	if (!exec->flags_nb)
-		exec->flags = NULL;
-	if (!exec->args_nb)
-		exec->args = NULL;
-	if (!exec->in_nb)
-		exec->in = NULL;
-	if (!exec->out_nb)
-		exec->out = NULL;
-	if (!exec->out_append_nb)
-		exec->out_append = NULL;
-	if (!exec->delimiter_nb)
-		exec->delimiter = NULL;
+	exec->flags[exec->flags_nb] = NULL;
+	exec->args[exec->args_nb] = NULL;
+	exec->in[exec->in_nb] = NULL;
+	exec->out[exec->out_nb] = NULL;
+	exec->out_append[exec->out_append_nb] = NULL;
+	exec->delimiter[exec->delimiter_nb] = NULL;
+
 	return (exec);
 }
 
@@ -75,7 +75,6 @@ t_exec 	**node(t_data *data)
 	int		i;
 	int 	j;
 	t_exec 	**exec;
-
 
 	i = 0;
 	j = 0;

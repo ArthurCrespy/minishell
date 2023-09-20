@@ -36,6 +36,33 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
+void ft_free_exec(t_exec **exec)
+{
+	int i;
+
+	i = 0;
+	while (exec[i])
+	{
+		if (exec[i]->cmd)
+			free(exec[i]->cmd);
+		if (exec[i]->flags)
+			ft_free_tab(exec[i]->flags);
+		if (exec[i]->args)
+			ft_free_tab(exec[i]->args);
+		if (exec[i]->in)
+			ft_free_tab(exec[i]->in);
+		if (exec[i]->out)
+			ft_free_tab(exec[i]->out);
+		if (exec[i]->out_append)
+			ft_free_tab(exec[i]->out_append);
+		if (exec[i]->delimiter)
+			ft_free_tab(exec[i]->delimiter);
+		free(exec[i]);
+		i++;
+	}
+	free(exec);
+}
+
 void	ft_free(t_data *data)
 {
 	if (data->history)
