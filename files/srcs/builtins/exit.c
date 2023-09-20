@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/20 22:38:37 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 23:07:07 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_ft_exit(t_data *data, t_exec *exec)
 	int	exit_value;
 
 	(void)data;
-	printf("coucou arthur\n\n");
 	if (ft_strcmp(exec->cmd, "exit"))
 	{
 		printf("no exit ? then no exit\n");
