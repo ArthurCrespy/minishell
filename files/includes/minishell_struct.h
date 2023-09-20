@@ -13,14 +13,14 @@
 #ifndef MINISHELL_STRUCT_H
 # define MINISHELL_STRUCT_H
 
-typedef struct s_command
+typedef struct s_history
 {
 	char				*cmd;
-	struct s_command	*prev;
-	struct s_command	*next;
-}				t_command;
+	struct s_history	*prev;
+	struct s_history	*next;
+}				t_history;
 
-typedef struct s_exec
+typedef struct s_command
 {
 	char			*cmd;
 	int				flags_nb;
@@ -41,7 +41,7 @@ typedef struct s_data
 {
 	t_signal	sig;
 	t_signal	sig_quit;
-	t_command	*history;
+	t_history	*history;
 	t_exec		**exec;
 	char		**command;
 	char		**env;

@@ -28,6 +28,7 @@ SRCS := \
 			env/env_modify.c \
 			env/env_replace.c \
 			env/env_utils.c \
+			exec/exec.c \
 			free/free.c \
 			path/path.c \
 			print/print.c \
@@ -41,10 +42,6 @@ SRCS := \
 			utils/utils_str.c \
 			utils/utils_str_mem.c \
 			utils/utils_tab.c \
-			exec/exec.c \
-			builtins/exit.c \
-			builtins/pwd.c \
-			builtins/echo.c \
 
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
