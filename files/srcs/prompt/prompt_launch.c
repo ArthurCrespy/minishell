@@ -19,7 +19,31 @@ void	print_command(t_data *data)
 	i = 0;
 	while (data->command[i])
 	{
-		printf("command[%d] = %s\n", i, data->command[i]);
+		printf("lexing[%d] = %s\n", i, data->command[i]);
+		i++;
+	}
+}
+
+void    print_exec(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (data->exec[i])
+	{
+		printf("parsing[%d] | cmd   = %s\n", i, data->exec[i]->cmd);
+		for (int j = 0; data->exec[i]->flags[j]; j++)
+			printf("parsing[%d] | flags = %s\n", i, data->exec[i]->flags[j]);
+		for (int j = 0; data->exec[i]->args[j]; j++)
+			printf("parsing[%d] | args  = %s\n", i, data->exec[i]->args[j]);
+		for (int j = 0; data->exec[i]->in[j]; j++)
+			printf("parsing[%d] | in    = %s\n", i, data->exec[i]->in[j]);
+		for (int j = 0; data->exec[i]->out[j]; j++)
+			printf("parsing[%d] | out   = %s\n", i, data->exec[i]->out[j]);
+		for (int j = 0; data->exec[i]->out_append[j]; j++)
+			printf("parsing[%d] | oua   = %s\n", i, data->exec[i]->out_append[j]);
+		for (int j = 0; data->exec[i]->delimiter[j]; j++)
+			printf("parsing[%d] | del   = %s\n", i, data->exec[i]->delimiter[j]);
 		i++;
 	}
 }
@@ -67,6 +91,8 @@ void	prompt_launch(t_data *data)
 			command_parsing(data, input);
 			key_processing(data, '\n');
 			print_command(data);
+			printf("-----------------------\n");
+			print_exec(data);
 			ft_free_tab(data->command);
 		}
 	}
