@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/19 15:37:03 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:19:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ void	command_parsing(t_data *data, char *command)
 	command = ft_env_replace(data, command);
 	command = ft_quotes_replace(data, command, '\'');
 	data->command = ft_strsplit(*data, command, '\x1F');
-	data->exec = ft_parse(data);
+	//data->exec = ft_parse(data);
 	free(command);
 }
 
-t_exec	*ft_parse(t_data *data)
-{
-	int	i;
+// t_exec	*ft_parse(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (data->command)
-	{
-		
-	}
+// 	i = 0;
+// 	while (data->command)
+// 	{
+
+// 	}
 
 
 
-	return(NULL);
-}
+// 	return(NULL);
+// }
