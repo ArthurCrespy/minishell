@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:25 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/20 22:56:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 23:13:20 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 void	ft_pwd(t_data *data)
 {
 	char	*working_directory;
-	char	*temp;
-	int		len_path;
 
-	temp = ft_path(data);
-	len_path = ft_strlen(temp);
-	working_directory = ft_substr(*data, ft_path(data), 1, len_path - 1);
-	printf("%s\n", working_directory);
+	working_directory = env_return(data, "PWD");
+	if (working_directory)
+		printf("%s\n", working_directory);
 }

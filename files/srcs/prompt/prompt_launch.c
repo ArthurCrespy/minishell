@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 22:51:48 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 23:06:38 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	prompt_launch(t_data *data)
 		{
 			history_add(data, input);
 			command_parsing(data, input);
-			//exec(data);
+			exec(data);
 			key_processing(data, '\n');
 			print_command(data);
 			printf("-----------------------\n");
