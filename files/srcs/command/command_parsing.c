@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 17:19:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 21:28:25 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_exec 	**node(t_data *data)
 	int		i;
 	int 	j;
 	t_exec	*tmp;
-	t_exec 	**exec;
+	t_exec	**exec;
 
 	i = 0;
 	j = 0;
@@ -155,10 +155,10 @@ t_exec 	**node(t_data *data)
 			i++;
 		}
 	}
-	exec[j] = tmp;
-	j++;
-	exec[j] = NULL;
-	free(tmp);
+	// exec[j] = tmp;
+	// j++;
+	// exec[j] = NULL;
+	// free(tmp);
 	return (exec);
 }
 
@@ -176,18 +176,3 @@ void	command_parsing(t_data *data, char *command)
 	data->exec = node(data);
 	free(command);
 }
-
-// t_exec	*ft_parse(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data->command)
-// 	{
-
-// 	}
-
-
-
-// 	return(NULL);
-// }

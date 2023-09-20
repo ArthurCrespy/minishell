@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_launch.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:36:34 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 13:36:34 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/20 22:51:48 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_command(t_data *data)
 	}
 }
 
-void    print_exec(t_data *data)
+void	print_exec(t_data *data)
 {
 	int i;
 
@@ -89,6 +89,7 @@ void	prompt_launch(t_data *data)
 		{
 			history_add(data, input);
 			command_parsing(data, input);
+			//exec(data);
 			key_processing(data, '\n');
 			print_command(data);
 			printf("-----------------------\n");
