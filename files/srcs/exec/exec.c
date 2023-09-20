@@ -17,7 +17,6 @@ void	exec(t_data *data)
 	int	i;
 
 	i = 0;
-	printf("on est la\n\n");
 	if (!ft_strcmp(data->exec[i]->cmd, "exit"))
 		ft_ft_exit(data, data->exec[i]);
 	if (!ft_strcmp(data->exec[i]->cmd, "pwd"))
