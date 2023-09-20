@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 19:57:44 by abinet           ###   ########.fr       */
+/*   Created: 2023/09/19 17:15:32 by abinet            #+#    #+#             */
+/*   Updated: 2023/09/19 17:17:57 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_echo()
 {
-	t_data		data;
-
-	g_data_access = &data;
-	if (!*envp)
-		ft_exit(NULL, ENV_ERROR, "non-valid environment - ORIGIN: main");
-	if (argc != 1 || argv[1])
-		ft_exit(NULL, ARG_ERROR, "too many arguments - ORIGIN: main");
-	env_save(&data, argc, argv, envp);
-	signal_handle(&data);
-	prompt_launch(&data);
-	ft_free(&data);
-	return (0);
+	
 }

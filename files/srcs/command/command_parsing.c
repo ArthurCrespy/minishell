@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 17:24:24 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/20 17:19:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,3 +176,18 @@ void	command_parsing(t_data *data, char *command)
 	data->exec = node(data);
 	free(command);
 }
+
+// t_exec	*ft_parse(t_data *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (data->command)
+// 	{
+
+// 	}
+
+
+
+// 	return(NULL);
+// }

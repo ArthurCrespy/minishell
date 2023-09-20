@@ -1,0 +1,27 @@
+echo avec l'option -n :
+    La commande echo est utilisée pour afficher du texte à la sortie standard (généralement la console).
+    L'option -n est utilisée pour supprimer le caractère de nouvelle ligne (\n) qui est généralement ajouté à la fin de la sortie par défaut. Cela signifie que le texte affiché par echo -n sera suivi du curseur sur la même ligne, plutôt que de passer à la ligne suivante. Par exemple : echo -n "Hello, World!" affichera "Hello, World!" sur la même ligne sans sauter à la ligne suivante.
+
+cd avec seulement un chemin relatif ou absolu :
+    La commande cd est utilisée pour changer le répertoire courant du shell.
+    Lorsqu'elle est utilisée avec un chemin relatif (par exemple, cd dossier/) ou un chemin absolu (par exemple, cd /chemin/absolu), elle permet de se déplacer dans le système de fichiers vers le répertoire spécifié.
+
+pwd sans options :
+    La commande pwd (abréviation de "print working directory") est utilisée pour afficher le chemin absolu du répertoire courant (le répertoire dans lequel vous vous trouvez).
+    Lorsqu'elle est utilisée sans options, pwd affiche simplement le chemin absolu du répertoire courant.
+
+export sans options :
+    La commande export est utilisée pour définir des variables d'environnement dans le shell.
+    Lorsqu'elle est utilisée sans options, export permet de lister toutes les variables d'environnement définies dans le shell actuel.
+
+unset sans options :
+    La commande unset est utilisée pour supprimer des variables d'environnement ou des variables du shell.
+    Lorsqu'elle est utilisée sans options, unset ne supprime aucune variable spécifique, mais il est courant de l'utiliser avec un nom de variable pour supprimer cette variable. Par exemple, unset MA_VARIABLE supprimera la variable d'environnement MA_VARIABLE.
+
+env sans options ni arguments :
+    La commande env est utilisée pour afficher toutes les variables d'environnement actuellement définies dans le shell.
+    Lorsqu'elle est utilisée sans options ni arguments, env affiche simplement la liste de toutes les variables d'environnement et leurs valeurs.
+
+exit sans options :
+    La commande exit est utilisée pour quitter le shell ou le programme en cours d'exécution.
+    Lorsqu'elle est utilisée sans options, exit termine simplement le shell ou le programme et retourne au système d'exploitation.
