@@ -13,6 +13,9 @@
 #ifndef MINISHELL_CMD_H
 # define MINISHELL_CMD_H
 
+// ------- BUILTINS -------- //
+int		ft_ft_exit(t_data *data, t_exec *exec);
+
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
 t_exec	ft_parse(t_data *data);
@@ -32,7 +35,11 @@ void	env_delete(t_data *data, char *name);
 // ---------- FREE ---------- //
 void	ft_exit(t_data *data, int status, char *msg);
 void	ft_free_tab(char **tab);
+void	ft_free_exec(t_exec **exec);
 void	ft_free(t_data *data);
+
+// ---------- PRINT --------- //
+void	print_exec(t_data *data);
 
 // ------ PRPT HISTORY ------ //
 void	history_add(t_data *data, char *cmd);
@@ -48,7 +55,6 @@ void	prompt_launch(t_data *data);
 int		signal_status(int status, int set);
 void	signal_handle(t_data *data);
 
-// ------- BUILTINS -------- //
-int		ft_ft_exit(t_data *data, char **argv);
+
 
 #endif

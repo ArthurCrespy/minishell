@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	ft_is_a_num(char *nb_args)
 {
@@ -26,8 +26,9 @@ static int	ft_is_a_num(char *nb_args)
 	return (0);
 }
 
-int	ft_ft_exit(t_exec *exec)
+int	ft_ft_exit(t_data *data, t_exec *exec)
 {
+	(void)data;
 	int	exit_value;
 
 	if (ft_strcmp(exec->cmd, "exit"))
@@ -35,16 +36,16 @@ int	ft_ft_exit(t_exec *exec)
 		printf("no exit ? then no exit\n");
 		return (0);
 	}
-	if (exec->nb_args > 1)
+	if (exec->args_nb > 1)
 	{
 		printf("exit: too many arguments\n");
 		return (1);
 	}
 	exit_value = atoi(exec->args[0]);
-	if (ft_is_a_num(exit_value) == 1 || exec->args[0] > 255)
+	if (exit_value == 1 || exit_value > 255)
 	{
-		printf("exit: %s: numeric argument requiered\n", exec->args[0]);
+		printf("exit: %s: numeric argument required\n", exec->args[0]);
 		exit (2);
 	}
-	exite(exit_value);
+	exit(exit_value);
 }

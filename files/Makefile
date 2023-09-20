@@ -14,6 +14,14 @@ NAME        := minishell
 
 SRC_DIR     := srcs
 SRCS := \
+			main.c \
+			builtins/cd.c \
+			builtins/echo.c \
+			builtins/env.c \
+			builtins/exit.c \
+			builtins/export.c \
+			builtins/pwd.c \
+			builtins/unset.c \
 			command/command_parsing.c \
 			command/command_processing.c \
 			command/command_replace.c \
@@ -22,7 +30,7 @@ SRCS := \
 			env/env_utils.c \
 			free/free.c \
 			path/path.c \
-			main.c \
+			print/print.c \
 			prompt/prompt_history.c \
 			prompt/prompt_keys.c \
 			prompt/prompt_launch.c \
