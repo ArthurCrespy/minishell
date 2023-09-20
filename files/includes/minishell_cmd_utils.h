@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils.h                                  :+:      :+:    :+:   */
+/*   minishell_cmd_utils.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/02 13:03:52 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/20 21:17:40 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_device(t_data *data);
 
 // ------- UTILS ATOI ------- //
 char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
 
 // -------- UTILS GNL ------- //
 char	*get_next_line(int fd);

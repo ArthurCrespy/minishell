@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 20:54:58 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/20 22:54:14 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define MINISHELL_CMD_H
 
 // ------- BUILTINS -------- //
+void	exec(t_data *data);
 int		ft_ft_exit(t_data *data, t_exec *exec);
+void	ft_pwd(t_data *data);
 
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
@@ -54,7 +56,5 @@ void	prompt_launch(t_data *data);
 // ------- SIG HANDLE ------- //
 int		signal_status(int status, int set);
 void	signal_handle(t_data *data);
-
-
 
 #endif

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 17:16:25 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/20 22:56:46 by abinet           ###   ########.fr       */
+/*   Created: 2023/09/20 21:05:43 by abinet            #+#    #+#             */
+/*   Updated: 2023/09/20 22:54:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(t_data *data)
+void	exec(t_data *data)
 {
-	char	*working_directory;
-	char	*temp;
-	int		len_path;
+	int	i;
 
-	temp = ft_path(data);
-	len_path = ft_strlen(temp);
-	working_directory = ft_substr(*data, ft_path(data), 1, len_path - 1);
-	printf("%s\n", working_directory);
+	i = 0;
+	if (!ft_strcmp(data->exec[i]->cmd, "exit"))
+		ft_ft_exit(data, data->exec[i]);
+	if (!ft_strcmp(data->exec[i]->cmd, "pwd"))
+		ft_pwd(data);
 }
