@@ -46,8 +46,9 @@ char	*ft_strdup(t_data data, char *str);
 char	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 
-// -------- UTILS STR ------- //
+// -------- UTILS TAB ------- //
 int		ft_tablen(char **tab);
 int		ft_tabchr(char **tab, const char *str);
+int		ft_tabcount(char **tab, const char c);
 
 #endif
