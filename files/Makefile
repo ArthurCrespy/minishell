@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+         #
+#    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/05/16 15:01:53 by acrespy          ###   ########.fr        #
+#    Updated: 2023/09/20 22:56:32 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,11 @@ SRCS := \
 			utils/utils_str.c \
 			utils/utils_str_mem.c \
 			utils/utils_tab.c \
+			exec/exec.c \
+			builtins/exit.c \
+			builtins/pwd.c \
+			builtins/echo.c \
+
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 
