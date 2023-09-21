@@ -100,7 +100,7 @@ t_exec 	**node(t_data *data)
 			{
 				i++;
 				if (ft_istoken(data->command[i]))
-					printf("error\n");
+					data->exec_launch = false;
 				if (data->command[i - 1][0] == '<' && data->command[i - 1][1] == '<')
 					exec[j]->delimiter[exec[j]->delimiter_nb++] = ft_strdup(*data, data->command[i]);
 				else
@@ -111,7 +111,7 @@ t_exec 	**node(t_data *data)
 			{
 				i++;
 				if (ft_istoken(data->command[i]))
-					printf("error\n");
+					data->exec_launch = false;
 				else if (data->command[i - 1][0] == '>' && data->command[i - 1][1] == '>')
 					exec[j]->out_append[exec[j]->out_append_nb++] = ft_strdup(*data, data->command[i]);
 				else
