@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/21 10:24:20 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/21 16:27:48 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ int	ft_ft_exit(t_data *data, t_exec *exec)
 {
 	int	exit_value;
 
-	(void)data;
-	if (ft_strcmp(exec->cmd, "exit"))
-	{
-		printf("no exit ? then no exit\n");
-		return (0);
-	}
 	if (exec->args_nb > 1)
 	{
 		printf("exit: too many arguments\n");

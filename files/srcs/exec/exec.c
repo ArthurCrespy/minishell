@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:05:43 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/21 14:34:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:06:28 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	exec(t_data *data)
 {
-	char	*cmd;
-
+	(void)data;
 	if (data->exec_launch == false)
 		return ;
-	cmd = data->exec[i]->cmd;
-	if (!ft_strcmp(data->exec[i]->cmd, "pwd"))
-		ft_pwd(data);
+	find_cmd(data, data->exec[0]);
 }
 
-char	*find_cmd(t_data data, t_exec exec)
+void	find_cmd(t_data *data, t_exec *exec)
 {
+	char	*cmd;
+
+	cmd = exec->cmd;
 	if (!ft_strcmp(cmd, "exit"))
 		ft_ft_exit(data, data->exec[0]);
 	if (!ft_strcmp(cmd, "pwd"))
-		ft_pwd(data, data->exec[0]);
+		ft_pwd(data);
 	if (!ft_strcmp(cmd, "cd"))
 		ft_cd(data, data->exec[0]);
-	if (!ft_strcmp(cmd, "unset"))
-		ft_unset(data, data->exec[0]);
+	// if (!ft_strcmp(cmd, "unset"))
+	// 	ft_unset(data, data->exec[0]);
 	if (!ft_strcmp(cmd, "echo"))
 		ft_echo(data, data->exec[0]);
-	if (!ft_strcmp(cmd, "export"))
-		ft_export(data, data->exec[0]);
-	if (!ft_strcmp(cmd, "env"))
-		ft_env(data, data->exec[0]);
+	// if (!ft_strcmp(cmd, "export"))
+	// 	ft_export(data, data->exec[0]);
+	// if (!ft_strcmp(cmd, "env"))
+	// 	ft_env(data, data->exec[0]);
 }
