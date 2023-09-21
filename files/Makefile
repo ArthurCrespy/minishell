@@ -23,6 +23,7 @@ SRCS := \
 			builtins/pwd.c \
 			builtins/unset.c \
 			command/command_parsing.c \
+			command/command_parsing_utils.c \
 			command/command_processing.c \
 			command/command_replace.c \
 			env/env_modify.c \
@@ -42,6 +43,7 @@ SRCS := \
 			utils/utils_str.c \
 			utils/utils_str_mem.c \
 			utils/utils_tab.c \
+			utils/utils_token.c \
 
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
