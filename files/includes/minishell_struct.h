@@ -32,7 +32,7 @@ typedef struct s_command
 	int				out_nb;
 	char			**out;
 	int				out_append_nb;
-	char 			**out_append;
+	char			**out_append;
 	int				delimiter_nb;
 	char			**delimiter;
 }				t_exec;

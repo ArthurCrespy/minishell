@@ -21,6 +21,8 @@ char	*ft_strdup(t_data data, char *str)
 	result = malloc((ft_strlen(str) + 2) * sizeof(char));
 	if (!result)
 		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_strdup");
+	if (!str)
+		return (NULL);
 	while (i <= (int)ft_strlen(str))
 	{
 		result[i] = str[i];

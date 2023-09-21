@@ -36,9 +36,9 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-void ft_free_exec(t_exec **exec)
+void	ft_free_exec(t_exec **exec)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (exec[i])

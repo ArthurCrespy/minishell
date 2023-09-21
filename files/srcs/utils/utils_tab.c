@@ -44,7 +44,7 @@ int	ft_tabchr(char **tab, const char *str)
 	return (0);
 }
 
-int ft_tabcount(char **tab, const char c)
+int	ft_tabcount(char **tab, const char c)
 {
 	int	i;
 	int	j;

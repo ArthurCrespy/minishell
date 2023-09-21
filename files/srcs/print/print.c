@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-void    print_tab(char **tab)
+void	print_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -24,11 +24,12 @@ void    print_tab(char **tab)
 	}
 }
 
-void    print_exec(t_data *data)
+void	print_exec(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	printf("\n\n");
 	while (data->exec[i])
 	{
 		printf("--- cmd: %s ---", data->exec[i]->cmd);
