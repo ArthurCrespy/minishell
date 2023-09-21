@@ -48,11 +48,11 @@ int	ft_strncmp(char *s1, char *s2, int i)
 	j = 0;
 	if (!s1 || !s2 || i == 0)
 		return (0);
-	while (s1[j] && s2[j] && j < i)
+	while (s1[j] && s2[j] && j < i - 1)
 	{
 		if (s1[j] == s2[j])
 			j++;
-		if (s1[j] <= s2[j] || s1[j] >= s2[j])
+		if (s1[j] < s2[j] || s1[j] > s2[j])
 			return (s1[j] - s2[j]);
 	}
 	if (j == i)
