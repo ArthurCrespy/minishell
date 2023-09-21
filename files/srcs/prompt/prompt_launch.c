@@ -51,12 +51,11 @@ void	prompt_launch(t_data *data)
 			break ;
 		if (ft_strcmp(input, "") != 0)
 		{
-			history_add(data, input);
+			add_history(input);
 			command_parsing(data, input);
 			if (data->exec_launch == false)
 				printf("minishell: parse error\n");
 			exec(data);
-			key_processing(data, '\n');
 			print_exec(data);
 			ft_free_tab(data->command);
 			ft_free_exec(data->exec);
