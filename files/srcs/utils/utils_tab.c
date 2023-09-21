@@ -24,6 +24,23 @@ int	ft_tablen(char **tab)
 	return (i);
 }
 
+int	ft_tabslen(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (!tab || !tab[0])
+		return (0);
+	while (tab[i])
+	{
+		j += ft_strlen(tab[i]);
+		i++;
+	}
+	return (j);
+}
+
 int	ft_tabchr(char **tab, const char *str)
 {
 	int	i;

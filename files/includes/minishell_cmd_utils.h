@@ -57,6 +57,7 @@ char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 
 // -------- UTILS TAB ------- //
 int		ft_tablen(char **tab);
+int		ft_tabslen(char **tab);
 int		ft_tabchr(char **tab, const char *str);
 int		ft_tabcount(char **tab, const char c);
 
