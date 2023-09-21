@@ -67,6 +67,8 @@ void	ft_free(t_data *data)
 {
 	if (data->history)
 		history_free(data);
+	if (data->command)
+		ft_free_tab(data->command);
 	if (data->env)
 		ft_free_tab(data->env);
 }

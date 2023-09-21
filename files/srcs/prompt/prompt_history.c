@@ -17,7 +17,7 @@ void	history_add(t_data *data, char *cmd)
 	t_history	*ptr;
 	t_history	*new;
 
-	new = (t_history *) malloc(sizeof(t_history));
+	new = (t_history *)malloc(sizeof(t_history));
 	if (!new)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: history_add");
 	new->cmd = ft_strdup(*data, cmd);
@@ -47,7 +47,7 @@ void	history_free(t_data *data)
 	while (ptr != NULL)
 	{
 		tmp = ptr;
-		if (!ptr->next)
+		if (ptr->next == NULL)
 			break ;
 		ptr = ptr->next;
 		free(tmp);

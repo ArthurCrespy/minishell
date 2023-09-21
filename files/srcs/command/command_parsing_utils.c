@@ -16,18 +16,16 @@ t_exec	*exec_new_node(t_data *data)
 {
 	t_exec	*exec;
 
-	exec = (t_exec *)malloc(sizeof(t_exec) + 1);
+	exec = (t_exec *)malloc(sizeof(t_exec));
 	if (!exec)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: exec_new_node");
 	exec->cmd = NULL;
-	exec->flags = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
-	exec->args = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
-	exec->in = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
-	exec->out = (char **)malloc(sizeof(char *) * ft_tablen(data->command));
-	exec->out_append = (char **)malloc(sizeof(char *)
-			* ft_tablen(data->command));
-	exec->delimiter = (char **)malloc(sizeof(char *)
-			* ft_tablen(data->command));
+	exec->flags = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->args = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->in = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->out = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->out_append = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->delimiter = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->flags_nb = 0;
 	exec->args_nb = 0;
 	exec->in_nb = 0;

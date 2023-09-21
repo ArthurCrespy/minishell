@@ -43,7 +43,7 @@ typedef struct s_data
 	t_signal	sig_quit;
 	t_history	*history;
 	t_exec		**exec;
-	bool        exec_launch;
+	bool		exec_launch;
 	char		**command;
 	char		**env;
 	int			return_value;
