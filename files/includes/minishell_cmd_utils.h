@@ -18,6 +18,14 @@ char	*ft_char_replace(t_data *data, char *command, int c);
 char	*ft_operators_replace(t_data *data, char *command);
 char	*ft_quotes_replace(t_data *data, char *command, char c);
 
+// ------- CMD UTILS ------- //
+t_exec	*exec_new_node(t_data *data);
+t_exec	*exec_old_node(t_exec *exec);
+void	parse_input_in_del(t_data *data, t_exec *exec, int *i);
+void	parse_output_redirection(t_data *data, t_exec *exec, int *i);
+void	parse_command_or_args(t_data *data, t_exec *exec, int *i);
+t_exec	**node(t_data *data);
+
 // ------- ENV REPLACE ------ //
 char	*ft_env_replace(t_data *data, char *command);
 
@@ -51,5 +59,8 @@ char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len);
 int		ft_tablen(char **tab);
 int		ft_tabchr(char **tab, const char *str);
 int		ft_tabcount(char **tab, const char c);
+
+// ------- UTILS TOK ------- //
+int		ft_istoken(char *str);
 
 #endif
