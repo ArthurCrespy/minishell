@@ -84,12 +84,16 @@ t_exec 	**node(t_data *data)
 	while (data->command[i])
 	{
 		exec[j] = exec_new_node(data);
+
 		if (i > 0 && data->command[i][0] == '|')
 			i++;
+
 		exec[j]->cmd = ft_strdup(*data, data->command[i]);
 		i++;
+
 		while (data->command[i] && data->command[i][0] == '-')
 			exec[j]->flags[exec[j]->flags_nb++] = ft_strdup(*data, data->command[i++]);
+
 		while (data->command[i] && data->command[i][0] != '|')
 		{
 			if (data->command[i] && data->command[i][0] == '<')
@@ -97,6 +101,8 @@ t_exec 	**node(t_data *data)
 				i++;
 				if (ft_istoken(data->command[i]))
 					printf("error\n");
+				if (data->command[i - 1][0] == '<' && data->command[i - 1][1] == '<')
+					exec[j]->delimiter[exec[j]->delimiter_nb++] = ft_strdup(*data, data->command[i]);
 				else
 					exec[j]->in[exec[j]->in_nb++] = ft_strdup(*data, data->command[i]);
 			}
@@ -106,27 +112,12 @@ t_exec 	**node(t_data *data)
 				i++;
 				if (ft_istoken(data->command[i]))
 					printf("error\n");
+				else if (data->command[i - 1][0] == '>' && data->command[i - 1][1] == '>')
+					exec[j]->out_append[exec[j]->out_append_nb++] = ft_strdup(*data, data->command[i]);
 				else
 					exec[j]->out[exec[j]->out_nb++] = ft_strdup(*data, data->command[i]);
 			}
 
-			else if (data->command[i] && data->command[i][0] == '>' && data->command[i][1] == '>')
-			{
-				i++;
-				if (ft_istoken(data->command[i]))
-					printf("error\n");
-				else
-					exec[j]->out_append[exec[j]->out_append_nb++] = ft_strdup(*data, data->command[i]);
-			}
-
-			else if (data->command[i] && data->command[i][0] == '<' && data->command[i][1] == '<')
-			{
-				i++;
-				if (ft_istoken(data->command[i]))
-					printf("error\n");
-				else
-					exec[j]->delimiter[exec[j]->delimiter_nb++] = ft_strdup(*data, data->command[i]);
-			}
 			else if (data->command[i] && data->command[i][0] != '|')
 				exec[j]->args[exec[j]->args_nb++] = ft_strdup(*data, data->command[i]);
 			i++;
