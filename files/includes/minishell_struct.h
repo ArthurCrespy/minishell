@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/06 14:55:20 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/21 17:57:36 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 	t_signal	sig_quit;
 	t_history	*history;
 	t_exec		**exec;
-	bool        exec_launch;
+	bool		exec_launch;
 	char		**command;
 	char		**env;
 	int			return_value;
