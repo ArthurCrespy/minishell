@@ -65,6 +65,7 @@ void	command_parsing(t_data *data, char *command)
 	command = ft_env_replace(data, command);
 	command = ft_quotes_replace(data, command, '\'');
 	data->command = ft_strsplit(*data, command, '\x1F');
+	data->exec_launch = true;
 	data->exec = node(data);
 	free(command);
 }

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:15:32 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/19 17:17:57 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:37:40 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	ft_echo(t_data *data, t_exec *exec)
 	n_flag = false;
 	if (!ft_strcmp(exec->flags[0], "-n"))
 		n_flag = true;
-	else
-		printf("%s", exec->flags[0]);
 	index_args = 0;
 	while (index_args < exec->args_nb)
 	{
