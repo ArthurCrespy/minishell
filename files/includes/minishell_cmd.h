@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/21 17:57:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/21 18:41:10 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_pwd(t_data *data);
 int		ft_cd(t_data *data, t_exec *exec);
 int		ft_echo(t_data *data, t_exec *exec);
 void	find_cmd(t_data *data, t_exec *exec);
+void	ft_env(t_data *data);
+int		ft_export(t_data *data, t_exec *exec);
 
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
