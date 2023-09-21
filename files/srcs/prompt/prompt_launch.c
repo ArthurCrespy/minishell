@@ -44,6 +44,7 @@ void	prompt_launch(t_data *data)
 	signal_status(0, 1);
 	while (1)
 	{
+		data->command = NULL;
 		prompt = prompt_welcome(data);
 		input = readline(prompt);
 		free(prompt);
@@ -51,14 +52,15 @@ void	prompt_launch(t_data *data)
 			break ;
 		if (ft_strcmp(input, "") != 0)
 		{
+			data->command = NULL;
 			add_history(input);
 			command_parsing(data, input);
 			if (data->exec_launch == false)
 				printf("minishell: parse error\n");
 			exec(data);
 			print_exec(data);
-			ft_free_tab(data->command);
 			ft_free_exec(data->exec);
+			ft_free_tab(data->command);
 		}
 	}
 }

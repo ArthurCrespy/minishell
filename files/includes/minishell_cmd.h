@@ -21,7 +21,6 @@ int		ft_cd(t_data *data, t_exec *exec);
 int		ft_echo(t_data *data, t_exec *exec);
 void	find_cmd(t_data *data, t_exec *exec);
 
-
 // ------- CMD PARSING ------ //
 void	command_parsing(t_data *data, char *command);
 t_exec	ft_parse(t_data *data);

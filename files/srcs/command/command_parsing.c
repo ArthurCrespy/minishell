@@ -45,7 +45,7 @@ t_exec	**node(t_data *data)
 	i = 0;
 	j = 0;
 	exec = (t_exec **)malloc(sizeof(t_exec *)
-			* ft_tabcount(data->command, '|') + 100);
+			* ft_tablen(data->command));
 	if (!exec)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: node");
 	while (data->command[i])
