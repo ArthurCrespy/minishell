@@ -29,6 +29,7 @@ void    print_exec(t_data *data)
 	int i;
 
 	i = 0;
+	printf("\n\n");
 	while (data->exec[i])
 	{
 		printf("--- cmd: %s ---", data->exec[i]->cmd);
