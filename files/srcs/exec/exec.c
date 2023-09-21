@@ -16,6 +16,8 @@ void	exec(t_data *data)
 {
 	char	*cmd;
 
+	if (data->exec_launch == false)
+		return ;
 	cmd = data->exec[i]->cmd;
 	if (!ft_strcmp(data->exec[i]->cmd, "pwd"))
 		ft_pwd(data);
