@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:40:39 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 17:26:19 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/21 14:25:52 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_strcmp(char *s1, char *s2)
 	{
 		if (s1[i] == s2[i])
 			i++;
-		if (s1[i] <= s2[i] || s1[i] >= s2[i])
+		if (s1[i] < s2[i] || s1[i] > s2[i])
 			return (s1[i] - s2[i]);
 	}
 	return (s1[i] - s2[i]);

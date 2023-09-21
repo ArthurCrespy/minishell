@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/20 23:07:07 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/21 10:24:20 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int	ft_ft_exit(t_data *data, t_exec *exec)
 		printf("exit: too many arguments\n");
 		return (1);
 	}
-	printf("%p\n\n", exec->args[0]);
-	if (exec->args[0])
+	if (exec->args_nb == 1)
 	{
 		exit_value = ft_atoi(exec->args[0]);
 		if (ft_is_a_num(exec->args[0]) == 1 || exit_value > 255)
 		{
 			printf("exit: %s: numeric argument requiered\n", exec->args[0]);
-			exit (2);
+			ft_exit (data, 2, NULL);
 		}
 	}
 	else
 		exit_value = 0;
-	exit(exit_value);
+	ft_exit(data, exit_value, NULL);
+	return (1);
 }
