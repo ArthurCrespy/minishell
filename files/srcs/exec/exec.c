@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:05:43 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/21 18:22:28 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/22 16:29:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	find_cmd(t_data *data, t_exec *exec)
 		ft_pwd(data);
 	if (!ft_strcmp(cmd, "cd"))
 		ft_cd(data, data->exec[0]);
-	// if (!ft_strcmp(cmd, "unset"))
-	// 	ft_unset(data, data->exec[0]);
+	if (!ft_strcmp(cmd, "unset"))
+		ft_unset(data, data->exec[0]);
 	if (!ft_strcmp(cmd, "echo"))
 		ft_echo(data, data->exec[0]);
 	if (!ft_strcmp(cmd, "export"))
