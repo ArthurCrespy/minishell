@@ -25,7 +25,7 @@ char	*ft_path(t_data *data)
 	if (home && path && ft_strncmp(home, path, ft_strlen(home)) == 0)
 		result = ft_strjoin("~", path + ft_strlen(home));
 	else
-		result = ft_strdup(*data, path);
+		result = ft_strdup(data, path);
 	return (result);
 }
 
@@ -54,6 +54,6 @@ char	*ft_device(t_data *data)
 		device[i - 6] = '\0';
 	}
 	else
-		device = ft_strdup(*data, "local");
+		device = ft_strdup(data, "local");
 	return (device);
 }

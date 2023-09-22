@@ -48,7 +48,7 @@ void	env_add(t_data *data, char *name, char *value)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_add");
 	while (data->env[i])
 	{
-		new_env[i] = ft_strdup(*data, data->env[i]);
+		new_env[i] = ft_strdup(data, data->env[i]);
 		i++;
 	}
 	ft_free_tab(data->env);
@@ -71,13 +71,13 @@ void	env_delete(t_data *data, char *name)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_delete");
 	while (i != ft_tabchr(data->env, name) - 1)
 	{
-		new_env[i] = ft_strdup(*data, data->env[i]);
+		new_env[i] = ft_strdup(data, data->env[i]);
 		i++;
 	}
 	i++;
 	while (data->env[i])
 	{
-		new_env[i - 1] = ft_strdup(*data, data->env[i]);
+		new_env[i - 1] = ft_strdup(data, data->env[i]);
 		i++;
 	}
 	new_env[i - 1] = NULL;
