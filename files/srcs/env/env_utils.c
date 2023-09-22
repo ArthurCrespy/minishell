@@ -26,7 +26,7 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_save");
 	while (envp[i])
 	{
-		data->env[i] = ft_strdup(*data, envp[i]);
+		data->env[i] = ft_strdup(data, envp[i]);
 		i++;
 	}
 	data->env[i] = NULL;

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_strdup(t_data data, char *str)
+char	*ft_strdup(t_data *data, char *str)
 {
 	int		i;
 	char	*result;
@@ -20,7 +20,7 @@ char	*ft_strdup(t_data data, char *str)
 	i = 0;
 	result = malloc((ft_strlen(str) + 2) * sizeof(char));
 	if (!result)
-		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_strdup");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_strdup");
 	if (!str)
 		return (NULL);
 	while (i <= (int)ft_strlen(str))
@@ -53,7 +53,7 @@ char	*ft_calloc(size_t nmemb, size_t size)
 	return (result);
 }
 
-char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
+char	*ft_substr(t_data *data, char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	i;
@@ -67,7 +67,7 @@ char	*ft_substr(t_data data, char const *s, unsigned int start, size_t len)
 		length++;
 	str = malloc((length + 1) * sizeof(char));
 	if (!str)
-		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_substr");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_substr");
 	while (s[start + i] && i < length)
 	{
 		str[i] = s[start + i];

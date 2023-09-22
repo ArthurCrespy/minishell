@@ -22,10 +22,10 @@ void	process_command_block(t_data *data, t_exec **exec, int *i, int *j)
 	exec[(*j)] = exec_new_node(data);
 	if ((*i) > 0 && data->command[(*i)][0] == '|')
 		(*i)++;
-	exec[(*j)]->cmd = ft_strdup(*data, data->command[(*i)]);
+	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
 	(*i)++;
 	while (data->command[(*i)] && data->command[(*i)][0] == '-')
-		exec[(*j)]->flags[exec[(*j)]->flags_nb++] = ft_strdup(*data,
+		exec[(*j)]->flags[exec[(*j)]->flags_nb++] = ft_strdup(data,
 				data->command[(*i)++]);
 	while (data->command[(*i)] && data->command[(*i)][0] != '|')
 	{
@@ -64,7 +64,7 @@ void	command_parsing(t_data *data, char *command)
 	command = ft_quotes_replace(data, command, '\"');
 	command = ft_env_replace(data, command);
 	command = ft_quotes_replace(data, command, '\'');
-	data->command = ft_strsplit(*data, command, '\x1F');
+	data->command = ft_strsplit(data, command, '\x1F');
 	data->exec_launch = true;
 	data->exec = node(data);
 	free(command);

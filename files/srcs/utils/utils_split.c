@@ -46,7 +46,7 @@ int	ft_word_count(char const *s, char c)
 	return (word);
 }
 
-char	**ft_strsplit(t_data data, char const *s, char c)
+char	**ft_strsplit(t_data *data, char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -59,7 +59,7 @@ char	**ft_strsplit(t_data data, char const *s, char c)
 	word = ft_word_count(s, c);
 	strs = (char **)malloc((word + 1) * sizeof(char *));
 	if (strs == NULL)
-		ft_exit(&data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_strsplit");
+		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_strsplit");
 	while (j < word)
 	{
 		while (s[i] == c)
