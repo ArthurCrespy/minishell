@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:03 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/21 17:56:29 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/22 17:16:35 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ int	ft_cd(t_data *data, t_exec *exec)
 			env_update(data, "PWD", getcwd(NULL, 0));
 		}
 	}
-	printf("%s\n", getcwd(NULL, 0));
 	return (0);
 }

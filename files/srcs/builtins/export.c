@@ -6,12 +6,11 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:42 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/22 16:34:03 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/22 17:17:42 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 // si 0 arg -> affiche export
 // si NAME -> cree la variable ou ne fait rien si elle existe deja
@@ -19,16 +18,15 @@
 
 static char	*get_variable(t_data *data, char *arg)
 {
-	int	index;
+	int		index;
 	char	*variable;
 
 	index = 0;
-	while(arg[index] && arg[index] != '=')
+	while (arg[index] && arg[index] != '=')
 		index++;
-	variable = ft_substr(*data, arg, 0, index);
+	variable = ft_substr(data, arg, 0, index);
 	return (variable);
 }
-
 
 int	ft_export(t_data *data, t_exec *exec)
 {
@@ -47,7 +45,6 @@ int	ft_export(t_data *data, t_exec *exec)
 			env_add(data, exec->args[index_args], "");
 		else
 			env_add(data, variable, value + 1);
-
 		index_args++;
 		free(variable);
 	}
