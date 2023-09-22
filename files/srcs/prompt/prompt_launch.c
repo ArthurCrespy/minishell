@@ -58,7 +58,7 @@ void	prompt_launch(t_data *data)
 			if (data->exec_launch == false)
 				printf("minishell: parse error\n");
 			exec(data);
-			print_exec(data);
+			//print_exec(data);
 			ft_free_exec(data->exec);
 			ft_free_tab(data->command);
 		}
