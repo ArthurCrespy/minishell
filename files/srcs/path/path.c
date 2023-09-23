@@ -44,7 +44,7 @@ char	*ft_device(t_data *data)
 	{
 		device = (char *)malloc(sizeof(char) * (ft_strlen(session)));
 		if (!device)
-			ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_device");
+			ft_exit(data, -1, MALLOC_ERROR, "ft_device");
 		while (session[i]
 			&& session[i] != ',' && session[i] != ':' && session[i] != '.')
 		{

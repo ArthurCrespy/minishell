@@ -14,9 +14,9 @@
 # define MINISHELL_CMD_UTILS_H
 
 // ------ CMD REPLACE ----- //
-char	*ft_char_replace(t_data *data, char *command, int c);
-char	*ft_operators_replace(t_data *data, char *command);
-char	*ft_quotes_replace(t_data *data, char *command, char c);
+char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);
+char	*ft_operators_replace(t_data *data, t_parsing *parsing);
+char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c);
 
 // ------- CMD UTILS ------- //
 t_exec	*exec_new_node(t_data *data);
@@ -27,7 +27,7 @@ void	parse_command_or_args(t_data *data, t_exec *exec, int *i);
 t_exec	**node(t_data *data);
 
 // ------- ENV REPLACE ------ //
-char	*ft_env_replace(t_data *data, char *command);
+char	*ft_env_replace(t_data *data, t_parsing *parsing);
 
 // ---------- PATH ---------- //
 char	*ft_path(t_data *data);

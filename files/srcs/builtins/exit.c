@@ -41,11 +41,11 @@ int	ft_ft_exit(t_data *data, t_exec *exec)
 		if (ft_is_a_num(exec->args[0]) == 1 || exit_value > 255)
 		{
 			printf("exit: %s: numeric argument requiered\n", exec->args[0]);
-			ft_exit (data, 2, NULL);
+			ft_exit (data, 2, EXIT, NULL);
 		}
 	}
 	else
 		exit_value = 0;
-	ft_exit(data, exit_value, NULL);
+	ft_exit(data, exit_value, EXIT, NULL);
 	return (1);
 }

@@ -12,13 +12,34 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(t_data *data, int status, char *msg)
+char	*ft_return_error(int error)
+{
+	if (error == MALLOC_ERROR)
+		return ("malloc error");
+	else if (error == TCGETATTR_ERROR)
+		return ("tcgetattr error");
+	else if (error == TCSETATTR_ERROR)
+		return ("tcsetattr error");
+	else if (error == ENV_ERROR)
+		return ("non-valid environment");
+	else if (error == ARG_ERROR)
+		return ("too many arguments");
+	else if (error == EXECVE_ERROR)
+		return ("execve error");
+	else if (error == FORK_ERROR)
+		return ("fork error");
+	else
+		return ("unknown error");
+}
+
+void	ft_exit(t_data *data, int code, int error, char *origin)
 {
 	if (data)
 		ft_free(data);
-	if (msg)
-		printf("ERROR CODE: %d - DEFAULT: %s\n", status, msg);
-	exit(status);
+	if (error && origin)
+		printf("minishell exited with code %d: %s at %s\n", code,
+			ft_return_error(error), origin);
+	exit(code);
 }
 
 void	ft_free_tab(char **tab)

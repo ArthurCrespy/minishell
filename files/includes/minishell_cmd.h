@@ -41,7 +41,7 @@ void	env_add(t_data *data, char *name, char *value);
 void	env_delete(t_data *data, char *name);
 
 // ---------- FREE ---------- //
-void	ft_exit(t_data *data, int status, char *msg);
+void	ft_exit(t_data *data, int code, int error, char *origin);
 void	ft_free_tab(char **tab);
 void	ft_free_exec(t_exec **exec);
 void	ft_free(t_data *data);

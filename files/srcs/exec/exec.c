@@ -16,7 +16,10 @@ void	exec(t_data *data)
 {
 	(void)data;
 	if (data->exec_launch == false)
+	{
+		printf("minishell: parse error\n");
 		return ;
+	}
 	find_cmd(data, data->exec[0]);
 }
 

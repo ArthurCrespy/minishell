@@ -18,9 +18,9 @@ int	main(int argc, char **argv, char **envp)
 
 	g_data_access = &data;
 	if (!*envp)
-		ft_exit(NULL, ENV_ERROR, "non-valid environment - ORIGIN: main");
+		ft_exit(NULL, -1, ENV_ERROR, "main");
 	if (argc != 1 || argv[1])
-		ft_exit(NULL, ARG_ERROR, "too many arguments - ORIGIN: main");
+		ft_exit(NULL, -1, ARG_ERROR, "main");
 	env_save(&data, argc, argv, envp);
 	signal_handle(&data);
 	prompt_launch(&data);

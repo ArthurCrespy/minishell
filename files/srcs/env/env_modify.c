@@ -45,7 +45,7 @@ void	env_add(t_data *data, char *name, char *value)
 	value_tmp = ft_strjoin(name_tmp, value);
 	new_env = malloc(sizeof(char *) * (ft_tablen(data->env) + 10));
 	if (!new_env)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_add");
+		ft_exit(data, -1, MALLOC_ERROR, "env_add");
 	while (data->env[i])
 	{
 		new_env[i] = ft_strdup(data, data->env[i]);
@@ -68,7 +68,7 @@ void	env_delete(t_data *data, char *name)
 		return ;
 	new_env = malloc(sizeof(char *) * (ft_tablen(data->env)));
 	if (!new_env)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: env_delete");
+		ft_exit(data, -1, MALLOC_ERROR, "env_delete");
 	while (i != ft_tabchr(data->env, name) - 1)
 	{
 		new_env[i] = ft_strdup(data, data->env[i]);

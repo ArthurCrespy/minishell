@@ -47,7 +47,7 @@ t_exec	**node(t_data *data)
 	exec = (t_exec **)malloc(sizeof(t_exec *)
 			* ft_tablen(data->command));
 	if (!exec)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: node");
+		ft_exit(data, -1, MALLOC_ERROR, "node");
 	while (data->command[i])
 		process_command_block(data, exec, &i, &j);
 	exec[j] = NULL;
@@ -56,16 +56,21 @@ t_exec	**node(t_data *data)
 
 void	command_parsing(t_data *data, char *command)
 {
-	command = ft_char_replace(data, command, ' ');
-	command = ft_char_replace(data, command, '\t');
-	command = ft_char_replace(data, command, '\n');
-	command = ft_char_replace(data, command, '\v');
-	command = ft_operators_replace(data, command);
-	command = ft_quotes_replace(data, command, '\"');
-	command = ft_env_replace(data, command);
-	command = ft_quotes_replace(data, command, '\'');
-	data->command = ft_strsplit(data, command, '\x1F');
+	t_parsing	*parsing;
+
+	parsing = malloc(sizeof(t_parsing));
+	parsing->command = ft_strdup(data, command);
+	free(command);
+	parsing->command = ft_char_replace(data, parsing, ' ');
+	parsing->command = ft_char_replace(data, parsing, '\t');
+	parsing->command = ft_char_replace(data, parsing, '\n');
+	parsing->command = ft_char_replace(data, parsing, '\v');
+	parsing->command = ft_operators_replace(data, parsing);
+	parsing->command = ft_quotes_replace(data, parsing, '\"');
+	parsing->command = ft_env_replace(data, parsing);
+	parsing->command = ft_quotes_replace(data, parsing, '\'');
+	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec_launch = true;
 	data->exec = node(data);
-	free(command);
+	free(parsing->command);
 }
