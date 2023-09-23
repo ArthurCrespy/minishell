@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char *ft_return_error(int error)
+char	*ft_return_error(int error)
 {
 	if (error == MALLOC_ERROR)
 		return ("malloc error");
@@ -38,7 +38,7 @@ void	ft_exit(t_data *data, int code, int error, char *origin)
 		ft_free(data);
 	if (error && origin)
 		printf("minishell exited with code %d: %s at %s\n", code,
-		       ft_return_error(error), origin);
+			ft_return_error(error), origin);
 	exit(code);
 }
 
