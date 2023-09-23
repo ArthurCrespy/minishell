@@ -20,12 +20,12 @@ t_exec	*exec_new_node(t_data *data)
 	if (!exec)
 		ft_exit(data, -1, MALLOC_ERROR, "exec_new_node");
 	exec->cmd = NULL;
-	exec->flags = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->args = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->in = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->out = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->out_append = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->delimiter = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->flags = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->args = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->in = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->out = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->out_append = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->delimiter = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->flags_nb = 0;
 	exec->args_nb = 0;
 	exec->in_nb = 0;

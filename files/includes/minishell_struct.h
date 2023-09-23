@@ -20,7 +20,15 @@ typedef struct s_history
 	struct s_history	*next;
 }				t_history;
 
-typedef struct s_command
+typedef struct s_parsing
+{
+	char	*command;
+	char	*tmp;
+	int		i;
+	int		j;
+}				t_parsing;
+
+typedef struct s_exec
 {
 	char			*cmd;
 	int				flags_nb;

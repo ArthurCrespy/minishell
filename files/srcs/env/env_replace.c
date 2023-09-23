@@ -40,7 +40,7 @@ int	ft_env_size(t_data *data, char *command, int i)
 	return (size + i);
 }
 
-void	ft_dollar_replace(t_data *data, char *command, char *tmp, int *i, int *j)
+void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 {
 	int		k;
 	int		f;
@@ -48,73 +48,73 @@ void	ft_dollar_replace(t_data *data, char *command, char *tmp, int *i, int *j)
 	char	*command_value;
 
 	k = 0;
-	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
+	var_value = malloc(sizeof(char) * (ft_strlen(parsing->command) + 1));
 	if (!var_value)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_dollar_replace");
-	while (command[(*i)] && command[(*i)] != ' ' && command[(*i)] != '\x1F')
-		var_value[k++] = command[(*i)++];
+		ft_exit(data, -1, MALLOC_ERROR, "ft_dollar_replace");
+	while (parsing->command[parsing->i] && parsing->command[parsing->i]
+		!= ' ' && parsing->command[parsing->i] != '\x1F')
+		var_value[k++] = parsing->command[parsing->i++];
 	var_value[k] = '\0';
 	if (ft_tabchr(data->env, var_value))
 	{
-		(*i)++;
+		parsing->i++;
 		f = ft_strlen(var_value) + 1;
 		command_value = data->env[ft_tabchr(data->env, var_value) - 1];
 		while (command_value[f])
-			tmp[(*j)++] = command_value[f++];
-		tmp[(*j)++] = '\x1F';
+			parsing->tmp[parsing->j++] = command_value[f++];
+		parsing->tmp[parsing->j++] = '\x1F';
 	}
 	free(var_value);
 }
 
-void	ft_dollar_check(t_data *data, char *command, char *tmp, int *i, int *j)
+void	ft_dollar_check(t_data *data, t_parsing *parsing)
 {
 	int		k;
 	char	*var_value;
 	char	*return_value;
 
 	k = 0;
-	var_value = malloc(sizeof(char) * (ft_strlen(command) + 1));
+	var_value = malloc(sizeof(char) * (ft_strlen(parsing->command) + 1));
 	if (!var_value)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_dollar_check");
-	(*i)++;
-	if (command[(*i)] == '\x1F' || command[(*i)] == '\0')
-		tmp[(*j)++] = command[(*i) - 1];
-	else if (command[(*i)] == '?')
+		ft_exit(data, -1, MALLOC_ERROR, "ft_dollar_check");
+	parsing->i++;
+	if (parsing->command[parsing->i] == '\x1F'
+		|| parsing->command[parsing->i] == '\0')
+		parsing->tmp[parsing->j++] = parsing->command[parsing->i - 1];
+	else if (parsing->command[parsing->i] == '?')
 	{
-		(*i)++;
+		parsing->i++;
 		return_value = ft_itoa(data->return_value);
 		while (return_value[k])
-			tmp[(*j)++] = return_value[k++];
-		tmp[(*j)++] = '\x1F';
+			parsing->tmp[parsing->j++] = return_value[k++];
+		parsing->tmp[parsing->j++] = '\x1F';
 	}
 	else
-		ft_dollar_replace(data, command, tmp, i, j);
+		ft_dollar_replace(data, parsing);
 	free(var_value);
 }
 
-char	*ft_env_replace(t_data *data, char *command)
+char	*ft_env_replace(t_data *data, t_parsing *parsing)
 {
-	int		i;
-	int		j;
 	int		quotes;
-	char	*tmp;
 
-	i = 0;
-	j = 0;
+	parsing->i = 0;
+	parsing->j = 0;
 	quotes = 1;
-	tmp = ft_calloc(sizeof(char), (ft_env_size(data, command, 0) + 1));
-	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "(c)malloc failed - ORIGIN: ft_env_replace");
-	while (command[i])
+	parsing->tmp = ft_calloc(sizeof(char),
+			(ft_env_size(data, parsing->command, 0) + 1));
+	if (!parsing->tmp)
+		ft_exit(data, -1, MALLOC_ERROR, "ft_env_replace");
+	while (parsing->command[parsing->i])
 	{
-		if (command[i] == '\'')
+		if (parsing->command[parsing->i] == '\'')
 			quotes *= -1;
-		if (command[i] == '$' && quotes == 1)
-			ft_dollar_check(data, command, tmp, &i, &j);
+		if (parsing->command[parsing->i] == '$' && quotes == 1)
+			ft_dollar_check(data, parsing);
 		else
-			tmp[j++] = command[i++];
+			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
 	}
-	tmp[j] = '\0';
-	free(command);
-	return (tmp);
+	parsing->tmp[parsing->j] = '\0';
+	free(parsing->command);
+	return (parsing->tmp);
 }

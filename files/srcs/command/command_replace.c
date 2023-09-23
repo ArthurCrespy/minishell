@@ -12,126 +12,120 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_char_replace(t_data *data, char *command, int c)
+char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 {
 	int	i;
 
 	i = 0;
-	if (!data || !command || !c)
-		return (command);
-	while (command[i])
+	if (!data || !parsing->command || !c)
+		return (parsing->command);
+	while (parsing->command[i])
 	{
-		if (command[i] == c)
-			command[i] = '\x1F';
+		if (parsing->command[i] == c)
+			parsing->command[i] = '\x1F';
 		i++;
 	}
-	return (command);
+	return (parsing->command);
 }
 
-void	ft_operators_separate(const char *command, char *tmp, int *i, int *j)
+void	ft_operators_separate(t_parsing *parsing)
 {
 	int		count;
 	char	c;
 
 	count = 0;
-	c = command[(*i)];
-	while (command[(*i)] == c)
+	c = parsing->command[parsing->i];
+	while (parsing->command[parsing->i] == c)
 	{
 		count++;
-		(*i)++;
+		parsing->i++;
 	}
 	if (count == 1)
-		tmp[((*j))++] = c;
+		parsing->tmp[(parsing->j)++] = c;
 	else if (count == 2)
 	{
-		tmp[(*j)++] = c;
-		tmp[(*j)++] = c;
+		parsing->tmp[parsing->j++] = c;
+		parsing->tmp[parsing->j++] = c;
 	}
 	else
 	{
 		while (count--)
-		{
-			tmp[(*j)++] = c;
-		}
+			parsing->tmp[parsing->j++] = c;
 	}
-	tmp[(*j)++] = '\x1F';
+	parsing->tmp[parsing->j++] = '\x1F';
 }
 
-char	*ft_operators_replace(t_data *data, char *command)
+char	*ft_operators_replace(t_data *data, t_parsing *parsing)
 {
-	int		i;
-	int		j;
 	int		len;
-	char	*tmp;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(command);
-	tmp = malloc(sizeof(char *) * ((len * 3) + 1));
-	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_operators");
-	while (command[i])
+	parsing->i = 0;
+	parsing->j = 0;
+	len = ft_strlen(parsing->command);
+	parsing->tmp = malloc(sizeof(char *) * ((len * 3) + 1));
+	if (!parsing->tmp)
+		ft_exit(data, -1, MALLOC_ERROR, "ft_operators_replace");
+	while (parsing->command[parsing->i])
 	{
-		if (command[i] == '<' || command[i] == '>' || command[i] == '|')
+		if (parsing->command[parsing->i] == '<'
+			|| parsing->command[parsing->i] == '>'
+			|| parsing->command[parsing->i] == '|')
 		{
-			tmp[j++] = '\x1F';
-			ft_operators_separate(command, tmp, &i, &j);
+			parsing->tmp[parsing->j++] = '\x1F';
+			ft_operators_separate(parsing);
 		}
 		else
-			tmp[j++] = command[i++];
+			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
 	}
-	tmp[j] = '\0';
-	free(command);
-	return (tmp);
+	parsing->tmp[parsing->j] = '\0';
+	free(parsing->command);
+	return (parsing->tmp);
 }
 
-void	ft_quotes_check(const char *command, char *tmp, int *i, int *j)
+void	ft_quotes_check(t_parsing *parsing)
 {
 	int		y;
 	int		closed;
 	char	c;
 
-	y = *i + 1;
+	y = parsing->i + 1;
 	closed = -1;
-	c = command[(*i)];
-	while (command[(y)] && command[(y)] != c)
+	c = parsing->command[parsing->i];
+	while (parsing->command[(y)] && parsing->command[(y)] != c)
 		y++;
-	if (command[y] == '\0' || command[y] == '\x1F')
+	if (parsing->command[y] == '\0' || parsing->command[y] == '\x1F')
 		closed = 0;
-	else if (command[y] == c)
+	else if (parsing->command[y] == c)
 		closed = 1;
 	if (closed == 0)
-		tmp[(*j)++] = c;
+		parsing->tmp[parsing->j++] = c;
 	if (closed == 1)
 	{
-		(*i)++;
-		while (command[(*i)] != c)
-			tmp[(*j)++] = command[(*i)++];
+		parsing->i++;
+		while (parsing->command[parsing->i] != c)
+			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
 	}
-	(*i)++;
+	parsing->i++;
 }
 
-char	*ft_quotes_replace(t_data *data, char *command, char c)
+char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c)
 {
-	int		i;
-	int		j;
 	int		len;
-	char	*tmp;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(command);
-	tmp = malloc(sizeof(char) * ((len * 2) + 1));
-	if (!tmp)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: ft_quotes");
-	while (command[i])
+	parsing->i = 0;
+	parsing->j = 0;
+	len = ft_strlen(parsing->command);
+	parsing->tmp = malloc(sizeof(char) * ((len * 2) + 1));
+	if (!parsing->tmp)
+		ft_exit(data, -1, MALLOC_ERROR, "ft_quotes_replace");
+	while (parsing->command[parsing->i])
 	{
-		if (command[i] == c)
-			ft_quotes_check(command, tmp, &i, &j);
+		if (parsing->command[parsing->i] == c)
+			ft_quotes_check(parsing);
 		else
-			tmp[j++] = command[i++];
+			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
 	}
-	tmp[j] = '\0';
-	free(command);
-	return (tmp);
+	parsing->tmp[parsing->j] = '\0';
+	free(parsing->command);
+	return (parsing->tmp);
 }
