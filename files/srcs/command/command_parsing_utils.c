@@ -18,7 +18,7 @@ t_exec	*exec_new_node(t_data *data)
 
 	exec = (t_exec *)malloc(sizeof(t_exec));
 	if (!exec)
-		ft_exit(data, MALLOC_ERROR, "malloc failed - ORIGIN: exec_new_node");
+		ft_exit(data, -1, MALLOC_ERROR, "exec_new_node");
 	exec->cmd = NULL;
 	exec->flags = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->args = (char **)malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));

@@ -13,11 +13,14 @@
 #ifndef MINISHELL_DEFINE_H
 # define MINISHELL_DEFINE_H
 
+# define EXIT 0
 # define MALLOC_ERROR 1
 # define TCGETATTR_ERROR 2
 # define TCSETATTR_ERROR 3
 # define ENV_ERROR 4
 # define ARG_ERROR 5
+# define EXECVE_ERROR 6
+# define FORK_ERROR 7
 
 # define STDIN 0
 # define STDOUT 1

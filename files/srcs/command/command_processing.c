@@ -20,7 +20,7 @@ void	command_processing(t_data *data)
 	while (data->command[i])
 	{
 		if (!ft_strcmp(data->command[i], "exit"))
-			ft_exit(data, 0, NULL);
+			ft_exit(data, 0, EXIT, NULL);
 		i++;
 	}
 }
