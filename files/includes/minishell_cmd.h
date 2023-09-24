@@ -6,15 +6,21 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/22 16:50:39 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/24 19:33:03 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_CMD_H
 # define MINISHELL_CMD_H
 
-// ------- BUILTINS -------- //
+// -------- EXEC ------------//
 void	exec(t_data *data);
+void	launch_exec(t_data *data, t_exec *exec);
+int		set_in_and_out(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_command(t_data *data, t_exec *exec);
+int		here_doc(t_exec *exec);
+
+// ------- BUILTINS -------- //
 int		ft_ft_exit(t_data *data, t_exec *exec);
 void	ft_pwd(t_data *data);
 int		ft_cd(t_data *data, t_exec *exec);

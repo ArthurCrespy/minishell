@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/21 17:57:36 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/24 19:17:01 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,18 @@ typedef struct s_parsing
 	int		j;
 }				t_parsing;
 
+typedef struct s_pipex
+{
+	int		fdin;
+	int		fdout;
+	char	**cmd;
+	char	*path_cmd;
+	int		pipefd[2];
+}				t_pipex;
+
 typedef struct s_exec
 {
+	int				id_exec;
 	char			*cmd;
 	int				flags_nb;
 	char			**flags;
@@ -43,6 +53,7 @@ typedef struct s_exec
 	char			**out_append;
 	int				delimiter_nb;
 	char			**delimiter;
+	t_pipex			*pipex;
 }				t_exec;
 
 typedef struct s_data
