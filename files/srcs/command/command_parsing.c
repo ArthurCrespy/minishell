@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 17:19:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/25 21:34:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ t_exec	**node(t_data *data)
 	i = 0;
 	j = 0;
 	exec = (t_exec **)malloc(sizeof(t_exec *)
-			* ft_tablen(data->command));
+			* (ft_tablen(data->command) + 1));
+	///// data->command c'est les commandes + les args + les flags
+	//// donc ft_tablen ne renvoie pas le bon nombre de structure exec
+	//// il faut une structure par commande et non pas une structure pour chaque commande, arg ou flag...
 	if (!exec)
 		ft_exit(data, -1, MALLOC_ERROR, "node");
 	while (data->command[i])
