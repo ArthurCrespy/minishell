@@ -26,7 +26,7 @@ static int	ft_is_a_num(char *nb_args)
 	return (0);
 }
 
-int	ft_ft_exit(t_data *data, t_exec *exec)
+int	builtin_exit(t_data *data, t_exec *exec)
 {
 	int	exit_value;
 
@@ -40,8 +40,8 @@ int	ft_ft_exit(t_data *data, t_exec *exec)
 		exit_value = ft_atoi(exec->args[0]);
 		if (ft_is_a_num(exec->args[0]) == 1 || exit_value > 255)
 		{
-			printf("exit: %s: numeric argument requiered\n", exec->args[0]);
-			ft_exit (data, 2, EXIT, NULL);
+			printf("exit: %s: numeric argument required\n", exec->args[0]);
+			ft_exit(data, 2, EXIT, NULL);
 		}
 	}
 	else

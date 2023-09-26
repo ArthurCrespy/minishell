@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(t_data *data)
+void	builtin_pwd(t_data *data)
 {
 	char	*working_directory;
 

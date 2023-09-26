@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:29:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/24 19:44:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 20:51:45 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	here_doc(t_exec *exec)
+int	heredoc(t_exec *exec)
 {
 	char	*line;
 	size_t	len;
 	int		fd_temp;
 
-	fd_temp = open(".here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
 		printf("heredoc> ");

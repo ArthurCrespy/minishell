@@ -53,7 +53,8 @@ void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 	if (!var_value)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_dollar_replace");
 	while (parsing->command[parsing->i] && parsing->command[parsing->i]
-		!= ' ' && parsing->command[parsing->i] != '\x1F' && parsing->command[parsing->i] != '\'')
+		!= ' ' && parsing->command[parsing->i] != '\x1F'
+		&& parsing->command[parsing->i] != '\'')
 		var_value[k++] = parsing->command[parsing->i++];
 	var_value[k] = '\0';
 	if (ft_tabchr(data->env, var_value))
@@ -92,35 +93,6 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 	else
 		ft_dollar_replace(data, parsing);
 	free(var_value);
-}
-
-int	ft_quotes_enclosed(t_parsing *parsing)
-{
-	int	i;
-	int	open;
-
-	i = parsing->i;
-	open = 0;
-	if (i == 0)
-		return (1);
-	while (parsing->command[i] && parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
-	{
-		if (parsing->command[i] == '\"')
-			open++;
-		i--;
-	}
-	if (i == 0 || i == -1)
-		return (0);
-	i = parsing->i;
-	while (parsing->command[i] && parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
-	{
-		if (parsing->command[i] == '\"')
-			open++;
-		i++;
-	}
-	if (open > 0)
-		return (0);
-	return (1);
 }
 
 char	*ft_env_replace(t_data *data, t_parsing *parsing)

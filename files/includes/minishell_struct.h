@@ -62,7 +62,7 @@ typedef struct s_data
 	t_signal	sig_quit;
 	t_history	*history;
 	t_exec		**exec;
-	int			pipes_nb; // rajout armand, possibilite de modifier ou deplacer
+	int			pipes_nb;
 	bool		exec_launch;
 	char		**command;
 	char		**env;

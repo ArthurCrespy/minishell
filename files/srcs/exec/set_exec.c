@@ -3,43 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   set_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 21:40:47 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/26 17:20:49 by abinet           ###   ########.fr       */
+/*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
+/*   Updated: 2023/09/26 20:51:59 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// malloc la structure pipex qui possede les infos des redirections
-// set les fdin et fdout de chaque commande
-int	set_exec(t_data *data, t_exec *exec, t_pipex *pipex)
-{
-	if (set_cmd(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_path_cmd(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_pipe(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_in(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_out(data, exec, pipex))
-		return (perror("raté"), 1);
-	return (0);
-}
-
 //definit le fdin :
 //					stdin
 //					fichier
 //					pipefd[0]
-//					here_doc
-int	set_in(t_data *data, t_exec *exec, t_pipex *pipex)
+//					heredoc
+int	exec_set_in(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	if (exec->delimiter_nb)
 	{
-		here_doc(exec);
-		pipex->fdin = open(".here_doc", O_RDONLY);
+		heredoc(exec);
+		pipex->fdin = open(".heredoc", O_RDONLY);
 		// ne marche pas parfaitement notamment :
 		// tous les "heredoc>" sont a la fin au lieu d'etre en debut de ligne
 	}
@@ -56,7 +39,7 @@ int	set_in(t_data *data, t_exec *exec, t_pipex *pipex)
 //					stdout
 //					fichier
 //					pipefd[1]
-int	set_out(t_data *data, t_exec *exec, t_pipex *pipex)
+int	exec_set_out(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	if (exec->out_nb)
 		pipex->fdout = open(exec->out[0], O_RDONLY);
@@ -68,7 +51,7 @@ int	set_out(t_data *data, t_exec *exec, t_pipex *pipex)
 }
 
 // definit les commandes
-int	set_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+int	exec_set_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	int	len;
 	int	index;
@@ -88,15 +71,32 @@ int	set_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
 }
 
 // definit le path des commandes
-int	set_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+int	exec_set_path(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	if (ft_strchr(exec->cmd, '/'))
 		pipex->path_cmd = exec->cmd;
 	else
 	{
-		pipex->path_cmd = find_path_cmd(data, exec, pipex);
+		pipex->path_cmd = path_find_cmd(data, exec, pipex);
 		if (!pipex->path_cmd)
 			return (perror("raté"), 1);
 	}
+	return (0);
+}
+
+// malloc la structure pipex qui possede les infos des redirections
+// set les fdin et fdout de chaque commande
+int	exec_set_exec(t_data *data, t_exec *exec, t_pipex *pipex)
+{
+	if (exec_set_cmd(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (exec_set_path(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (pipe_set(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_in(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_out(data, exec, pipex))
+		return (perror("raté"), 1);
 	return (0);
 }

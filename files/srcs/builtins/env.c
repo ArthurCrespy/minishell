@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_env(t_data *data)
+void	builtin_env(t_data *data)
 {
 	int		index;
 	char	*pnt;

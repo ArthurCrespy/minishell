@@ -12,11 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-// si 0 arg -> affiche export
-// si NAME -> cree la variable ou ne fait rien si elle existe deja
-// si NAME = value -> met a jour la variable ou la cree si elle n'existe pas
-
-static char	*get_variable(t_data *data, char *arg)
+static char	*export_get_var(t_data *data, char *arg)
 {
 	int		index;
 	char	*variable;
@@ -28,19 +24,19 @@ static char	*get_variable(t_data *data, char *arg)
 	return (variable);
 }
 
-int	ft_export(t_data *data, t_exec *exec)
+int	builtin_export(t_data *data, t_exec *exec)
 {
 	int		index_args;
 	char	*value;
 	char	*variable;
 
 	if (exec->args_nb == 0)
-		ft_env(data);
+		builtin_env(data);
 	index_args = 0;
 	while (index_args < exec->args_nb)
 	{
 		value = ft_strchr(exec->args[index_args], '=');
-		variable = get_variable(data, exec->args[index_args]);
+		variable = export_get_var(data, exec->args[index_args]);
 		if (!value)
 			env_add(data, exec->args[index_args], "");
 		else

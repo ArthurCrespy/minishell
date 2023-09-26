@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:03 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/24 16:01:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 20:51:11 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 		si l'arg commence par . alors chemin relatif dans le dossier actuel
 		si l'arg commence par .. alors chemin relatif dans le dossier precedent
 */
-int	ft_cd(t_data *data, t_exec *exec)
+int	builtin_cd(t_data *data, t_exec *exec)
 {
 	if (exec->args_nb == 0)
 	{

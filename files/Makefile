@@ -22,33 +22,34 @@ SRCS := \
 			builtins/export.c \
 			builtins/pwd.c \
 			builtins/unset.c \
-			command/command_parsing.c \
-			command/command_parsing_utils.c \
-			command/command_processing.c \
-			command/command_replace.c \
+			device/device.c \
 			env/env_modify.c \
 			env/env_replace.c \
 			env/env_utils.c \
 			exec/exec.c \
+			exec/heredoc.c \
+			exec/pipe.c \
+			exec/set_exec.c \
+			exit/exit.c \
 			free/free.c \
+			parsing/parsing.c \
+			parsing/parsing_replace.c \
+			parsing/parsing_replace_utils.c \
+			parsing/parsing_utils.c \
 			path/path.c \
-			print/print.c \
 			prompt/prompt_history.c \
 			prompt/prompt_keys.c \
-			prompt/prompt_launch.c \
+			prompt/prompt_run.c \
+			prompt/prompt_utils.c \
 			signal/signal_receiver.c \
 			utils/utils_atoi.c \
 			utils/utils_gnl.c \
+			utils/utils_put.c \
 			utils/utils_split.c \
 			utils/utils_str.c \
 			utils/utils_str_mem.c \
 			utils/utils_tab.c \
 			utils/utils_token.c \
-			utils/utils_put.c \
-			exec/here_doc.c \
-			exec/set_exec.c \
-			exec/pipe.c
-
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 

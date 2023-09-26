@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_processing.c                               :+:      :+:    :+:   */
+/*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 10:45:49 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/14 10:45:49 by acrespy          ###   ########.fr       */
+/*   Created: 2023/09/26 20:52:39 by acrespy           #+#    #+#             */
+/*   Updated: 2023/09/26 20:52:42 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	command_processing(t_data *data)
+char	*prompt_device_info(t_data *data)
 {
-	int	i;
+	char	*tmp;
+	char	*path;
+	char	*device;
+	char	*result;
 
-	i = 0;
-	while (data->command[i])
-	{
-		if (!ft_strcmp(data->command[i], "exit"))
-			ft_exit(data, 0, EXIT, NULL);
-		i++;
-	}
+	path = path_find(data);
+	device = device_find(data);
+	result = ft_strjoin(env_return(data, "USER"), "@");
+	tmp = ft_strjoin(result, device);
+	free(result);
+	result = ft_strjoin(tmp, ":");
+	free(tmp);
+	tmp = ft_strjoin(result, path);
+	free(result);
+	result = ft_strjoin(tmp, "> ");
+	free(tmp);
+	free(path);
+	free(device);
+	return (result);
 }
