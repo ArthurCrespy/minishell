@@ -18,6 +18,8 @@ char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);
 char	*ft_operators_replace(t_data *data, t_parsing *parsing);
 char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c);
 
+int ft_quotes_closed(const char *str);
+
 // ------- CMD UTILS ------- //
 t_exec	*exec_new_node(t_data *data);
 t_exec	*exec_old_node(t_exec *exec);

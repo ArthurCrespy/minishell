@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
+/*char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 {
 	int	i;
 
@@ -26,7 +26,9 @@ char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 		i++;
 	}
 	return (parsing->command);
-}
+}*/
+
+
 
 void	ft_operators_separate(t_parsing *parsing)
 {
@@ -129,3 +131,44 @@ char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c)
 	free(parsing->command);
 	return (parsing->tmp);
 }
+
+int ft_quotes_closed(const char *str)
+{
+    int i;
+    int opened_simple;
+	int opened_double;
+
+	i = 0;
+	opened_simple = 0;
+	opened_double = 0;
+    while (str[i] != '\0' && str[i] != '\x1F')
+	{
+		if (str[i] == '\'' && opened_double == 0)
+			opened_simple = !opened_simple;
+		if (str[i] == '\"' && opened_simple == 0)
+			opened_double = !opened_double;
+        i++;
+    }
+    return (opened_simple == 0 && opened_double == 0);
+}
+
+
+char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!data || !parsing->command || !c)
+		return (parsing->command);
+	while (parsing->command[i])
+	{
+		if (parsing->command[i] == c)
+		{
+			if (ft_quotes_closed(parsing->command + i))
+				parsing->command[i] = '\x1F';
+		}
+		i++;
+	}
+	return (parsing->command);
+}
+
