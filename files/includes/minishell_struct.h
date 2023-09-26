@@ -31,18 +31,18 @@ typedef struct s_parsing
 typedef struct s_exec
 {
 	char			*cmd;
-	int				flags_nb;
 	char			**flags;
-	int				args_nb;
 	char			**args;
-	int				in_nb;
 	char			**in;
-	int				out_nb;
 	char			**out;
-	int				out_append_nb;
 	char			**out_append;
-	int				delimiter_nb;
 	char			**delimiter;
+	int				flags_nb;
+	int				args_nb;
+	int				in_nb;
+	int				out_nb;
+	int				out_append_nb;
+	int				delimiter_nb;
 }				t_exec;
 
 typedef struct s_data
