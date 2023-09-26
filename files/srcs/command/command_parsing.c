@@ -62,6 +62,7 @@ void	command_parsing(t_data *data, char *command)
 	t_parsing	*parsing;
 
 	parsing = malloc(sizeof(t_parsing));
+	data->exec_launch = false;
 	parsing->command = ft_strdup(data, command);
 	free(command);
 	parsing->command = ft_char_replace(data, parsing, ' ');
@@ -69,11 +70,14 @@ void	command_parsing(t_data *data, char *command)
 	parsing->command = ft_char_replace(data, parsing, '\n');
 	parsing->command = ft_char_replace(data, parsing, '\v');
 	parsing->command = ft_operators_replace(data, parsing);
-	parsing->command = ft_quotes_replace(data, parsing, '\"');
+	if (!ft_quotes_closed(parsing->command))
+		return ;
 	parsing->command = ft_env_replace(data, parsing);
-	parsing->command = ft_quotes_replace(data, parsing, '\'');
+//	parsing->command = ft_quotes_replace(data, parsing, '\"');
+//	parsing->command = ft_quotes_replace(data, parsing, '\'');
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec_launch = true;
 	data->exec = node(data);
 	free(parsing->command);
+	free(parsing);
 }
