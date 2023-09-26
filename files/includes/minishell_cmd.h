@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/25 20:37:05 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 16:53:48 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 // -------- EXEC ------------//
 void	exec(t_data *data);
 void	launch_exec(t_data *data, t_exec *exec);
-int		set_in_and_out(t_data *data, t_exec *exec, t_pipex *pipex);
-int		set_command(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_cmd(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex);
 int		here_doc(t_exec *exec);
 char	*find_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_pipe(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_exec(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_in(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_out(t_data *data, t_exec *exec, t_pipex *pipex);
 
 // ------- BUILTINS -------- //
 int		ft_ft_exit(t_data *data, t_exec *exec);

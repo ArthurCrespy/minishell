@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/24 19:17:01 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 16:48:00 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_exec
 	int				out_nb;
 	int				out_append_nb;
 	int				delimiter_nb;
-  t_pipex		*pipex;
+	t_pipex			*pipex;
 }				t_exec;
 
 typedef struct s_data
@@ -62,6 +62,7 @@ typedef struct s_data
 	t_signal	sig_quit;
 	t_history	*history;
 	t_exec		**exec;
+	int			pipes_nb; // rajout armand, possibilite de modifier ou deplacer
 	bool		exec_launch;
 	char		**command;
 	char		**env;

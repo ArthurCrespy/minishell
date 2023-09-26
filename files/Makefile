@@ -6,7 +6,7 @@
 #    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/09/25 22:06:01 by abinet           ###   ########.fr        #
+#    Updated: 2023/09/26 16:55:06 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SRCS := \
 			utils/utils_token.c \
 			utils/utils_put.c \
 			exec/here_doc.c \
-			exec/set_exec.c
+			exec/set_exec.c \
+			exec/pipe.c
 
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
