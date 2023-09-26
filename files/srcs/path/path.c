@@ -12,7 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_path(t_data *data)
+// Return the path of the current directory
+char	*path_find(t_data *data)
 {
 	char	*home;
 	char	*path;
@@ -29,36 +30,7 @@ char	*ft_path(t_data *data)
 	return (result);
 }
 
-char	*ft_device(t_data *data)
-{
-	int		i;
-	char	*device;
-	char	*session;
-
-	if (!data->env)
-		return (NULL);
-	i = 6;
-	device = NULL;
-	session = env_return(data, "SESSION_MANAGER");
-	if (session && ft_strncmp(session, "local/", 6) == 0)
-	{
-		device = (char *)malloc(sizeof(char) * (ft_strlen(session)));
-		if (!device)
-			ft_exit(data, -1, MALLOC_ERROR, "ft_device");
-		while (session[i]
-			&& session[i] != ',' && session[i] != ':' && session[i] != '.')
-		{
-			device[i - 6] = session[i];
-			i++;
-		}
-		device[i - 6] = '\0';
-	}
-	else
-		device = ft_strdup(data, "local");
-	return (device);
-}
-
-char	*find_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+char	*path_find_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	unsigned int	i;
 	char			**all_paths;

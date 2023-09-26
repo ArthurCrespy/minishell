@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 21:05:43 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/26 17:20:11 by abinet           ###   ########.fr       */
+/*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
+/*   Updated: 2023/09/26 20:51:41 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // verifie que le launch s'affiche bien
 // boucle pour lancer chaque commande a la suite
-void	exec(t_data *data)
+void	exec_run(t_data *data)
 {
 	int		index;
 
@@ -26,24 +26,25 @@ void	exec(t_data *data)
 	index = 0;
 	while (data->exec[index])
 	{
+		exec_builtin(data, data->exec[index]);
 		data->exec[index]->id_exec = index;
-		launch_exec(data, data->exec[index]);
+		exec_data_set(data, data->exec[index]);
 		index++;
 	}
 }
 
 //malloc pipex
 //set l'exec
-void	launch_exec(t_data *data, t_exec *exec)
+void	exec_data_set(t_data *data, t_exec *exec)
 {
 	t_pipex	*pipex;
 	//pid_t	pid;
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
-		return (perror("raté"));
+		return (perror("exec_data_set failed"));
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
 	exec->pipex = pipex;
-	set_exec(data, exec, pipex);
+	exec_set_exec(data, exec, pipex);
 	//execve(pipex->path_cmd, pipex->cmd, data->env);
 	free(pipex->path_cmd);
 	free(pipex->cmd);
@@ -53,16 +54,16 @@ void	launch_exec(t_data *data, t_exec *exec)
 	// 	return (perror("raté"));
 	// if (pid == 0) //&& data.path_cmd1)
 	// {
-	// 	child(data, exec, pipex);
+	// 	exec_child(data, exec, pipex);
 		//gestion erreur si exec mal passe
 	// }
 	//si pipe alors closepipefd[1]
-	//if here_doc : unlink fichier .here_doc
+	//if here_doc : unlink fichier .heredoc
 }
 
 // remplace les stdin et stdout par les fdin et fdout correspondants
 // lance l'exec
-void	child(t_data *data, t_exec *exec, t_pipex *pipex)
+void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	(void)data;
 	(void)exec;
@@ -70,23 +71,23 @@ void	child(t_data *data, t_exec *exec, t_pipex *pipex)
 }
 
 // execute les builtins qui sont appeles
-void	find_cmd(t_data *data, t_exec *exec)
+void	exec_builtin(t_data *data, t_exec *exec)
 {
 	char	*cmd;
 
 	cmd = exec->cmd;
 	if (!ft_strcmp(cmd, "exit"))
-		ft_ft_exit(data, data->exec[0]);
+		builtin_exit(data, data->exec[0]);
 	else if (!ft_strcmp(cmd, "pwd"))
-		ft_pwd(data);
+		builtin_pwd(data);
 	else if (!ft_strcmp(cmd, "cd"))
-		ft_cd(data, data->exec[0]);
+		builtin_cd(data, data->exec[0]);
 	else if (!ft_strcmp(cmd, "unset"))
-		ft_unset(data, data->exec[0]);
+		builtin_unset(data, data->exec[0]);
 	else if (!ft_strcmp(cmd, "echo"))
-		ft_echo(data, data->exec[0]);
+		builtin_echo(data, data->exec[0]);
 	else if (!ft_strcmp(cmd, "export"))
-		ft_export(data, data->exec[0]);
+		builtin_export(data, data->exec[0]);
 	else if (!ft_strcmp(cmd, "env"))
-		ft_env(data);
+		builtin_env(data);
 }

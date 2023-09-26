@@ -23,6 +23,21 @@ static void	skip_whitespaces(const char **str)
 		(*str)++;
 }
 
+int	ft_len(int n)
+{
+	size_t	len;
+
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
+	{
+		len++;
+		n /= 10;
+	}
+	return (len);
+}
+
 int	ft_atoi(const char *str)
 {
 	long int	res;
@@ -43,21 +58,6 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (res * i);
-}
-
-int	ft_len(int n)
-{
-	size_t	len;
-
-	len = 0;
-	if (n <= 0)
-		len++;
-	while (n)
-	{
-		len++;
-		n /= 10;
-	}
-	return (len);
 }
 
 char	*ft_itoa(int n)

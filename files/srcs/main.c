@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 19:57:44 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 20:52:58 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_exit(NULL, -1, ARG_ERROR, "main");
 	env_save(&data, argc, argv, envp);
 	signal_handle(&data);
-	prompt_launch(&data);
+	prompt_run(&data);
 	ft_free(&data);
 	return (0);
 }

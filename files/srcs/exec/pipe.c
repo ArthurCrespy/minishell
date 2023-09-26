@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 // cree le nombre de pipes necessaires
-int	set_pipe(t_data *data, t_exec *exec, t_pipex *pipex)
+int	pipe_set(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	int	index;
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_echo(t_data *data, t_exec *exec)
+int	builtin_echo(t_data *data, t_exec *exec)
 {
 	int		index_args;
 	bool	n_flag;

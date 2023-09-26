@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_unset(t_data *data, t_exec *exec)
+void	builtin_unset(t_data *data, t_exec *exec)
 {
 	int	index;
 

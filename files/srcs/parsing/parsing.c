@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_parsing.c                                  :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 17:08:56 by abinet           ###   ########.fr       */
+/*   Created: 2023/09/26 20:52:24 by acrespy           #+#    #+#             */
+/*   Updated: 2023/09/26 20:52:28 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	process_command_block(t_data *data, t_exec **exec, int *i, int *j)
+// Parse the command and store it in data->exec
+void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 {
 	if (!data->command[(*i)])
 	{
 		data->exec_launch = false;
 		return ;
 	}
-	exec[(*j)] = exec_new_node(data);
+	exec[(*j)] = ft_exec_node_create(data);
 	if ((*i) > 0 && data->command[(*i)][0] == '|')
 	{
-		data->pipes_nb++; //rajout armand, possibilite de modifier ou deplacer
+		data->pipes_nb++;
 		(*i)++;
 	}
 	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
@@ -32,14 +33,15 @@ void	process_command_block(t_data *data, t_exec **exec, int *i, int *j)
 				data->command[(*i)++]);
 	while (data->command[(*i)] && data->command[(*i)][0] != '|')
 	{
-		parse_command_or_args(data, exec[(*j)], i);
+		ft_exec_token_parser(data, exec[(*j)], i);
 		(*i)++;
 	}
-	exec[(*j)] = exec_old_node(exec[(*j)]);
+	exec[(*j)] = ft_exec_node_null(exec[(*j)]);
 	(*j)++;
 }
 
-t_exec	**node(t_data *data)
+// Prepare the data->exec array and launch the process
+t_exec	**ft_exec_data_set(t_data *data)
 {
 	int		i;
 	int		j;
@@ -50,15 +52,17 @@ t_exec	**node(t_data *data)
 	exec = (t_exec **)malloc(sizeof(t_exec *)
 			* (ft_tabcount(data->command, '|') + 2));
 	if (!exec)
-		ft_exit(data, -1, MALLOC_ERROR, "node");
-	data->pipes_nb = 0; //rajout armand, possibilite de modifier ou deplacer
+		ft_exit(data, -1, MALLOC_ERROR, "ft_exec_data_set");
+	data->exec_launch = true;
+	data->pipes_nb = 0;
 	while (data->command[i])
-		process_command_block(data, exec, &i, &j);
+		ft_exec_data_process(data, exec, &i, &j);
 	exec[j] = NULL;
 	return (exec);
 }
 
-void	command_parsing(t_data *data, char *command)
+// Parse the input command and store it in data->exec and in data->command
+void	parsing_input(t_data *data, char *command)
 {
 	t_parsing	*parsing;
 
@@ -83,8 +87,7 @@ void	command_parsing(t_data *data, char *command)
 //	parsing->command = ft_quotes_replace(data, parsing, '\"');
 //	parsing->command = ft_quotes_replace(data, parsing, '\'');
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
-	data->exec_launch = true;
-	data->exec = node(data);
+	data->exec = ft_exec_data_set(data);
 	free(parsing->command);
 	free(parsing);
 }

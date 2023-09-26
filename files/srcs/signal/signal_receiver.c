@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+// Return the last signal received
+// Note: set == 1 reset the signal
 int	signal_status(int status, int set)
 {
 	static int	sig;
@@ -23,6 +25,7 @@ int	signal_status(int status, int set)
 	return (sig);
 }
 
+// Signal processing
 void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 {
 	(void)siginfo;
@@ -36,17 +39,13 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
-	{
 		signal_status(SIGQUIT, 0);
-		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
-	}
 	else if (sig == SIGTERM)
-	{
 		signal_status(SIGTERM, 0);
-		printf("DEBUG: signal_status = %d\n", signal_status(0, 0));
-	}
 }
 
+// Signal handle
+// Note: SIGQUIT sa_handler is set to SIG_IGN to ignore the signal
 void	signal_handle(t_data *data)
 {
 	data->sig.sa_sigaction = signal_processing;
@@ -62,7 +61,7 @@ void	signal_handle(t_data *data)
 }
 
 /*  -- termios management --
-    -- I think needed when running on iMac --
+    -- Needed when running on iMac --
 
 	t_termios	attr_old;
 	t_termios	attr_new;

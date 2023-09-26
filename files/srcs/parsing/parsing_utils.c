@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_parsing_utils.c                            :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:15:48 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/21 16:15:48 by acrespy          ###   ########.fr       */
+/*   Created: 2023/09/26 20:52:18 by acrespy           #+#    #+#             */
+/*   Updated: 2023/09/26 20:52:20 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_exec	*exec_new_node(t_data *data)
+// Create a new node for exec
+t_exec	*ft_exec_node_create(t_data *data)
 {
 	t_exec	*exec;
 
 	exec = (t_exec *)malloc(sizeof(t_exec));
 	if (!exec)
-		ft_exit(data, -1, MALLOC_ERROR, "exec_new_node");
+		ft_exit(data, -1, MALLOC_ERROR, "ft_exec_node_create");
 	exec->cmd = NULL;
 	exec->flags = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->args = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
@@ -35,7 +36,8 @@ t_exec	*exec_new_node(t_data *data)
 	return (exec);
 }
 
-t_exec	*exec_old_node(t_exec *exec)
+// Set the exec elements to NULL
+t_exec	*ft_exec_node_null(t_exec *exec)
 {
 	exec->flags[exec->flags_nb] = NULL;
 	exec->args[exec->args_nb] = NULL;
@@ -46,7 +48,8 @@ t_exec	*exec_old_node(t_exec *exec)
 	return (exec);
 }
 
-void	parse_input_in_del(t_data *data, t_exec *exec, int *i)
+// Parse input tokens
+void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 {
 	(*i)++;
 	if (ft_istoken(data->command[(*i)]))
@@ -61,7 +64,8 @@ void	parse_input_in_del(t_data *data, t_exec *exec, int *i)
 		exec->in[exec->in_nb++] = ft_strdup(data, data->command[(*i)]);
 }
 
-void	parse_output_redirection(t_data *data, t_exec *exec, int *i)
+// Parse output tokens
+void	ft_exec_token_output(t_data *data, t_exec *exec, int *i)
 {
 	(*i)++;
 	if (ft_istoken(data->command[*i]))
@@ -76,14 +80,15 @@ void	parse_output_redirection(t_data *data, t_exec *exec, int *i)
 		exec->out[exec->out_nb++] = ft_strdup(data, data->command[*i]);
 }
 
-void	parse_command_or_args(t_data *data, t_exec *exec, int *i)
+// Parse tokens
+void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i)
 {
 	if (!data->command[(*i)])
 		return ;
 	if (data->command[(*i)] && data->command[(*i)][0] == '<')
-		parse_input_in_del(data, exec, i);
+		ft_exec_token_input(data, exec, i);
 	else if (data->command[(*i)] && data->command[(*i)][0] == '>')
-		parse_output_redirection(data, exec, i);
+		ft_exec_token_output(data, exec, i);
 	else if (data->command[(*i)] && data->command[(*i)][0] != '|')
 		exec->args[exec->args_nb++] = ft_strdup(data, data->command[(*i)]);
 }

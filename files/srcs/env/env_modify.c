@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Update the value of an environment variable
 void	env_update(t_data *data, char *name, char *value)
 {
 	int		i;
@@ -31,6 +32,8 @@ void	env_update(t_data *data, char *name, char *value)
 	}
 }
 
+// Add a new environment variable
+// Note: If the variable already exists, its value will be updated
 void	env_add(t_data *data, char *name, char *value)
 {
 	int		i;
@@ -58,6 +61,7 @@ void	env_add(t_data *data, char *name, char *value)
 	data->env = new_env;
 }
 
+// Delete an environment variable
 void	env_delete(t_data *data, char *name)
 {
 	int		i;

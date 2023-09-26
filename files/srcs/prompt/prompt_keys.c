@@ -86,6 +86,8 @@ void	key_operators(t_data *data, int key)
 	}
 }
 
+// Allowing to use the arrows and the enter key
+// Note: Function needed only when running on iMac's
 void	key_processing(t_data *data, int key)
 {
 	if (key == 27)
