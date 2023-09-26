@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:05:43 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/25 22:07:40 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 17:20:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,19 @@ void	exec(t_data *data)
 	}
 }
 
-// malloc la structure pipex qui possede les infos des redirections
-// set les fdin et fdout de chaque commande
-// fork
-// pars dans le processus enfant
+//malloc pipex
+//set l'exec
 void	launch_exec(t_data *data, t_exec *exec)
 {
 	t_pipex	*pipex;
 	//pid_t	pid;
-
 	pipex = malloc(sizeof(t_pipex));
-	exec->pipex = pipex;
+	if (!pipex)
+		return (perror("raté"));
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
-	if (set_command(data, exec, pipex))
-		return (perror("raté"));
-	if (set_in_and_out(data, exec, pipex))
-		return (perror("raté"));
+	exec->pipex = pipex;
+	set_exec(data, exec, pipex);
+	//execve(pipex->path_cmd, pipex->cmd, data->env);
 	free(pipex->path_cmd);
 	free(pipex->cmd);
 	free(pipex);
@@ -71,7 +68,6 @@ void	child(t_data *data, t_exec *exec, t_pipex *pipex)
 	(void)exec;
 	(void)pipex;
 }
-
 
 // execute les builtins qui sont appeles
 void	find_cmd(t_data *data, t_exec *exec)

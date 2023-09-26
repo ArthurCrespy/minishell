@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:21:16 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/25 21:34:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 17:08:56 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	process_command_block(t_data *data, t_exec **exec, int *i, int *j)
 	}
 	exec[(*j)] = exec_new_node(data);
 	if ((*i) > 0 && data->command[(*i)][0] == '|')
+	{
+		data->pipes_nb++; //rajout armand, possibilite de modifier ou deplacer
 		(*i)++;
+	}
 	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
 	(*i)++;
 	while (data->command[(*i)] && data->command[(*i)][0] == '-')
@@ -45,12 +48,10 @@ t_exec	**node(t_data *data)
 	i = 0;
 	j = 0;
 	exec = (t_exec **)malloc(sizeof(t_exec *)
-			* (ft_tablen(data->command) + 1));
-	///// data->command c'est les commandes + les args + les flags
-	//// donc ft_tablen ne renvoie pas le bon nombre de structure exec
-	//// il faut une structure par commande et non pas une structure pour chaque commande, arg ou flag...
+			* (ft_tabcount(data->command, '|') + 2));
 	if (!exec)
 		ft_exit(data, -1, MALLOC_ERROR, "node");
+	data->pipes_nb = 0; //rajout armand, possibilite de modifier ou deplacer
 	while (data->command[i])
 		process_command_block(data, exec, &i, &j);
 	exec[j] = NULL;

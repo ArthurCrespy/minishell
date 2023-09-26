@@ -6,19 +6,36 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:40:47 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/25 21:41:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/26 17:20:49 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//definit les fdin et fdout
-int	set_in_and_out(t_data *data, t_exec *exec, t_pipex *pipex)
+// malloc la structure pipex qui possede les infos des redirections
+// set les fdin et fdout de chaque commande
+int	set_exec(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	//fdin : stdin
-	//		 fichier
-	//		 pipefd[0]
-	//		 here_doc
+	if (set_cmd(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_path_cmd(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_pipe(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_in(data, exec, pipex))
+		return (perror("raté"), 1);
+	if (set_out(data, exec, pipex))
+		return (perror("raté"), 1);
+	return (0);
+}
+
+//definit le fdin :
+//					stdin
+//					fichier
+//					pipefd[0]
+//					here_doc
+int	set_in(t_data *data, t_exec *exec, t_pipex *pipex)
+{
 	if (exec->delimiter_nb)
 	{
 		here_doc(exec);
@@ -32,42 +49,30 @@ int	set_in_and_out(t_data *data, t_exec *exec, t_pipex *pipex)
 		pipex->fdin = STDIN_FILENO;
 	else
 		pipex->fdin = data->exec[exec->id_exec - 1]->pipex->pipefd[0];
-
-	//fdout : stdout
-	//		  fichier
-	//		  pipefd[1]
-	if (exec->out_nb)
-	{
-		pipex->fdout = open(exec->out[0], O_RDONLY);
-		//printf("11111\n");
-	}
-	else if (pipex->pipefd[1])
-	{
-		pipex->fdout = pipex->pipefd[1];
-		//printf("22222\n");
-	}
-	else
-	{
-		pipex->fdout = STDOUT_FILENO;
-		//printf("33333\n");
-	}
-	//printf("fdin = %d\n", pipex->fdin);
-	//printf("fdout = %d\n", pipex->fdout);
 	return (0);
 }
 
+//definit le fdout:
+//					stdout
+//					fichier
+//					pipefd[1]
+int	set_out(t_data *data, t_exec *exec, t_pipex *pipex)
+{
+	if (exec->out_nb)
+		pipex->fdout = open(exec->out[0], O_RDONLY);
+	else if (data->pipes_nb != 0)
+		pipex->fdout = pipex->pipefd[1];
+	else
+		pipex->fdout = STDOUT_FILENO;
+	return (0);
+}
 
-
-// definit les commandes et leur path pour execve
-int	set_command(t_data *data, t_exec *exec, t_pipex *pipex)
+// definit les commandes
+int	set_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	int	len;
 	int	index;
 
-	(void)data;
-	(void)exec;
-
-	//cmd
 	len = 1 + exec->args_nb + exec->flags_nb;
 	index = 0;
 	pipex->cmd = malloc(sizeof(char *) * (len + 1));
@@ -79,11 +84,19 @@ int	set_command(t_data *data, t_exec *exec, t_pipex *pipex)
 		index++;
 	}
 	pipex->cmd[index] = NULL;
+	return (0);
+}
 
-	//path_cmd
+// definit le path des commandes
+int	set_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+{
 	if (ft_strchr(exec->cmd, '/'))
 		pipex->path_cmd = exec->cmd;
 	else
+	{
 		pipex->path_cmd = find_path_cmd(data, exec, pipex);
+		if (!pipex->path_cmd)
+			return (perror("raté"), 1);
+	}
 	return (0);
 }
