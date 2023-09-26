@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:12:03 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/19 12:12:03 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/25 21:40:21 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,30 @@ char	*ft_device(t_data *data)
 	else
 		device = ft_strdup(data, "local");
 	return (device);
+}
+
+char	*find_path_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+{
+	unsigned int	i;
+	char			**all_paths;
+	char			*path;
+	char			*end_path;
+
+	(void)pipex;
+	all_paths = ft_strsplit(data, env_return(data, "PATH"), ':');
+	if (!all_paths)
+		return (0);
+	i = 0;
+	end_path = ft_strjoin("/", exec->cmd);
+	while (all_paths[i])
+	{
+		path = ft_strjoin(all_paths[i], end_path);
+		if (access(path, F_OK) == 0)
+			return (free(end_path), ft_free_tab(all_paths), path);
+		free(path);
+		i++;
+	}
+	free(end_path);
+	ft_free_tab(all_paths);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/20 21:17:40 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/24 19:47:22 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ int		ft_tabcount(char **tab, const char c);
 
 // ------- UTILS TOK ------- //
 int		ft_istoken(char *str);
+
+// ------- UTILS PUT -------//
+void	ft_putstr_fd(char *s, int fd);
 
 #endif
