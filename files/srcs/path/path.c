@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Return the path of the current directory
 char	*path_find(t_data *data)
 {
 	char	*home;

@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Return the size of the environment variable pointed by command[i]
 int	ft_env_size(t_data *data, char *command, int i)
 {
 	int		j;
@@ -41,6 +42,7 @@ int	ft_env_size(t_data *data, char *command, int i)
 	return (size + i);
 }
 
+// Replace the environment variable in the command
 void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 {
 	int		k;
@@ -68,6 +70,7 @@ void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 	free(var_value);
 }
 
+// Check if the environment variable is valid
 void	ft_dollar_check(t_data *data, t_parsing *parsing)
 {
 	int		k;
@@ -95,6 +98,7 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 	free(var_value);
 }
 
+// Replace the environment variables in the command
 char	*ft_env_replace(t_data *data, t_parsing *parsing)
 {
 	parsing->i = 0;

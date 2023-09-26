@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Return useful informations about the device to the prompt
 char	*prompt_device_info(t_data *data)
 {
 	char	*tmp;

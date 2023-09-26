@@ -79,7 +79,7 @@ int	exec_set_path(t_data *data, t_exec *exec, t_pipex *pipex)
 	{
 		pipex->path_cmd = path_find_cmd(data, exec, pipex);
 		if (!pipex->path_cmd)
-			return (perror("raté"), 1);
+			return (perror("exec_set_path failed"), 1);
 	}
 	return (0);
 }
@@ -89,14 +89,14 @@ int	exec_set_path(t_data *data, t_exec *exec, t_pipex *pipex)
 int	exec_set_exec(t_data *data, t_exec *exec, t_pipex *pipex)
 {
 	if (exec_set_cmd(data, exec, pipex))
-		return (perror("raté"), 1);
+		return (perror("exec_set_cmd failed"), 1);
 	if (exec_set_path(data, exec, pipex))
-		return (perror("raté"), 1);
+		return (perror("exec_set_path failed"), 1);
 	if (pipe_set(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_in(data, exec, pipex))
-		return (perror("raté"), 1);
-	if (set_out(data, exec, pipex))
-		return (perror("raté"), 1);
+		return (perror("pipe_set failed"), 1);
+	if (exec_set_in(data, exec, pipex))
+		return (perror("exec_set_in failed"), 1);
+	if (exec_set_out(data, exec, pipex))
+		return (perror("exec_set_in failed"), 1);
 	return (0);
 }

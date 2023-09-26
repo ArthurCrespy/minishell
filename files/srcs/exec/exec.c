@@ -41,7 +41,7 @@ void	exec_data_set(t_data *data, t_exec *exec)
 	//pid_t	pid;
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
-		return (perror("raté"));
+		return (perror("exec_data_set failed"));
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
 	exec->pipex = pipex;
 	exec_set_exec(data, exec, pipex);

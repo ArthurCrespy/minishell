@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Create a new node for exec
 t_exec	*ft_exec_node_create(t_data *data)
 {
 	t_exec	*exec;
@@ -35,6 +36,7 @@ t_exec	*ft_exec_node_create(t_data *data)
 	return (exec);
 }
 
+// Set the exec elements to NULL
 t_exec	*ft_exec_node_null(t_exec *exec)
 {
 	exec->flags[exec->flags_nb] = NULL;
@@ -46,6 +48,7 @@ t_exec	*ft_exec_node_null(t_exec *exec)
 	return (exec);
 }
 
+// Parse input tokens
 void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 {
 	(*i)++;
@@ -61,6 +64,7 @@ void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 		exec->in[exec->in_nb++] = ft_strdup(data, data->command[(*i)]);
 }
 
+// Parse output tokens
 void	ft_exec_token_output(t_data *data, t_exec *exec, int *i)
 {
 	(*i)++;
@@ -76,6 +80,7 @@ void	ft_exec_token_output(t_data *data, t_exec *exec, int *i)
 		exec->out[exec->out_nb++] = ft_strdup(data, data->command[*i]);
 }
 
+// Parse tokens
 void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i)
 {
 	if (!data->command[(*i)])

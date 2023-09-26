@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Parse the command and store it in data->exec
 void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 {
 	if (!data->command[(*i)])
@@ -22,7 +23,7 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 	exec[(*j)] = ft_exec_node_create(data);
 	if ((*i) > 0 && data->command[(*i)][0] == '|')
 	{
-		data->pipes_nb++; //rajout armand, possibilite de modifier ou deplacer
+		data->pipes_nb++;
 		(*i)++;
 	}
 	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
@@ -39,6 +40,7 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 	(*j)++;
 }
 
+// Prepare the data->exec array and launch the process
 t_exec	**ft_exec_data_set(t_data *data)
 {
 	int		i;
@@ -59,6 +61,7 @@ t_exec	**ft_exec_data_set(t_data *data)
 	return (exec);
 }
 
+// Parse the input command and store it in data->exec and in data->command
 void	parsing_input(t_data *data, char *command)
 {
 	t_parsing	*parsing;

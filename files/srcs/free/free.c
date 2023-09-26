@@ -27,6 +27,7 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
+// Note: The tab passed as parameter is not freed
 void	ft_free_tab_little(char **tab)
 {
 	int	i;

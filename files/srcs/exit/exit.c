@@ -32,6 +32,7 @@ char	*ft_return_error(int error)
 		return ("unknown error");
 }
 
+// Free the data structure and exit the program
 void	ft_exit(t_data *data, int code, int error, char *origin)
 {
 	if (data)

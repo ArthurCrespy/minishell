@@ -12,14 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*  cd sans options :
-		si HOME est empty alors rien
-		si HOME est defini alors HOME
-	cd avec options :
-		si l'arg commence par / alors chemin absolu
-		si l'arg commence par . alors chemin relatif dans le dossier actuel
-		si l'arg commence par .. alors chemin relatif dans le dossier precedent
-*/
 int	builtin_cd(t_data *data, t_exec *exec)
 {
 	if (exec->args_nb == 0)

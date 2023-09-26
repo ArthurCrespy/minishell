@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Separate the operators by \x1F
 void	ft_operators_separate(t_parsing *parsing)
 {
 	int		count;
@@ -39,6 +40,7 @@ void	ft_operators_separate(t_parsing *parsing)
 	parsing->tmp[parsing->j++] = '\x1F';
 }
 
+// Check if the quotes are closed
 void	ft_quotes_check(t_parsing *parsing)
 {
 	int		y;
@@ -65,6 +67,7 @@ void	ft_quotes_check(t_parsing *parsing)
 	parsing->i++;
 }
 
+// Check if the quotes are closed
 int	ft_quotes_closed(const char *str)
 {
 	int	i;
@@ -85,6 +88,7 @@ int	ft_quotes_closed(const char *str)
 	return (opened_simple == 0 && opened_double == 0);
 }
 
+// Check if the word is enclosed by double quotes
 int	ft_quotes_enclosed(t_parsing *parsing)
 {
 	int	i;

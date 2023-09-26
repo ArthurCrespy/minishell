@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+// Return the variable name from the argument
+// Note: The returned value must be freed
 static char	*export_get_var(t_data *data, char *arg)
 {
 	int		index;

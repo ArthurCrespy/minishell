@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Launch the prompt
 void	prompt_run(t_data *data)
 {
 	char	*prompt;

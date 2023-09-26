@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+// Replace the char c by \x1F if it's not in a quote
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 {
 	int	i;
@@ -31,6 +32,7 @@ char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 	return (parsing->command);
 }
 
+// Replace the operators by \x1F
 char	*ft_operators_replace(t_data *data, t_parsing *parsing)
 {
 	int		len;
@@ -58,6 +60,7 @@ char	*ft_operators_replace(t_data *data, t_parsing *parsing)
 	return (parsing->tmp);
 }
 
+// Replace the quotes by \x1F
 char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c)
 {
 	int		len;
