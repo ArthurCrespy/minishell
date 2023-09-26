@@ -62,6 +62,8 @@ void	ft_free_exec(t_exec **exec)
 	int	i;
 
 	i = 0;
+	if (!exec)
+		return ;
 	while (exec[i])
 	{
 		if (exec[i]->cmd)
