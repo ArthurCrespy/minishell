@@ -28,8 +28,6 @@
 	return (parsing->command);
 }*/
 
-
-
 void	ft_operators_separate(t_parsing *parsing)
 {
 	int		count;
@@ -132,26 +130,25 @@ char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c)
 	return (parsing->tmp);
 }
 
-int ft_quotes_closed(const char *str)
+int	ft_quotes_closed(const char *str)
 {
-    int i;
-    int opened_simple;
-	int opened_double;
+	int	i;
+	int	opened_simple;
+	int	opened_double;
 
 	i = 0;
 	opened_simple = 0;
 	opened_double = 0;
-    while (str[i] != '\0' && str[i] != '\x1F')
+	while (str[i] != '\0' && str[i] != '\x1F')
 	{
 		if (str[i] == '\'' && opened_double == 0)
 			opened_simple = !opened_simple;
 		if (str[i] == '\"' && opened_simple == 0)
 			opened_double = !opened_double;
-        i++;
-    }
-    return (opened_simple == 0 && opened_double == 0);
+		i++;
+	}
+	return (opened_simple == 0 && opened_double == 0);
 }
-
 
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 {
@@ -171,4 +168,3 @@ char	*ft_char_replace(t_data *data, t_parsing *parsing, int c)
 	}
 	return (parsing->command);
 }
-

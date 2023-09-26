@@ -95,10 +95,10 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 	free(var_value);
 }
 
-int     ft_quotes_enclosed(t_parsing *parsing)
+int	ft_quotes_enclosed(t_parsing *parsing)
 {
-	int i;
-	int open;
+	int	i;
+	int	open;
 
 	i = parsing->i;
 	open = 0;
@@ -113,7 +113,7 @@ int     ft_quotes_enclosed(t_parsing *parsing)
 			open = !open;
 		i++;
 	}
-	while ()
+//	while ()
 	return (1);
 }
 
