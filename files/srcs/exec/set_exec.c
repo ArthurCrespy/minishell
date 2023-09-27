@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 20:51:59 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/27 17:16:09 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exec_set_in(t_data *data, t_exec *exec, t_pipex *pipex)
 		pipex->fdin = open(exec->in[0], O_RDONLY);
 	else if (exec->id_exec == 0)
 		pipex->fdin = STDIN_FILENO;
-	else
+	else if (exec->id_exec != 0)
 		pipex->fdin = data->exec[exec->id_exec - 1]->pipex->pipefd[0];
 	return (0);
 }
@@ -44,7 +44,9 @@ int	exec_set_out(t_data *data, t_exec *exec, t_pipex *pipex)
 	if (exec->out_nb)
 		pipex->fdout = open(exec->out[0], O_RDONLY);
 	else if (data->pipes_nb != 0)
+	{
 		pipex->fdout = pipex->pipefd[1];
+	}
 	else
 		pipex->fdout = STDOUT_FILENO;
 	return (0);
@@ -84,15 +86,17 @@ int	exec_set_path(t_data *data, t_exec *exec, t_pipex *pipex)
 	return (0);
 }
 
-// malloc la structure pipex qui possede les infos des redirections
 // set les fdin et fdout de chaque commande
 int	exec_set_exec(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	if (exec_set_cmd(data, exec, pipex))
-		return (perror("exec_set_cmd failed"), 1);
-	if (exec_set_path(data, exec, pipex))
-		return (perror("exec_set_path failed"), 1);
-	if (pipe_set(data, exec, pipex))
+	if (!check_builtin(data, exec))
+	{
+		if (exec_set_cmd(data, exec, pipex))
+			return (perror("exec_set_cmd failed"), 1);
+		if (exec_set_path(data, exec, pipex))
+			return (perror("exec_set_path failed"), 1);
+	}
+	if (set_pipe(data, exec, pipex))
 		return (perror("pipe_set failed"), 1);
 	if (exec_set_in(data, exec, pipex))
 		return (perror("exec_set_in failed"), 1);

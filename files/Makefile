@@ -6,7 +6,7 @@
 #    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/09/26 16:55:06 by abinet           ###   ########.fr        #
+#    Updated: 2023/09/27 14:08:23 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS := \
 			exec/heredoc.c \
 			exec/pipe.c \
 			exec/set_exec.c \
+			exec/exec_launch.c \
 			exit/exit.c \
 			free/free.c \
 			parsing/parsing.c \

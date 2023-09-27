@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_run.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:23:57 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 18:23:57 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/09/27 17:51:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	prompt_run(t_data *data)
 	char	*prompt;
 	char	*input;
 
+	data->history = NULL;
 	signal_status(0, 1);
 	while (1)
 	{
