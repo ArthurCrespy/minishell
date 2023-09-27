@@ -14,21 +14,28 @@
 
 int	heredoc(t_exec *exec)
 {
-	char	*line;
-	size_t	len;
 	int		fd_temp;
+	char	*input;
+	size_t	len;
 
 	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	if (fd_temp == -1)
+		ft_exit(NULL, -1, OPEN_ERROR, "heredoc");
 	while (1)
 	{
-		printf("heredoc> ");
-		line = get_next_line(STDIN_FILENO);
-		len = ft_strlen(line);
-		line[len - 1] = '\0';
-		if (ft_strncmp(line, exec->delimiter[0], len) == 0)
+		input = readline("heredoc> ");
+		if (!input)
 			break ;
-		ft_putstr_fd(line, fd_temp);
-		free(line);
+		if (ft_strcmp(input, exec->delimiter[0]) && ft_strcmp(input, ""))
+		{
+			len = ft_strlen(input);
+			input[len] = '\0';
+			ft_putstr_fd(input, fd_temp);
+			ft_putstr_fd("\n", fd_temp);
+		}
+		else if (!ft_strcmp(input, exec->delimiter[0]))
+			break ;
+		free(input);
 	}
 	close(fd_temp);
 	return (fd_temp);
