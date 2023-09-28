@@ -76,7 +76,7 @@ void	ft_free_exec(t_data *data)
 	i = 0;
 	if (!data->exec)
 		return ;
-	while (data->exec[i])
+	while (data->exec && data->exec[i])
 	{
 		if (data->exec[i]->cmd)
 			free(data->exec[i]->cmd);
