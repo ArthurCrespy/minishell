@@ -89,16 +89,13 @@ int	ft_quotes_closed(const char *str)
 }
 
 // Check if the word is enclosed by double quotes
-int	ft_quotes_enclosed(t_parsing *parsing)
+int	ft_quotes_enclosed(t_parsing *parsing, int open, int i)
 {
-	int	i;
-	int	open;
-
 	i = parsing->i;
-	open = 0;
 	if (i == 0)
 		return (1);
-	while (parsing->command[i] && parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
+	while (parsing->command[i] && parsing->command[i] != '\0'
+		&& parsing->command[i] != '\x1F')
 	{
 		if (parsing->command[i] == '\"')
 			open++;
@@ -107,7 +104,8 @@ int	ft_quotes_enclosed(t_parsing *parsing)
 	if (i == 0 || i == -1)
 		return (0);
 	i = parsing->i;
-	while (parsing->command[i] && parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
+	while (parsing->command[i] && parsing->command[i] != '\0'
+		&& parsing->command[i] != '\x1F')
 	{
 		if (parsing->command[i] == '\"')
 			open++;

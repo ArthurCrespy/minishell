@@ -42,6 +42,31 @@ void	ft_free_tab_little(char **tab)
 	}
 }
 
+void	ft_free_exec2(t_data *data, int i)
+{
+	if (data->exec[i]->in)
+	{
+		ft_free_tab_little(data->exec[i]->in);
+		free(data->exec[i]->in);
+	}
+	if (data->exec[i]->out)
+	{
+		ft_free_tab_little(data->exec[i]->out);
+		free(data->exec[i]->out);
+	}
+	if (data->exec[i]->out_append)
+	{
+		ft_free_tab_little(data->exec[i]->out_append);
+		free(data->exec[i]->out_append);
+	}
+	if (data->exec[i]->delimiter)
+	{
+		ft_free_tab_little(data->exec[i]->delimiter);
+		free(data->exec[i]->delimiter);
+	}
+	free(data->exec[i]);
+}
+
 void	ft_free_exec(t_data *data)
 {
 	int	i;
@@ -49,7 +74,7 @@ void	ft_free_exec(t_data *data)
 	i = 0;
 	if (!data->exec)
 		return ;
-	while (data->exec[i])
+	while (data->exec && data->exec[i])
 	{
 		if (data->exec[i]->cmd)
 			free(data->exec[i]->cmd);
@@ -63,27 +88,7 @@ void	ft_free_exec(t_data *data)
 			ft_free_tab_little(data->exec[i]->args);
 			free(data->exec[i]->args);
 		}
-		if (data->exec[i]->in)
-		{
-			ft_free_tab_little(data->exec[i]->in);
-			free(data->exec[i]->in);
-		}
-		if (data->exec[i]->out)
-		{
-			ft_free_tab_little(data->exec[i]->out);
-			free(data->exec[i]->out);
-		}
-		if (data->exec[i]->out_append)
-		{
-			ft_free_tab_little(data->exec[i]->out_append);
-			free(data->exec[i]->out_append);
-		}
-		if (data->exec[i]->delimiter)
-		{
-			ft_free_tab_little(data->exec[i]->delimiter);
-			free(data->exec[i]->delimiter);
-		}
-		free(data->exec[i]);
+		ft_free_exec2(data, i);
 		i++;
 	}
 	free(data->exec);

@@ -17,6 +17,9 @@ int	main(int argc, char **argv, char **envp)
 	t_data		data;
 
 	g_data_access = &data;
+	data.history = NULL;
+	data.exec = NULL;
+	data.command = NULL;
 	if (!*envp)
 		ft_exit(NULL, -1, ENV_ERROR, "main");
 	if (argc != 1 || argv[1])

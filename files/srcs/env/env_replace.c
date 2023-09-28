@@ -13,9 +13,8 @@
 #include "../../includes/minishell.h"
 
 // Return the size of the environment variable pointed by command[i]
-int	ft_env_size(t_data *data, char *command, int i)
+int	ft_env_size(t_data *data, char *command, int i, int j)
 {
-	int		j;
 	int		size;
 	char	*tmp;
 
@@ -27,7 +26,8 @@ int	ft_env_size(t_data *data, char *command, int i)
 			i++;
 			j = 0;
 			tmp = malloc(sizeof(char) * (ft_strlen(command)));
-			while (command[i] && command[i] != ' ' && command[i] != '\x1F' && command[i] != '\'')
+			while (command[i] && command[i] != ' ' && command[i] != '\x1F'
+				&& command[i] != '\'')
 				tmp[j++] = command[i++];
 			tmp[j] = '\0';
 			if (!ft_tabchr(data->env, tmp))
@@ -65,7 +65,6 @@ void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 		command_value = data->env[ft_tabchr(data->env, var_value) - 1];
 		while (command_value[f])
 			parsing->tmp[parsing->j++] = command_value[f++];
-		parsing->tmp[parsing->j++] = '\x1F';
 	}
 	free(var_value);
 }
@@ -91,7 +90,6 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 		return_value = ft_itoa(data->return_value);
 		while (return_value[k])
 			parsing->tmp[parsing->j++] = return_value[k++];
-		parsing->tmp[parsing->j++] = '\x1F';
 	}
 	else
 		ft_dollar_replace(data, parsing);
@@ -104,12 +102,13 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing)
 	parsing->i = 0;
 	parsing->j = 0;
 	parsing->tmp = ft_calloc(sizeof(char),
-			(ft_env_size(data, parsing->command, 0) + 1));
+			(ft_env_size(data, parsing->command, 0, 0) + 1));
 	if (!parsing->tmp)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_env_replace");
 	while (parsing->command[parsing->i])
 	{
-		if (parsing->command[parsing->i] == '$' && ft_quotes_enclosed(parsing))
+		if (parsing->command[parsing->i] == '$'
+			&& ft_quotes_enclosed(parsing, 0, 0))
 			ft_dollar_check(data, parsing);
 		else
 			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];

@@ -21,6 +21,7 @@ void	prompt_run(t_data *data)
 	signal_status(0, 1);
 	while (1)
 	{
+		data->command = NULL;
 		prompt = prompt_device_info(data);
 		input = readline(prompt);
 		free(prompt);
@@ -28,7 +29,6 @@ void	prompt_run(t_data *data)
 			break ;
 		if (ft_strcmp(input, "") != 0)
 		{
-			data->command = NULL;
 			add_history(input);
 			parsing_input(data, input);
 			exec_run(data);
