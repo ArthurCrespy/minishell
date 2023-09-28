@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/27 17:53:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 15:22:40 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,28 @@
 //fork puis donne les instructions pour les process enfants et parent
 int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 {
-	pid_t	pid;
+	(void)exec;
+	// pid_t	pid;
 
-	printf("foooork\n");
-	pid = fork();
-	if (pid == -1)
-		return (perror("raté"), 1);
-	if (pid == 0) //&& data.path_cmd1)
-	{
-		exec_child(data, exec, pipex);
-		//gestion erreur si exec mal passe
-	}
+	// printf("foooork\n");
+	// pid = fork();
+	// if (pid == -1)
+	// 	return (perror("raté"), 1);
+	// if (pid == 0) //&& data.path_cmd1)
+	// {
+	// 	exec_child(data, exec, pipex);
+	// 	//gestion erreur si exec mal passe
+	// }
 	if (data->pipes_nb)
 	{
 		close(pipex->pipefd[1]);
 		data->pipes_nb--;
 	}
 	if (pipex->fdin != -1)
+	{
+		printf("on est la\n");
 		close(pipex->fdin);
+	}
 	if (exec->delimiter_nb)
 		unlink(".heredoc");
 	//free(pipex->cmd);

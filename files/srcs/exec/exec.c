@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/27 17:54:02 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 15:19:30 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	exec_run(t_data *data)
 	{
 		data->exec[index]->id_exec = index;
 		exec_data_set(data, data->exec[index]);
+		//exec_builtin(data, data->exec[index]);
 		//execve(data->exec[index]->pipex->path_cmd, data->exec[index]->pipex->cmd, data->env);
 		exec_launch(data, data->exec[index], data->exec[index]->pipex);
-		waitpid(-1, NULL, 0);
+		//waitpid(-1, NULL, 0);
 		index++;
 	}
 	//sleep(2);
