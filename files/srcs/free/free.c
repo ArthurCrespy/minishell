@@ -65,8 +65,6 @@ void	ft_free_exec2(t_data *data, int i)
 		free(data->exec[i]->delimiter);
 	}
 	free(data->exec[i]);
-	free(data->exec);
-	data->exec = NULL;
 }
 
 void	ft_free_exec(t_data *data)
@@ -93,6 +91,8 @@ void	ft_free_exec(t_data *data)
 		ft_free_exec2(data, i);
 		i++;
 	}
+	free(data->exec);
+	data->exec = NULL;
 }
 
 void	ft_free(t_data *data)

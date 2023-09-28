@@ -21,6 +21,7 @@ void	prompt_run(t_data *data)
 	signal_status(0, 1);
 	while (1)
 	{
+		data->command = NULL;
 		prompt = prompt_device_info(data);
 		input = readline(prompt);
 		free(prompt);
