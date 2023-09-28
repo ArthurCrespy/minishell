@@ -21,6 +21,8 @@
 # define ARG_ERROR 5
 # define EXECVE_ERROR 6
 # define FORK_ERROR 7
+# define OPEN_ERROR 8
+# define WAITPID_ERROR 9
 
 # define STDIN 0
 # define STDOUT 1

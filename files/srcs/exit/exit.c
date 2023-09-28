@@ -28,6 +28,10 @@ char	*ft_return_error(int error)
 		return ("execve error");
 	else if (error == FORK_ERROR)
 		return ("fork error");
+	else if (error == OPEN_ERROR)
+		return ("open error");
+	else if (error == WAITPID_ERROR)
+		return ("waitpid error");
 	else
 		return ("unknown error");
 }

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 16:53:48 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/27 16:04:05 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		builtin_exit(t_data *data, t_exec *exec);
 int		builtin_export(t_data *data, t_exec *exec);
 void	builtin_pwd(t_data *data);
 void	builtin_unset(t_data *data, t_exec *exec);
+int		check_builtin(t_data *data, t_exec *exec);
+
 
 // ----------- DEVICE ---------- //
 char	*device_find(t_data *data);
@@ -36,9 +38,10 @@ char	*env_return(t_data *data, char *name);
 void	exec_run(t_data *data);
 void	exec_data_set(t_data *data, t_exec *exec);
 void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex);
-void	exec_builtin(t_data *data, t_exec *exec);
+int		exec_builtin(t_data *data, t_exec *exec);
 int		heredoc(t_exec *exec);
-int		pipe_set(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_pipe(t_data *data, t_exec *exec, t_pipex *pipex);
+int		exec_launch(t_data *data, t_exec *exec, t_pipex *pipex);
 
 // ------------ EXIT ----------- //
 void	ft_exit(t_data *data, int code, int error, char *origin);

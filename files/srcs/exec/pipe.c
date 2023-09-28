@@ -6,30 +6,23 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:54:17 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/26 16:56:08 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/27 11:56:49 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // cree le nombre de pipes necessaires
-int	pipe_set(t_data *data, t_exec *exec, t_pipex *pipex)
+int	set_pipe(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	int	index;
-
 	(void)exec;
 	(void)pipex;
 	if (data->pipes_nb == 0)
 		return (0);
 	else
 	{
-		index = 0;
-		while (index < data->pipes_nb)
-		{
-			if (pipe(data->exec[index]->pipex->pipefd) == -1)
-				return (1);
-			index++;
-		}
+		if (pipe(pipex->pipefd) == -1)
+			return (1);
 	}
 	return (0);
 }

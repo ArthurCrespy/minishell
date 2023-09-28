@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:51:11 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/24 19:36:06 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/27 15:10:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 #endif
