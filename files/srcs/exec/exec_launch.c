@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/28 17:52:55 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:44:57 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 	pid_t	pid;
 
 	(void)exec;
-
 	pid = fork();
 	if (pid == -1)
 		return (perror("raté"), 1);
@@ -27,20 +26,16 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 		exec_child(data, exec, pipex);
 		//gestion erreur si exec mal passe
 	}
+	close(pipex->pipefd[1]);
+	if (data->pipes_nb == 0 && exec->id_exec)
+	{
+		close(pipex->pipefd[0]);
+		close(pipex->pipefd[1]);
+	}
 	if (data->pipes_nb)
 	{
-		close(pipex->pipefd[1]);
 		data->pipes_nb--;
 	}
-	// printf("fdin = %d\n", pipex->fdin);
-	// printf("fdout = %d\n", pipex->fdout);
-	// printf("lecture : pipexfd[0] = %d\n", pipex->pipefd[0]);
-	// printf("ecriture : pipexfd[1] = %d\n", pipex->pipefd[1]);
-	// if (pipex->fdin != -1)
-	// {
-	// 	printf("on est la\n");
-	// 	close(pipex->fdin);
-	// }
 	if (exec->delimiter_nb)
 		unlink(".heredoc");
 	//free(pipex->cmd);
@@ -52,22 +47,26 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 // lance l'exec
 void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	(void)pipex;
 	(void)data;
 	(void)exec;
-	if (exec_builtin(data, exec) == 1)
+	printf("fdin = %d\n", pipex->fdin);
+	printf("fdout = %d\n", pipex->fdout);
+	printf("pipefd[1] = %d\n", pipex->pipefd[1]);
+	printf("pipefd[0] = %d\n", pipex->pipefd[0]);
+	printf("nb_pipe = %d\n", data->pipes_nb);
+
+	if (data->pipes_nb != 0)
 	{
-		if (data->pipes_nb != 0)
-			close(pipex->pipefd[0]);
-		dup2(pipex->fdin, STDIN_FILENO);
-		close(pipex->fdin);
+		close(pipex->pipefd[1]);
 		dup2(pipex->fdout, STDOUT_FILENO);
-		if (data->pipes_nb != 0)
-			close(pipex->pipefd[1]);
-		execve(pipex->path_cmd, pipex->cmd, data->env);
+		close(pipex->fdout);
 	}
-	// if (exec_builtin(data, exec) == 1)
-	// 	execve(pipex->path_cmd, pipex->cmd, data->env);
-	// printf("end of child\n");
+	dup2(pipex->fdin, STDIN_FILENO);
+	close(pipex->fdin);
+	if (exec->id_exec == 0 && data->pipes_nb != 0)
+		close(pipex->pipefd[0]);
+	ft_putstr_fd("voilaaa\n", STDOUT_FILENO);
+	if (exec_builtin(data, exec) == 1)
+		execve(pipex->path_cmd, pipex->cmd, data->env);
 	exit(0);
 }

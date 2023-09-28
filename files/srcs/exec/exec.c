@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/28 17:53:14 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:39:44 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	exec_data_set(t_data *data, t_exec *exec)
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
 		return (perror("exec_data_set failed"));
+	pipex->pipefd[0] = -1;
+	pipex->pipefd[1] = -1;
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
 	data->exec[exec->id_exec]->pipex = pipex;
 	exec_set_exec(data, exec, pipex);
