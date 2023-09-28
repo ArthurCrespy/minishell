@@ -26,7 +26,7 @@ char	*ft_quotes_replace(t_data *data, t_parsing *parsing, char c);
 void	ft_operators_separate(t_parsing *parsing);
 void	ft_quotes_check(t_parsing *parsing);
 int		ft_quotes_closed(const char *str);
-int		ft_quotes_enclosed(t_parsing *parsing);
+int		ft_quotes_enclosed(t_parsing *parsing, int open, int i);
 t_exec	*ft_exec_node_create(t_data *data);
 t_exec	*ft_exec_node_null(t_exec *exec);
 void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i);

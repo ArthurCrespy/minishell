@@ -29,6 +29,7 @@ void	prompt_run(t_data *data)
 		if (ft_strcmp(input, "") != 0)
 		{
 			data->command = NULL;
+			data->history = NULL;
 			add_history(input);
 			parsing_input(data, input);
 			exec_run(data);

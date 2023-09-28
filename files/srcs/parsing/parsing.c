@@ -78,14 +78,13 @@ void	parsing_input(t_data *data, char *command)
 	parsing->command = ft_operators_replace(data, parsing);
 	if (!ft_quotes_closed(parsing->command))
 	{
-		data->exec_launch = false;
 		free(parsing->command);
 		free(parsing);
 		return ;
 	}
 	parsing->command = ft_env_replace(data, parsing);
-//	parsing->command = ft_quotes_replace(data, parsing, '\"');
-//	parsing->command = ft_quotes_replace(data, parsing, '\'');
+	parsing->command = ft_quotes_replace(data, parsing, '\"');
+	parsing->command = ft_quotes_replace(data, parsing, '\'');
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
 	free(parsing->command);
