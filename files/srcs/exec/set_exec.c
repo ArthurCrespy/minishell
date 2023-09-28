@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/27 17:16:09 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 17:46:33 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 //					heredoc
 int	exec_set_in(t_data *data, t_exec *exec, t_pipex *pipex)
 {
+	(void)data;
 	if (exec->delimiter_nb)
 	{
 		heredoc(exec);
@@ -31,7 +32,10 @@ int	exec_set_in(t_data *data, t_exec *exec, t_pipex *pipex)
 	else if (exec->id_exec == 0)
 		pipex->fdin = STDIN_FILENO;
 	else if (exec->id_exec != 0)
-		pipex->fdin = data->exec[exec->id_exec - 1]->pipex->pipefd[0];
+	{
+		if (data->exec[exec->id_exec - 1])
+			pipex->fdin = data->exec[exec->id_exec - 1]->fdin_next;
+	}
 	return (0);
 }
 
@@ -46,6 +50,7 @@ int	exec_set_out(t_data *data, t_exec *exec, t_pipex *pipex)
 	else if (data->pipes_nb != 0)
 	{
 		pipex->fdout = pipex->pipefd[1];
+		exec->fdin_next = pipex->pipefd[0];
 	}
 	else
 		pipex->fdout = STDOUT_FILENO;

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/28 15:19:30 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/28 17:53:14 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	exec_run(t_data *data)
 		printf("minishell: parse error\n");
 		return ;
 	}
+	data->exec[0]->fdin_next = 0;
 	index = 0;
 	while (data->exec[index])
 	{
@@ -31,7 +32,7 @@ void	exec_run(t_data *data)
 		//exec_builtin(data, data->exec[index]);
 		//execve(data->exec[index]->pipex->path_cmd, data->exec[index]->pipex->cmd, data->env);
 		exec_launch(data, data->exec[index], data->exec[index]->pipex);
-		//waitpid(-1, NULL, 0);
+		waitpid(-1, NULL, 0);
 		index++;
 	}
 	//sleep(2);
@@ -47,7 +48,7 @@ void	exec_data_set(t_data *data, t_exec *exec)
 	if (!pipex)
 		return (perror("exec_data_set failed"));
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
-	exec->pipex = pipex;
+	data->exec[exec->id_exec]->pipex = pipex;
 	exec_set_exec(data, exec, pipex);
 }
 
