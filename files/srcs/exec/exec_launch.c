@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/28 19:44:57 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:55:23 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 {
 	pid_t	pid;
 
-	(void)exec;
 	pid = fork();
 	if (pid == -1)
 		return (perror("raté"), 1);
@@ -27,15 +26,8 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 		//gestion erreur si exec mal passe
 	}
 	close(pipex->pipefd[1]);
-	if (data->pipes_nb == 0 && exec->id_exec)
-	{
-		close(pipex->pipefd[0]);
-		close(pipex->pipefd[1]);
-	}
 	if (data->pipes_nb)
-	{
 		data->pipes_nb--;
-	}
 	if (exec->delimiter_nb)
 		unlink(".heredoc");
 	//free(pipex->cmd);
@@ -57,15 +49,19 @@ void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 
 	if (data->pipes_nb != 0)
 	{
-		close(pipex->pipefd[1]);
 		dup2(pipex->fdout, STDOUT_FILENO);
 		close(pipex->fdout);
 	}
+
+	if (data->pipes_nb == 0)
+		close(pipex->pipefd[1]);
+
 	dup2(pipex->fdin, STDIN_FILENO);
 	close(pipex->fdin);
-	if (exec->id_exec == 0 && data->pipes_nb != 0)
+
+	if (data->pipes_nb != 0 && exec->id_exec == 0)
 		close(pipex->pipefd[0]);
-	ft_putstr_fd("voilaaa\n", STDOUT_FILENO);
+
 	if (exec_builtin(data, exec) == 1)
 		execve(pipex->path_cmd, pipex->cmd, data->env);
 	exit(0);
