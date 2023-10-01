@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/24 19:47:22 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 02:22:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char	*ft_env_replace(t_data *data, t_parsing *parsing);
 
 // ------------ EXEC ----------- //
-int		exec_set_exec(t_data *data, t_exec *exec, t_pipex *pipex);
+int		exec_set_exec(t_data *data, t_exec *exec);
 
 // ---------- PARSING ---------- //
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);

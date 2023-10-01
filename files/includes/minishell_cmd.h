@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/30 23:07:59 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 02:27:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ char	*env_return(t_data *data, char *name);
 // ------------ EXEC ----------- //
 void	exec_run(t_data *data);
 int		exec_data_set(t_data *data, t_exec *exec);
-void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex);
+void	exec_child(t_data *data, t_exec *exec);
 int		exec_builtin(t_data *data, t_exec *exec);
 int		heredoc(t_exec *exec);
-int		set_pipe(t_data *data, t_exec *exec, t_pipex *pipex);
-int		exec_launch(t_data *data, t_exec *exec, t_pipex *pipex);
+int		set_pipe(t_data *data, t_exec *exec);
+int		exec_launch(t_data *data, t_exec *exec);
 
 // ------------ EXIT ----------- //
 void	ft_exit(t_data *data, int code, int error, char *origin);
@@ -56,7 +56,7 @@ void	parsing_input(t_data *data, char *command);
 
 // ------------ PATH ----------- //
 char	*path_find(t_data *data);
-char	*path_find_cmd(t_data *data, t_exec *exec, t_pipex *pipex);
+char	*path_find_cmd(t_data *data, t_exec *exec);
 
 // ----------- PROMPT ---------- //
 void	history_add(t_data *data, char *cmd);

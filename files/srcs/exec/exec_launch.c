@@ -6,36 +6,39 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/01 01:56:15 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 02:56:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //fork puis donne les instructions pour les process enfants et parent
-int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
+int	exec_launch(t_data *data, t_exec *exec)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
-	if ((pid == 0) && pipex->path_cmd)
+	if ((pid == 0) && exec->path_cmd)
 	{
 		//verifier le path dans le child
-		exec_child(data, exec, pipex);
+		printf("go chiiiiild -> id_exec = %d\n", exec->id_exec);
+		exec_child(data, exec);
 		perror("execve");
 	}
-	close(pipex->pipefd[1]);
-	close(pipex->pipefd[0]);
+	if (data->pipes_nb != 0)
+		close(exec->pipefd[1]);
+	if (exec->id_exec != 0)
+		close(data->exec[exec->id_exec - 1]->pipefd[0]);
 	// if (exec->id_exec != 0)
 	// {
-	// 	if (close(pipex->pipefd[0]) == -1)
+	// 	if (close(exec->pipefd[0]) == -1)
 	// 		perror("close pipefd[0] parent");
 	// }
 	// if (data->pipes_nb == 0)
 	// {
-	// 	if (close(pipex->pipefd[1]) == -1)
+	// 	if (close(exec->pipefd[1]) == -1)
 	// 		perror("close pipefd[1] parent");
 	// }
 	if (data->pipes_nb)
@@ -44,41 +47,49 @@ int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
 		unlink(".heredoc");
 	if (check_builtin(data, exec) == 0)
 	{
-		free(pipex->cmd);
-		free(pipex->path_cmd);
+		free(exec->cmd_exec);
+		free(exec->path_cmd);
 	}
-	//free(pipex);
+	// printf("id_exec = %d\n", exec->id_exec);
+	// printf("fdin = %d\n", exec->fdin);
+	// printf("fdout = %d\n", exec->fdout);
+	// printf("pipefd[1] = %d\n", exec->pipefd[1]);
+	// printf("pipefd[0] = %d\n", exec->pipefd[0]);
+	// printf("nb_pipe = %d\n", data->pipes_nb);
 	return (0);
 }
 
 // remplace les stdin et stdout par les fdin et fdout correspondants
 // lance l'exec
-void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
+void	exec_child(t_data *data, t_exec *exec)
 {
-	// printf("id_exec = %d\n", exec->id_exec);
-	// printf("fdin = %d\n", pipex->fdin);
-	// printf("fdout = %d\n", pipex->fdout);
-	// printf("pipefd[1] = %d\n", pipex->pipefd[1]);
-	// printf("pipefd[0] = %d\n", pipex->pipefd[0]);
-	// printf("nb_pipe = %d\n", data->pipes_nb);
+	printf("id_exec = %d\n", exec->id_exec);
+	printf("fdin = %d\n", exec->fdin);
+	printf("fdout = %d\n", exec->fdout);
+	printf("pipefd[1] = %d\n", exec->pipefd[1]);
+	printf("pipefd[0] = %d\n", exec->pipefd[0]);
+	printf("nb_pipe = %d\n", data->pipes_nb);
 	if (exec->id_exec != 0)
 	{
-		close(pipex->pipefd[1]);
-		dup2(pipex->fdin, STDIN_FILENO);
-		if (close(pipex->fdin) == -1)
+		close(exec->pipefd[1]);
+		dup2(exec->fdin, STDIN_FILENO);
+		if (close(exec->fdin) == -1)
 			perror("close fdin child");
 	}
 	if (data->pipes_nb != 0)
 	{
-		close(pipex->pipefd[0]);
-		dup2(pipex->pipefd[1], STDOUT_FILENO);
-		close(pipex->pipefd[1]);
-		if (close(pipex->fdout) == -1)
+		close(exec->pipefd[0]);
+		dup2(exec->fdout, STDOUT_FILENO);
+		if (close(exec->fdout) == -1)
 			perror("close fdout child");
 	}
-	//printf("nb_pipe 22222222 = %d\n", data->pipes_nb);
+	char *fd;
+	fd = ft_itoa(STDOUT_FILENO);
+	ft_putstr_fd("\nstdout =", 4);
+	ft_putstr_fd(fd, 4);
+	ft_putstr_fd("\n", 4);
 	if (exec_builtin(data, exec) == 1)
-		execve(pipex->path_cmd, pipex->cmd, data->env);
+		execve(exec->path_cmd, exec->cmd_exec, data->env);
 	exit(0);
 }
 
@@ -89,7 +100,7 @@ void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 
 
 // //fork puis donne les instructions pour les process enfants et parent
-// int	exec_launch(t_data *data, t_exec *exec, t_pipex * pipex)
+// int	exec_launch(t_data *data, t_exec *exec, t_exec * exec)
 // {
 // 	pid_t	pid;
 
@@ -98,12 +109,12 @@ void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 // 		return (perror("raté"), 1);
 // 	if (pid == 0) //&& data.path_cmd1)
 // 	{
-// 		exec_child(data, exec, pipex);
+// 		exec_child(data, exec, exec);
 // 		//gestion erreur si exec mal passe
 // 	}
 // 	// if (data->pipes_nb != 0 || exec->id_exec != 0)
 // 	// {
-// 	// 	if (close(pipex->pipefd[1]) == -1)
+// 	// 	if (close(exec->pipefd[1]) == -1)
 // 	// 		perror("close pipefd[1] parent");
 // 	// }
 // 	if (data->pipes_nb)
@@ -112,48 +123,48 @@ void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
 // 		unlink(".heredoc");
 // 	if (check_builtin(data, exec) == 0)
 // 	{
-// 		free(pipex->cmd);
-// 		free(pipex->path_cmd);
+// 		free(exec->cmd);
+// 		free(exec->path_cmd);
 // 	}
-// 	//free(pipex);
+// 	//free(exec);
 // 	return (0);
 // }
 
 // // remplace les stdin et stdout par les fdin et fdout correspondants
 // // lance l'exec
-// void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex)
+// void	exec_child(t_data *data, t_exec *exec, t_exec *exec)
 // {
 // 	(void)data;
 // 	(void)exec;
-// 	printf("fdin = %d\n", pipex->fdin);
-// 	printf("fdout = %d\n", pipex->fdout);
-// 	printf("pipefd[1] = %d\n", pipex->pipefd[1]);
-// 	printf("pipefd[0] = %d\n", pipex->pipefd[0]);
+// 	printf("fdin = %d\n", exec->fdin);
+// 	printf("fdout = %d\n", exec->fdout);
+// 	printf("pipefd[1] = %d\n", exec->pipefd[1]);
+// 	printf("pipefd[0] = %d\n", exec->pipefd[0]);
 // 	printf("nb_pipe = %d\n", data->pipes_nb);
 
 // 	if (data->pipes_nb != 0)
 // 	{
-// 		dup2(pipex->fdout, STDOUT_FILENO);
-// 		if (close(pipex->fdout) == -1)
+// 		dup2(exec->fdout, STDOUT_FILENO);
+// 		if (close(exec->fdout) == -1)
 // 			perror("close fdout child");
 // 	}
 
 // 	if (data->pipes_nb == 0 && exec->id_exec != 0)
 // 	{
-// 		if (close(pipex->pipefd[1]) == -1)
+// 		if (close(exec->pipefd[1]) == -1)
 // 			perror("close pipefd[1] child");
 // 	}
 
-// 	dup2(pipex->fdin, STDIN_FILENO);
-// 	if (close(pipex->fdin) == -1)
+// 	dup2(exec->fdin, STDIN_FILENO);
+// 	if (close(exec->fdin) == -1)
 // 			perror("close fdin child");
 
 // 	if (data->pipes_nb != 0 && exec->id_exec == 0)
 // 	{
-// 		if (close(pipex->pipefd[0]) == -1)
+// 		if (close(exec->pipefd[0]) == -1)
 // 			perror("close pipefd[0] child");
 // 	}
 // 	if (exec_builtin(data, exec) == 1)
-// 		execve(pipex->path_cmd, pipex->cmd, data->env);
+// 		execve(exec->path_cmd, exec->cmd, data->env);
 // 	exit(0);
 // }
