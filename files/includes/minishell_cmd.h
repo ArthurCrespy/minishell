@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/27 16:04:05 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/30 23:07:59 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*env_return(t_data *data, char *name);
 
 // ------------ EXEC ----------- //
 void	exec_run(t_data *data);
-void	exec_data_set(t_data *data, t_exec *exec);
+int		exec_data_set(t_data *data, t_exec *exec);
 void	exec_child(t_data *data, t_exec *exec, t_pipex *pipex);
 int		exec_builtin(t_data *data, t_exec *exec);
 int		heredoc(t_exec *exec);

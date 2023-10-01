@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/21 16:27:48 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/30 13:45:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	builtin_exit(t_data *data, t_exec *exec)
 	}
 	else
 		exit_value = 0;
+	free(exec->pipex);
 	ft_exit(data, exit_value, EXIT, NULL);
 	return (1);
 }

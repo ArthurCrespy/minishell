@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/28 17:46:33 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/30 23:05:09 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	exec_set_path(t_data *data, t_exec *exec, t_pipex *pipex)
 	{
 		pipex->path_cmd = path_find_cmd(data, exec, pipex);
 		if (!pipex->path_cmd)
-			return (perror("exec_set_path failed"), 1);
+			return (1);
 	}
 	return (0);
 }

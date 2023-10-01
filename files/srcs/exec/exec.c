@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/29 16:37:10 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 02:15:19 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,31 @@ void	exec_run(t_data *data)
 	while (data->exec[index])
 	{
 		data->exec[index]->id_exec = index;
-		exec_data_set(data, data->exec[index]);
-		if (data->pipes_nb == 0 && check_builtin(data, data->exec[index]) == 1)
-			exec_builtin(data, data->exec[index]);
-		else
-			exec_launch(data, data->exec[index], data->exec[index]->pipex);
+		if (exec_data_set(data, data->exec[index]) == 0)
+		{
 		// execve(data->exec[index]->pipex->path_cmd, data->exec[index]->pipex->cmd, data->env);
+
+			if (data->exec[index]->id_exec != 0)
+			{
+				// char *line;
+				// // int		fdout, fdin;
+				// // fdin = data->exec[index]->pipex->fdin;
+				// // fdout = data->exec[index]->pipex->fdout;
+				// line = get_next_line(data->exec[index]->pipex->fdin);
+				// printf("line = %s\n", line);
+				// printf("fdin = %d\n", fdin);
+				// printf("fdout = %d\n", fdout);
+				//free(line);
+			}
+			// TODO: en dehors de la boucle
+			if (data->pipes_nb == 0 && check_builtin(data, data->exec[index]) == 1)
+			{
+				exec_builtin(data, data->exec[index]);
+				free(data->exec[index]->pipex);
+			}
+			else
+				exec_launch(data, data->exec[index], data->exec[index]->pipex);
+		}
 		waitpid(-1, NULL, 0);
 		index++;
 		//printf("\n");
@@ -43,19 +62,23 @@ void	exec_run(t_data *data)
 
 //malloc pipex
 //set l'exec
-void	exec_data_set(t_data *data, t_exec *exec)
+int	exec_data_set(t_data *data, t_exec *exec)
 {
 	t_pipex	*pipex;
 
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
-		return (perror("exec_data_set failed"));
+		return (perror("pipex malloc"), 1);
 	pipex->pipefd[0] = -1;
 	pipex->pipefd[1] = -1;
 	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
 	data->exec[exec->id_exec]->pipex = pipex;
-	exec_set_exec(data, exec, pipex);
+	if (exec_set_exec(data, exec, pipex) != 0)
+		return (1);
+	return (0);
 }
+
+
 
 // execute les builtins qui sont appeles
 int	exec_builtin(t_data *data, t_exec *exec)

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:19 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/27 14:32:13 by abinet           ###   ########.fr       */
+/*   Updated: 2023/09/30 23:00:32 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	builtin_env(t_data *data)
 			if (*(pnt + 1) == '\0')
 				printf("''");
 		}
-		index++;
 		if (data->env[index])
 			printf("\n");
+		index++;
 	}
 }
