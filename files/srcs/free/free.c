@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:25:56 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/13 12:31:19 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/10/01 20:43:34 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_free_exec(t_data *data)
 		if (data->exec[i]->flags)
 		{
 			ft_free_tab(data->exec[i]->flags);
-			free(data->exec[i]->flags);
 		}
 		if (data->exec[i]->args)
 		{

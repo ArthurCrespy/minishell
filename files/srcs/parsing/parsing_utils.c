@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:52:18 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 20:52:20 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/10/01 20:41:08 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ t_exec	*ft_exec_node_create(t_data *data)
 	exec->out_nb = 0;
 	exec->out_append_nb = 0;
 	exec->delimiter_nb = 0;
+	exec->fdin = -1;
+	exec->fdout = -1;
+	exec->fdin_next = -1;
+	exec->id_exec = 0;
+	exec->pipefd[0] = -1;
+	exec->pipefd[1] = -1;
+	exec->cmd_exec = NULL;
+	exec->path_cmd = NULL;
 	return (exec);
 }
 

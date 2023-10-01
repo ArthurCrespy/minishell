@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 02:28:45 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 21:10:18 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,25 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 	int	len;
 	int	index;
 
+	(void)data;
 	len = 1 + exec->args_nb + exec->flags_nb;
-	index = 0;
 	exec->cmd_exec = malloc(sizeof(char *) * (len + 1));
 	if (!exec->cmd_exec)
 		return (1);
-	while (index < len)
+	exec->cmd_exec[0] = exec->cmd;
+	index = 0;
+	while (exec->args[index])
 	{
-		exec->cmd_exec[index] = data->command[index];
+		exec->cmd_exec[index + 1] = exec->args[index];
 		index++;
 	}
-	exec->cmd_exec[index] = NULL;
+	index = 0;
+	while (exec->flags[index])
+	{
+		exec->cmd_exec[index + 1 + exec->args_nb] = exec->flags[index];
+		index++;
+	}
+	exec->cmd_exec[len] = NULL;
 	return (0);
 }
 
