@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:03 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/26 20:51:11 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:18:44 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	builtin_cd(t_data *data, t_exec *exec)
 			return (perror("cd"), 1);
 	}
 	else
-		return (printf("cd: string not in pwd: %s\n", exec->args[0]), 1);
+		return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
 	return (0);
 }

@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   utils_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 17:17:19 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/02 16:03:03 by abinet           ###   ########.fr       */
+/*   Created: 2023/10/02 18:06:28 by abinet            #+#    #+#             */
+/*   Updated: 2023/10/02 18:06:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	builtin_env(t_data *data)
+int	ft_isalpha(char c)
 {
-	int		index;
-	char	*pnt;
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
 
-	index = 0;
-	while (data->env[index])
-	{
-		printf("%s", data->env[index]);
-		pnt = ft_strchr(data->env[index], '=');
-		if (pnt)
-		{
-			if (*(pnt + 1) == '\0')
-				printf("''");
-		}
-		if (data->env[index])
-			printf("\n");
-		index++;
-	}
+int	ft_isdigit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
 }

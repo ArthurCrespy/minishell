@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/01 21:52:29 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/02 16:37:00 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,32 @@ int	exec_launch(t_data *data, t_exec *exec)
 // lance l'exec
 void	exec_child(t_data *data, t_exec *exec)
 {
+	if (exec->id_exec != 0)
+	{
+		dup2(exec->fdin, STDIN_FILENO);
+		if (close(exec->fdin) == -1)
+			perror("close fdin child");
+	}
+	if (data->pipes_nb != 0)
+	{
+		close(exec->pipefd[0]);
+		dup2(exec->fdout, STDOUT_FILENO);
+		if (close(exec->fdout) == -1)
+			perror("close fdout child");
+	}
+	if (check_builtin(data, exec) == 1)
+	{
+		if (exec_builtin(data, exec) == 0)
+			exit(0);
+	}
+	else if (exec->path_cmd)
+	{
+		execve(exec->path_cmd, exec->cmd_exec, data->env);
+		perror("execve");
+	}
+	exit(1);
+}
+
 	// printf("id_exec = %d\n", exec->id_exec);
 	// printf("fdin = %d\n", exec->fdin);
 	// printf("fdout = %d\n", exec->fdout);
@@ -75,101 +101,3 @@ void	exec_child(t_data *data, t_exec *exec)
 	// }
 
 	// printf("\n");
-	if (exec->id_exec != 0)
-	{
-		dup2(exec->fdin, STDIN_FILENO);
-		if (close(exec->fdin) == -1)
-			perror("close fdin child");
-	}
-	if (data->pipes_nb != 0)
-	{
-		close(exec->pipefd[0]);
-		dup2(exec->fdout, STDOUT_FILENO);
-		if (close(exec->fdout) == -1)
-			perror("close fdout child");
-	}
-	if (exec_builtin(data, exec) == 0)
-		exit(0);
-	else if (exec->path_cmd)
-	{
-		execve(exec->path_cmd, exec->cmd_exec, data->env);
-		perror("execve");
-	}
-	exit(1);
-}
-
-
-
-
-
-
-
-// //fork puis donne les instructions pour les process enfants et parent
-// int	exec_launch(t_data *data, t_exec *exec, t_exec * exec)
-// {
-// 	pid_t	pid;
-
-// 	pid = fork();
-// 	if (pid == -1)
-// 		return (perror("raté"), 1);
-// 	if (pid == 0) //&& data.path_cmd1)
-// 	{
-// 		exec_child(data, exec, exec);
-// 		//gestion erreur si exec mal passe
-// 	}
-// 	// if (data->pipes_nb != 0 || exec->id_exec != 0)
-// 	// {
-// 	// 	if (close(exec->pipefd[1]) == -1)
-// 	// 		perror("close pipefd[1] parent");
-// 	// }
-// 	if (data->pipes_nb)
-// 		data->pipes_nb--;
-// 	if (exec->delimiter_nb)
-// 		unlink(".heredoc");
-// 	if (check_builtin(data, exec) == 0)
-// 	{
-// 		free(exec->cmd);
-// 		free(exec->path_cmd);
-// 	}
-// 	//free(exec);
-// 	return (0);
-// }
-
-// // remplace les stdin et stdout par les fdin et fdout correspondants
-// // lance l'exec
-// void	exec_child(t_data *data, t_exec *exec, t_exec *exec)
-// {
-// 	(void)data;
-// 	(void)exec;
-// 	printf("fdin = %d\n", exec->fdin);
-// 	printf("fdout = %d\n", exec->fdout);
-// 	printf("pipefd[1] = %d\n", exec->pipefd[1]);
-// 	printf("pipefd[0] = %d\n", exec->pipefd[0]);
-// 	printf("nb_pipe = %d\n", data->pipes_nb);
-
-// 	if (data->pipes_nb != 0)
-// 	{
-// 		dup2(exec->fdout, STDOUT_FILENO);
-// 		if (close(exec->fdout) == -1)
-// 			perror("close fdout child");
-// 	}
-
-// 	if (data->pipes_nb == 0 && exec->id_exec != 0)
-// 	{
-// 		if (close(exec->pipefd[1]) == -1)
-// 			perror("close pipefd[1] child");
-// 	}
-
-// 	dup2(exec->fdin, STDIN_FILENO);
-// 	if (close(exec->fdin) == -1)
-// 			perror("close fdin child");
-
-// 	if (data->pipes_nb != 0 && exec->id_exec == 0)
-// 	{
-// 		if (close(exec->pipefd[0]) == -1)
-// 			perror("close pipefd[0] child");
-// 	}
-// 	if (exec_builtin(data, exec) == 1)
-// 		execve(exec->path_cmd, exec->cmd, data->env);
-// 	exit(0);
-// }

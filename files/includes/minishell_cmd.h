@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 02:27:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/02 19:24:15 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 // ---------- BUILTINS --------- //
 int		builtin_cd(t_data *data, t_exec *exec);
 int		builtin_echo(t_data *data, t_exec *exec);
-void	builtin_env(t_data *data);
+int		builtin_env(t_data *data);
 int		builtin_exit(t_data *data, t_exec *exec);
 int		builtin_export(t_data *data, t_exec *exec);
-void	builtin_pwd(t_data *data);
-void	builtin_unset(t_data *data, t_exec *exec);
+int		builtin_pwd(t_data *data);
+int		builtin_unset(t_data *data, t_exec *exec);
 int		check_builtin(t_data *data, t_exec *exec);
-
 
 // ----------- DEVICE ---------- //
 char	*device_find(t_data *data);
@@ -35,9 +34,11 @@ void	env_save(t_data *data, int argc, char **argv, char **envp);
 char	*env_return(t_data *data, char *name);
 
 // ------------ EXEC ----------- //
-void	exec_run(t_data *data);
-int		exec_data_set(t_data *data, t_exec *exec);
+int		exec_run(t_data *data);
+int		exec_set_all(t_data *data, t_exec *exec);
 void	exec_child(t_data *data, t_exec *exec);
+int		exec_builtins_part1(t_data *data, t_exec *exec);
+int		exec_builtins_part2(t_data *data, t_exec *exec);
 int		exec_builtin(t_data *data, t_exec *exec);
 int		heredoc(t_exec *exec);
 int		set_pipe(t_data *data, t_exec *exec);
@@ -53,6 +54,8 @@ void	ft_free(t_data *data);
 
 // ---------- PARSING ---------- //
 void	parsing_input(t_data *data, char *command);
+void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j);
+t_exec	**ft_exec_data_set(t_data *data);
 
 // ------------ PATH ----------- //
 char	*path_find(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 02:22:11 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/02 19:16:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 char	*ft_env_replace(t_data *data, t_parsing *parsing);
 
 // ------------ EXEC ----------- //
-int		exec_set_exec(t_data *data, t_exec *exec);
 
 // ---------- PARSING ---------- //
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);
@@ -50,5 +49,7 @@ int		ft_tabslen(char **tab);
 int		ft_tabchr(char **tab, const char *str);
 int		ft_tabcount(char **tab, const char c);
 int		ft_istoken(char *str);
+int		ft_isalpha(char c);
+int		ft_isdigit(char c);
 
 #endif
