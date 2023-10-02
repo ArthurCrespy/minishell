@@ -23,7 +23,6 @@ void	builtin_pwd(t_data *data);
 void	builtin_unset(t_data *data, t_exec *exec);
 int		check_builtin(t_data *data, t_exec *exec);
 
-
 // ----------- DEVICE ---------- //
 char	*device_find(t_data *data);
 

@@ -15,6 +15,7 @@
 void	builtin_unset(t_data *data, t_exec *exec)
 {
 	int	index;
+
 	printf("args_nb builtins = %d\n", exec->args_nb);
 	if (exec->args_nb == 0)
 		printf("unset: not enough arguments\n");
