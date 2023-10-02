@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:12:03 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/25 21:40:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 02:30:10 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ char	*path_find(t_data *data)
 	return (result);
 }
 
-char	*path_find_cmd(t_data *data, t_exec *exec, t_pipex *pipex)
+char	*path_find_cmd(t_data *data, t_exec *exec)
 {
 	unsigned int	i;
 	char			**all_paths;
 	char			*path;
 	char			*end_path;
 
-	(void)pipex;
 	all_paths = ft_strsplit(data, env_return(data, "PATH"), ':');
 	if (!all_paths)
 		return (0);

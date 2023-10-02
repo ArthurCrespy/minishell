@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/28 15:19:30 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 21:53:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,38 @@ void	exec_run(t_data *data)
 		printf("minishell: parse error\n");
 		return ;
 	}
+	data->exec[0]->fdin_next = 0;
 	index = 0;
 	while (data->exec[index])
 	{
 		data->exec[index]->id_exec = index;
-		exec_data_set(data, data->exec[index]);
-		//exec_builtin(data, data->exec[index]);
-		//execve(data->exec[index]->pipex->path_cmd, data->exec[index]->pipex->cmd, data->env);
-		exec_launch(data, data->exec[index], data->exec[index]->pipex);
-		//waitpid(-1, NULL, 0);
+		if (exec_data_set(data, data->exec[index]) == 0)
+		{
+			// TODO: en dehors de la boucle
+			if (data->pipes_nb == 0 && index == 0 && check_builtin(data, data->exec[index]) == 1)
+			{
+				exec_builtin(data, data->exec[index]);
+			}
+			else
+				exec_launch(data, data->exec[index]);
+		}
+		waitpid(-1, NULL, 0);
 		index++;
+		//printf("\n");
 	}
 	//sleep(2);
 }
 
 //malloc pipex
 //set l'exec
-void	exec_data_set(t_data *data, t_exec *exec)
+int	exec_data_set(t_data *data, t_exec *exec)
 {
-	t_pipex	*pipex;
-
-	pipex = malloc(sizeof(t_pipex));
-	if (!pipex)
-		return (perror("exec_data_set failed"));
-	//initialiser a 0 car meme free la structure garde les valeurs de la commande precedente
-	exec->pipex = pipex;
-	exec_set_exec(data, exec, pipex);
+	if (exec_set_exec(data, exec) != 0)
+		return (1);
+	return (0);
 }
+
+
 
 // execute les builtins qui sont appeles
 int	exec_builtin(t_data *data, t_exec *exec)
@@ -58,17 +63,17 @@ int	exec_builtin(t_data *data, t_exec *exec)
 
 	cmd = exec->cmd;
 	if (!ft_strcmp(cmd, "exit"))
-		builtin_exit(data, data->exec[0]);
+		builtin_exit(data, data->exec[exec->id_exec]);
 	else if (!ft_strcmp(cmd, "pwd"))
 		builtin_pwd(data);
 	else if (!ft_strcmp(cmd, "cd"))
-		builtin_cd(data, data->exec[0]);
+		builtin_cd(data, data->exec[exec->id_exec]);
 	else if (!ft_strcmp(cmd, "unset"))
-		builtin_unset(data, data->exec[0]);
+		builtin_unset(data, data->exec[exec->id_exec]);
 	else if (!ft_strcmp(cmd, "echo"))
-		builtin_echo(data, data->exec[0]);
+		builtin_echo(data, data->exec[exec->id_exec]);
 	else if (!ft_strcmp(cmd, "export"))
-		builtin_export(data, data->exec[0]);
+		builtin_export(data, data->exec[exec->id_exec]);
 	else if (!ft_strcmp(cmd, "env"))
 		builtin_env(data);
 	else

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/27 16:36:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 21:55:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ int	main(int argc, char **argv, char **envp)
 	data.command = NULL;
 	if (!*envp)
 		ft_exit(NULL, -1, ENV_ERROR, "main");
+	if (isatty(0) != 1 || isatty(2) != 1)
+		ft_exit(NULL, -1, TTY_ERROR, "main");
 	if (argc != 1 || argv[1])
 		ft_exit(NULL, -1, ARG_ERROR, "main");
 	env_save(&data, argc, argv, envp);
 	signal_handle(&data);
 	prompt_run(&data);
-	//ft_free(&data);
-	printf("\nfinish\n");
+	ft_free(&data);
+	waitpid(-1, NULL, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:15:32 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/27 16:09:20 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/01 21:29:54 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_echo(t_data *data, t_exec *exec)
 	index_flags = 0;
 	while (index_flags < exec->flags_nb)
 	{
-		if (!ft_strcmp(exec->flags[index_flags], "n"))
+		if (ft_strchr(exec->flags[index_flags], 'n'))
 			n_flag = true;
 		index_flags++;
 	}

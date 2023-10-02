@@ -23,6 +23,9 @@
 # define FORK_ERROR 7
 # define OPEN_ERROR 8
 # define WAITPID_ERROR 9
+# define DUP2_ERROR 10
+# define PIPE_ERROR 11
+# define TTY_ERROR 12
 
 # define STDIN 0
 # define STDOUT 1

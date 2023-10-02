@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:52:18 by acrespy           #+#    #+#             */
-/*   Updated: 2023/09/26 20:52:20 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/10/01 20:41:08 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// Create a new node for exec
-t_exec	*ft_exec_node_create(t_data *data)
-{
-	t_exec	*exec;
-
-	exec = (t_exec *)malloc(sizeof(t_exec));
-	if (!exec)
-		ft_exit(data, -1, MALLOC_ERROR, "ft_exec_node_create");
-	exec->cmd = NULL;
-	exec->flags = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->args = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->in = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->out = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->out_append = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->delimiter = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
-	exec->flags_nb = 0;
-	exec->args_nb = 0;
-	exec->in_nb = 0;
-	exec->out_nb = 0;
-	exec->out_append_nb = 0;
-	exec->delimiter_nb = 0;
-	return (exec);
-}
-
-// Set the exec elements to NULL
-t_exec	*ft_exec_node_null(t_exec *exec)
-{
-	exec->flags[exec->flags_nb] = NULL;
-	exec->args[exec->args_nb] = NULL;
-	exec->in[exec->in_nb] = NULL;
-	exec->out[exec->out_nb] = NULL;
-	exec->out_append[exec->out_append_nb] = NULL;
-	exec->delimiter[exec->delimiter_nb] = NULL;
-	return (exec);
-}
 
 // Parse input tokens
 void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
