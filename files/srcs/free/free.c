@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:25:56 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 20:43:34 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/03 14:30:44 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_free_exec(t_data *data)
 			free(data->exec[i]->cmd);
 		if (data->exec[i]->flags)
 		{
-			ft_free_tab(data->exec[i]->flags);
+			ft_free_tab_little(data->exec[i]->flags);
 			free(data->exec[i]->flags);
 		}
 		if (data->exec[i]->args)
