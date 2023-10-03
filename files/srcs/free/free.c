@@ -81,6 +81,7 @@ void	ft_free_exec(t_data *data)
 		if (data->exec[i]->flags)
 		{
 			ft_free_tab(data->exec[i]->flags);
+			free(data->exec[i]->flags);
 		}
 		if (data->exec[i]->args)
 		{
