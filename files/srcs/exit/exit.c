@@ -32,6 +32,8 @@ char	*ft_return_error(int error)
 		return ("open error");
 	else if (error == WAITPID_ERROR)
 		return ("waitpid error");
+	else if (error == TTY_ERROR)
+		return ("std output/input error");
 	else
 		return ("unknown error");
 }
