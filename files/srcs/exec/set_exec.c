@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/04 17:08:00 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:56:54 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,27 @@
 //					heredoc
 int	exec_set_in(t_data *data, t_exec *exec)
 {
+	int	index;
+
 	(void)data;
+	index = 0;
 	if (exec->delimiter_nb)
 	{
 		heredoc(exec);
 		exec->fdin = open(".heredoc", O_RDONLY);
 	}
-	else if (exec->in_nb == 1)
-		exec->fdin = open(exec->in[0], O_RDONLY);
+	else if (exec->in_nb != 0)
+	{
+		while (index < exec->in_nb)
+		{
+			exec->fdin = open(exec->in[index], O_RDONLY);
+			if (exec->fdin == -1)
+				return (perror("open failed"), 1);
+			if (index < exec->in_nb -1)
+				close(exec->fdin);
+			index++;
+		}
+	}
 	else if (exec->id_exec == 0)
 		exec->fdin = STDIN_FILENO;
 	else if (exec->id_exec != 0)
@@ -123,6 +136,6 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	if (exec_set_in(data, exec))
 		return (perror("exec_set_in failed"), 1);
 	if (exec_set_out(data, exec))
-		return (perror("exec_set_in failed"), 1);
+		return (perror("exec_set_out failed"), 1);
 	return (0);
 }

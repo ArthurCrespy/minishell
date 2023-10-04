@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/03 15:51:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:27:33 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int	main(int argc, char **argv, char **envp)
 	signal_handle(&data);
 	prompt_run(&data);
 	ft_free(&data);
-	//waitpid(-1, NULL, 0);
 	return (0);
 }
