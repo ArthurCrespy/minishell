@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 21:10:18 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/03 12:33:09 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	exec_set_in(t_data *data, t_exec *exec)
 	{
 		heredoc(exec);
 		exec->fdin = open(".heredoc", O_RDONLY);
-		// ne marche pas parfaitement notamment :
-		// tous les "heredoc>" sont a la fin au lieu d'etre en debut de ligne
 	}
 	else if (exec->in_nb == 1)
 		exec->fdin = open(exec->in[0], O_RDONLY);
@@ -46,7 +44,7 @@ int	exec_set_in(t_data *data, t_exec *exec)
 int	exec_set_out(t_data *data, t_exec *exec)
 {
 	if (exec->out_nb)
-		exec->fdout = open(exec->out[0], O_RDONLY);
+		exec->fdout = open(exec->out[0], O_CREAT | O_RDWR | O_TRUNC, 0777);
 	else if (data->pipes_nb != 0)
 	{
 		exec->fdout = exec->pipefd[1];
@@ -93,6 +91,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 	else
 	{
 		exec->path_cmd = path_find_cmd(data, exec);
+
 		if (!exec->path_cmd)
 			return (1);
 	}
@@ -100,7 +99,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 }
 
 // set les fdin et fdout de chaque commande
-int	exec_set_exec(t_data *data, t_exec *exec)
+int	exec_set_all(t_data *data, t_exec *exec)
 {
 	if (!check_builtin(data, exec))
 	{

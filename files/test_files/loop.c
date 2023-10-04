@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 17:16:59 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/03 14:16:18 by abinet           ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int	builtin_unset(t_data *data, t_exec *exec)
+int	main(int argc, char const *argv[])
 {
-	int	index;
+	int	pid;
 
-	index = 0;
-	while (index < exec->args_nb)
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		env_delete(data, exec->args[index]);
-		index++;
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
 	return (0);
 }

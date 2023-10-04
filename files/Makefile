@@ -6,7 +6,7 @@
 #    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/09/27 14:08:23 by abinet           ###   ########.fr        #
+#    Updated: 2023/10/02 18:07:44 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS := \
 			exec/pipe.c \
 			exec/set_exec.c \
 			exec/exec_launch.c \
+			exec/exec_builtins.c \
 			exit/exit.c \
 			free/free.c \
 			parsing/parsing.c \
@@ -54,6 +55,7 @@ SRCS := \
 			utils/utils_str_mem.c \
 			utils/utils_tab.c \
 			utils/utils_token.c \
+			utils/utils_check.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 
