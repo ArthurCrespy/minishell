@@ -15,8 +15,8 @@
 // Parse the command and store it in data->exec
 void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 {
-	if (ft_istoken(data->command[ft_tablen(data->command) - 1]) ||
-		ft_istoken(data->command[0]) == PIPE)
+	if (ft_istoken(data->command[ft_tablen(data->command) - 1])
+		|| ft_istoken(data->command[0]) == PIPE)
 	{
 		data->exec_launch = false;
 		return ;
@@ -61,7 +61,6 @@ t_exec	**ft_exec_data_set(t_data *data)
 	return (exec);
 }
 
-
 // Parse the input command and store it in data->exec and in data->command
 void	parsing_input(t_data *data, char *command)
 {
@@ -86,14 +85,10 @@ void	parsing_input(t_data *data, char *command)
 	parsing->command = ft_env_replace(data, parsing);
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
-
 	ft_exec_quotes(data);
-
-	//parsing->command = ft_quotes_replace(data, parsing, '\"');
-	//parsing->command = ft_quotes_replace(data, parsing, '\'');
-
+//	parsing->command = ft_quotes_replace(data, parsing, '\"');
+//	parsing->command = ft_quotes_replace(data, parsing, '\'');
 //	data->exec = ft_exec_quotes(data);
-
 	free(parsing->command);
 	free(parsing);
 }

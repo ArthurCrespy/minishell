@@ -31,7 +31,7 @@ int		ft_quotes_enclosed_double(t_parsing *parsing, int open_b,
 			int open_a, int i);
 t_exec	**ft_exec_quotes(t_data *data);
 void	ft_init_quotes(t_data *data, t_quotes **quotes, int size);
-void ft_exec_quotes_cmd(t_data *data, t_exec *exec);
+void	ft_exec_quotes_cmd(t_data *data, t_exec *exec);
 void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i);
 void	ft_exec_quotes_flags(t_data *data, t_exec *exec, int i);
 void	ft_exec_quotes_in(t_data *data, t_exec *exec, int i);

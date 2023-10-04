@@ -91,7 +91,6 @@ int	exec_set_path(t_data *data, t_exec *exec)
 	else
 	{
 		exec->path_cmd = path_find_cmd(data, exec);
-
 		if (!exec->path_cmd)
 			return (1);
 	}

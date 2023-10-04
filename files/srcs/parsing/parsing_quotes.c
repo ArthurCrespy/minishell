@@ -16,7 +16,6 @@ void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
 {
 	t_quotes	*qts;
 
-	qts = NULL;
 	ft_init_quotes(data, &qts, ft_strlen(exec->cmd));
 	if (!exec->cmd)
 		return ;
@@ -37,13 +36,13 @@ void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
 	qts->tmp[qts->j] = '\0';
 	free(exec->cmd);
 	exec->cmd = qts->tmp;
+	free(qts);
 }
 
 void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 {
 	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->args[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->args[i]));
@@ -64,6 +63,7 @@ void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->args[i]);
 		exec->args[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }
@@ -72,7 +72,6 @@ void	ft_exec_quotes_flags(t_data *data, t_exec *exec, int i)
 {
 	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->flags[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->flags[i]));
@@ -93,6 +92,7 @@ void	ft_exec_quotes_flags(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->flags[i]);
 		exec->flags[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }
@@ -101,7 +101,6 @@ void	ft_exec_quotes_in(t_data *data, t_exec *exec, int i)
 {
 	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->in[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->in[i]));
@@ -122,6 +121,7 @@ void	ft_exec_quotes_in(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->in[i]);
 		exec->in[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }
@@ -130,7 +130,6 @@ void	ft_exec_quotes_out(t_data *data, t_exec *exec, int i)
 {
 	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->out[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->out[i]));
@@ -151,6 +150,7 @@ void	ft_exec_quotes_out(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->out[i]);
 		exec->out[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }

@@ -17,7 +17,7 @@
 int	exec_run(t_data *data)
 {
 	int		index;
-	int	status;
+	int		status;
 
 	if (data->exec_launch == false)
 	{

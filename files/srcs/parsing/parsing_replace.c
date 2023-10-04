@@ -46,7 +46,7 @@ char	*ft_operators_replace(t_data *data, t_parsing *parsing)
 	while (parsing->command[parsing->i])
 	{
 		if (!ft_quotes_enclosed_simple(parsing, 0, 0, 0)
-				&& !ft_quotes_enclosed_double(parsing, 0, 0, 0)
+			&& !ft_quotes_enclosed_double(parsing, 0, 0, 0)
 			&& (parsing->command[parsing->i] == '<'
 				|| parsing->command[parsing->i] == '>'
 				|| parsing->command[parsing->i] == '|'))

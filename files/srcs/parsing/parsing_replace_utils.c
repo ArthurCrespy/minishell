@@ -89,26 +89,22 @@ int	ft_quotes_closed(const char *str)
 
 // Check if the word is enclosed by simple quotes
 // Note: 0 is when not enclosed, 1 is when enclosed
-int	ft_quotes_enclosed_simple0(t_parsing *parsing, int open_b, int open_a, int i)
+int	ft_quotes_enclosed_double(t_parsing *parsing, int open_b, int open_a, int i)
 {
 	i = parsing->i;
-	if (i <= 0)
-		return (0);
-	while (parsing->command[i] != '\0' && parsing->command[i] != '\x1F' && i > 0)
+	while (i >= 0 && parsing->command[i] != '\x1F')
 	{
-		if (parsing->command[i] == '\'')
+		if (parsing->command[i] == '\"')
 		{
 			open_b++;
 			break ;
 		}
 		i--;
 	}
-	if (i < 0)
-		return (0);
-	i = parsing->i;
-	while (parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
+	i = parsing->i + 1;
+	while (parsing->command[i] && parsing->command[i] != '\x1F')
 	{
-		if (parsing->command[i] == '\'')
+		if (parsing->command[i] == '\"')
 		{
 			open_a++;
 			break ;
@@ -117,18 +113,16 @@ int	ft_quotes_enclosed_simple0(t_parsing *parsing, int open_b, int open_a, int i
 	}
 	if (open_b > 0 && open_a > 0)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
 
 // Check if the word is enclosed by simple quotes
 // Note: 0 is when not enclosed, 1 is when enclosed
-int	ft_quotes_enclosed_double0(t_parsing *parsing, int open_b, int open_a, int i)
+int	ft_quotes_enclosed_simple(t_parsing *parsing, int open_b, int open_a, int i)
 {
 	i = parsing->i;
-	if (i == 0)
-		return (0);
-	while (parsing->command[i] && parsing->command[i] != '\0'
-		&& parsing->command[i] != '\x1F' && i > 0)
+	while (i >= 0 && parsing->command[i] != '\x1F')
 	{
 		if (parsing->command[i] == '\'')
 		{
@@ -137,11 +131,8 @@ int	ft_quotes_enclosed_double0(t_parsing *parsing, int open_b, int open_a, int i
 		}
 		i--;
 	}
-	if (i == 0 || i == -1)
-		return (0);
-	i = parsing->i;
-	while (parsing->command[i] && parsing->command[i] != '\0'
-		&& parsing->command[i] != '\x1F')
+	i = parsing->i + 1;
+	while (parsing->command[i] && parsing->command[i] != '\x1F')
 	{
 		if (parsing->command[i] == '\'')
 		{
@@ -151,91 +142,7 @@ int	ft_quotes_enclosed_double0(t_parsing *parsing, int open_b, int open_a, int i
 		i++;
 	}
 	if (open_b > 0 && open_a > 0)
-		return (0);
-	return (1);
-}
-
-int ft_quotes_enclosed_double(t_parsing *parsing, int open_b, int open_a, int i)
-{
-    i = parsing->i;
-    while (i >= 0 && parsing->command[i] != '\x1F')
-	{
-        if (parsing->command[i] == '\"')
-		{
-            open_b++;
-            break;
-        }
-        i--;
-    }
-    i = parsing->i + 1;
-    while (parsing->command[i] && parsing->command[i] != '\x1F')
-	{
-        if (parsing->command[i] == '\"')
-		{
-            open_a++;
-            break;
-        }
-        i++;
-    }
-    if (open_b > 0 && open_a > 0)
-        return (1); // Enclosed by double quotes
-    else
-        return (0); // Not enclosed by double quotes
-}
-
-int ft_quotes_enclosed_simple(t_parsing *parsing, int open_b, int open_a, int i)
-{
-    i = parsing->i;
-    while (i >= 0 && parsing->command[i] != '\x1F')
-	{
-        if (parsing->command[i] == '\'')
-		{
-            open_b++;
-            break;
-        }
-        i--;
-    }
-    i = parsing->i + 1;
-    while (parsing->command[i] && parsing->command[i] != '\x1F')
-	{
-        if (parsing->command[i] == '\'')
-		{
-            open_a++;
-            break;
-        }
-        i++;
-    }
-    if (open_b > 0 && open_a > 0)
-        return (1); // Enclosed by single quotes
-    else
-        return (0); // Not enclosed by single quotes
-}
-
-
-// Check if the word is enclosed by double quotes
-int	ft_quotes_enclosed(t_parsing *parsing, int open, int i)
-{
-	i = parsing->i;
-	if (i == 0)
 		return (1);
-	while (parsing->command[i] && parsing->command[i] != '\0'
-		&& parsing->command[i] != '\x1F')
-	{
-		if (parsing->command[i] == '\"')
-			open++;
-		i--;
-	}
-	if (i == 0 || i == -1)
+	else
 		return (0);
-	i = parsing->i;
-	while (parsing->command[i] && parsing->command[i] != '\0'
-		&& parsing->command[i] != '\x1F')
-	{
-		if (parsing->command[i] == '\"')
-			open++;
-		i++;
-	}
-	if (open > 0)
-		return (0);
-	return (1);
 }

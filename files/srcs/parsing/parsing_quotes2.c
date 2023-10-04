@@ -12,11 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-void    ft_exec_quotes_out_append(t_data *data, t_exec *exec, int i)
+void	ft_exec_quotes_out_append(t_data *data, t_exec *exec, int i)
 {
-	t_quotes    *qts;
+	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->out_append[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->out_append[i]));
@@ -37,15 +36,15 @@ void    ft_exec_quotes_out_append(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->out_append[i]);
 		exec->out_append[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }
 
-void    ft_exec_quotes_delimiter(t_data *data, t_exec *exec, int i)
+void	ft_exec_quotes_delimiter(t_data *data, t_exec *exec, int i)
 {
-	t_quotes    *qts;
+	t_quotes	*qts;
 
-	qts = NULL;
 	while (exec->delimiter[i])
 	{
 		ft_init_quotes(data, &qts, ft_strlen(exec->delimiter[i]));
@@ -66,10 +65,10 @@ void    ft_exec_quotes_delimiter(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->delimiter[i]);
 		exec->delimiter[i] = qts->tmp;
+		free(qts);
 		i++;
 	}
 }
-
 
 void	ft_init_quotes(t_data *data, t_quotes **quotes, int size)
 {
