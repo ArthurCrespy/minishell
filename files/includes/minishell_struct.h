@@ -28,6 +28,17 @@ typedef struct s_parsing
 	int		j;
 }				t_parsing;
 
+typedef struct s_quotes
+{
+	int		j;
+	int		k;
+	int		opened_single;
+	int		opened_double;
+	int		closed_single;
+	int		closed_double;
+	char	*tmp;
+}				t_quotes;
+
 typedef struct s_exec
 {
 	int				fdin;

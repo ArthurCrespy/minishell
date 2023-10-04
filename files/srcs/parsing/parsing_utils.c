@@ -55,4 +55,5 @@ void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i)
 		ft_exec_token_output(data, exec, i);
 	else if (data->command[(*i)] && data->command[(*i)][0] != '|')
 		exec->args[exec->args_nb++] = ft_strdup(data, data->command[(*i)]);
+	(*i)++;
 }

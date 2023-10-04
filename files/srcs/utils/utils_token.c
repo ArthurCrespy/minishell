@@ -14,6 +14,8 @@
 
 int	ft_istoken(char *str)
 {
+	if (!str)
+		return (-1);
 	if (!ft_strcmp(str, "&&"))
 		return (AND);
 	else if (!ft_strcmp(str, "||"))

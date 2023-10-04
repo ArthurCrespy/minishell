@@ -25,19 +25,18 @@ void	ft_operators_separate(t_parsing *parsing)
 		count++;
 		parsing->i++;
 	}
-	if (count == 1)
-		parsing->tmp[(parsing->j)++] = c;
-	else if (count == 2)
+	while (count % 2 == 0 && count > 0)
 	{
 		parsing->tmp[parsing->j++] = c;
 		parsing->tmp[parsing->j++] = c;
+		parsing->tmp[parsing->j++] = '\x1F';
+		count -= 2;
 	}
-	else
+	if (count % 2 == 1)
 	{
-		while (count--)
-			parsing->tmp[parsing->j++] = c;
+		parsing->tmp[parsing->j++] = c;
+		parsing->tmp[parsing->j++] = '\x1F';
 	}
-	parsing->tmp[parsing->j++] = '\x1F';
 }
 
 // Check if the quotes are closed
@@ -86,6 +85,71 @@ int	ft_quotes_closed(const char *str)
 		i++;
 	}
 	return (opened_simple == 0 && opened_double == 0);
+}
+
+// Check if the word is enclosed by simple quotes
+int	ft_quotes_enclosed_simple(t_parsing *parsing, int open_b, int open_a, int i)
+{
+	i = parsing->i;
+	if (i <= 0)
+		return (0);
+	while (parsing->command[i] != '\0' && parsing->command[i] != '\x1F' && i > 0)
+	{
+		if (parsing->command[i] == '\'')
+		{
+			open_b++;
+			break ;
+		}
+		i--;
+	}
+	if (i <= 0)
+		return (0);
+	i = parsing->i;
+	while (parsing->command[i] != '\0' && parsing->command[i] != '\x1F')
+	{
+		if (parsing->command[i] == '\'')
+		{
+			open_a++;
+			break ;
+		}
+		i++;
+	}
+	if (open_b > 0 && open_a > 0)
+		return (0);
+	return (1);
+}
+
+int	ft_quotes_enclosed_double(t_parsing *parsing, int open_b, int open_a, int i)
+{
+	i = parsing->i;
+	if (i == 0)
+		return (0);
+	while (parsing->command[i] && parsing->command[i] != '\0'
+		&& parsing->command[i] != '\x1F' && i > 0)
+	{
+		if (parsing->command[i] == '\'')
+		{
+			open_b++;
+			break ;
+		}
+		i--;
+	}
+	if (i == 0 || i == -1)
+		return (0);
+	i = parsing->i;
+	while (parsing->command[i] && parsing->command[i] != '\0'
+		&& parsing->command[i] != '\x1F')
+	{
+		if (parsing->command[i] == '\'')
+		{
+			open_a++;
+			break ;
+		}
+		i++;
+	}
+	if (open_b > 0 && open_a > 0)
+		return (0);
+	return (1);
 }
 
 // Check if the word is enclosed by double quotes

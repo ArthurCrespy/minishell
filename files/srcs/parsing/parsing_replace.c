@@ -45,13 +45,12 @@ char	*ft_operators_replace(t_data *data, t_parsing *parsing)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_operators_replace");
 	while (parsing->command[parsing->i])
 	{
-		if (parsing->command[parsing->i] == '<'
-			|| parsing->command[parsing->i] == '>'
-			|| parsing->command[parsing->i] == '|')
-		{
-			parsing->tmp[parsing->j++] = '\x1F';
+		if (!(ft_quotes_enclosed_simple(parsing, 0, 0, 0)
+				|| ft_quotes_enclosed_double(parsing, 0, 0, 0))
+			&& (parsing->command[parsing->i] == '<'
+				|| parsing->command[parsing->i] == '>'
+				|| parsing->command[parsing->i] == '|'))
 			ft_operators_separate(parsing);
-		}
 		else
 			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
 	}
