@@ -35,6 +35,8 @@ SRCS := \
 			free/free.c \
 			parsing/parsing.c \
 			parsing/parsing_node.c \
+			parsing/parsing_quotes.c \
+			parsing/parsing_quotes2.c \
 			parsing/parsing_replace.c \
 			parsing/parsing_replace_utils.c \
 			parsing/parsing_utils.c \

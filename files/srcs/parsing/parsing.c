@@ -15,7 +15,8 @@
 // Parse the command and store it in data->exec
 void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 {
-	if (!data->command[(*i)])
+	if (ft_istoken(data->command[ft_tablen(data->command) - 1]) ||
+		ft_istoken(data->command[0]) == PIPE)
 	{
 		data->exec_launch = false;
 		return ;
@@ -26,16 +27,15 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 		data->pipes_nb++;
 		(*i)++;
 	}
+	if (data->command[(*i)][0] == '<' || data->command[(*i)][0] == '>')
+		ft_exec_token_parser(data, exec[(*j)], i);
 	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
 	(*i)++;
 	while (data->command[(*i)] && data->command[(*i)][0] == '-')
 		exec[(*j)]->flags[exec[(*j)]->flags_nb++] = ft_strdup(data,
 				data->command[(*i)++]);
 	while (data->command[(*i)] && data->command[(*i)][0] != '|')
-	{
 		ft_exec_token_parser(data, exec[(*j)], i);
-		(*i)++;
-	}
 	exec[(*j)] = ft_exec_node_null(exec[(*j)]);
 	(*j)++;
 }
@@ -55,11 +55,12 @@ t_exec	**ft_exec_data_set(t_data *data)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_exec_data_set");
 	data->exec_launch = true;
 	data->pipes_nb = 0;
-	while (data->command[i])
+	while (data->command[i] && data->exec_launch)
 		ft_exec_data_process(data, exec, &i, &j);
 	exec[j] = NULL;
 	return (exec);
 }
+
 
 // Parse the input command and store it in data->exec and in data->command
 void	parsing_input(t_data *data, char *command)
@@ -83,10 +84,16 @@ void	parsing_input(t_data *data, char *command)
 		return ;
 	}
 	parsing->command = ft_env_replace(data, parsing);
-	parsing->command = ft_quotes_replace(data, parsing, '\"');
-	parsing->command = ft_quotes_replace(data, parsing, '\'');
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
+
+	ft_exec_quotes(data);
+
+	//parsing->command = ft_quotes_replace(data, parsing, '\"');
+	//parsing->command = ft_quotes_replace(data, parsing, '\'');
+
+//	data->exec = ft_exec_quotes(data);
+
 	free(parsing->command);
 	free(parsing);
 }

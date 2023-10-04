@@ -56,7 +56,8 @@ void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_dollar_replace");
 	while (parsing->command[parsing->i] && parsing->command[parsing->i]
 		!= ' ' && parsing->command[parsing->i] != '\x1F'
-		&& parsing->command[parsing->i] != '\'')
+		&& parsing->command[parsing->i] != '\''
+		&& parsing->command[parsing->i] != '\"')
 		var_value[k++] = parsing->command[parsing->i++];
 	var_value[k] = '\0';
 	if (ft_tabchr(data->env, var_value))
@@ -102,13 +103,13 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing)
 	parsing->i = 0;
 	parsing->j = 0;
 	parsing->tmp = ft_calloc(sizeof(char),
-			(ft_env_size(data, parsing->command, 0, 0) + 1));
+			(ft_env_size(data, parsing->command, 0, 0) * 10));
 	if (!parsing->tmp)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_env_replace");
 	while (parsing->command[parsing->i])
 	{
 		if (parsing->command[parsing->i] == '$'
-			&& ft_quotes_enclosed(parsing, 0, 0))
+			&& ft_quotes_enclosed_simple(parsing, 0, 0, 0))
 			ft_dollar_check(data, parsing);
 		else
 			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
