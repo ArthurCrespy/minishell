@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/03 17:24:53 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 12:06:20 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	exec_run(t_data *data)
 	}
 	while (wait(&status) != -1)
 		continue ;
-	//data->return_value = WEXITSTATUS(status);
+	// data->return_value = WEXITSTATUS(status);
+	// printf("return value : %d\n", data->return_value);
+	// printf("status : %d\n", status);
 	return (0);
 }
