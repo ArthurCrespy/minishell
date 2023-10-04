@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/04 15:05:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:28:38 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,10 @@ int	exec_launch(t_data *data, t_exec *exec)
 // lance l'exec
 void	exec_child(t_data *data, t_exec *exec)
 {
-	if (exec->fdin != STDIN_FILENO)
-	{
-		dup2(exec->fdin, STDIN_FILENO);
-		if (close(exec->fdin) == -1)
-			perror("close fdin child");
-	}
+	change_fdin(exec);
 	if (data->pipes_nb != 0)
-	{
 		close(exec->pipefd[0]);
-	}
-	if (exec->fdout != STDOUT_FILENO)
-	{
-		dup2(exec->fdout, STDOUT_FILENO);
-		if (close(exec->fdout) == -1)
-			perror("close fdout child");
-	}
+	change_fdout(exec);
 	if (check_builtin(data, exec) == 1)
 	{
 		if (exec_builtin(data, exec) == 0)
@@ -76,4 +64,26 @@ void	exec_child(t_data *data, t_exec *exec)
 			perror("execve");
 	}
 	exit(1);
+}
+
+int	change_fdin(t_exec *exec)
+{
+	if (exec->fdin != STDIN_FILENO)
+	{
+		dup2(exec->fdin, STDIN_FILENO);
+		if (close(exec->fdin) == -1)
+			perror("close fdin child");
+	}
+	return (0);
+}
+
+int	change_fdout(t_exec *exec)
+{
+	if (exec->fdout != STDOUT_FILENO)
+	{
+		dup2(exec->fdout, STDOUT_FILENO);
+		if (close(exec->fdout) == -1)
+			perror("close fdout child");
+	}
+	return (0);
 }

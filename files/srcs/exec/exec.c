@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/04 15:25:14 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:20:34 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,7 @@ int	exec_run(t_data *data)
 		data->exec[index]->id_exec = index;
 		if (exec_set_all(data, data->exec[index]) == 0)
 		{
-			// printf("exec: %s\n", data->exec[index]->cmd);
-			// int	i = 0;
-			// while(data->exec[index]->args[i])
-			// {
-			// 	printf("args[%d]: %s\n", i, data->exec[index]->args[i]);
-			// 	i++;
-			// }
-			// i = 0;
-			// while (data->exec[index]->flags[i])
-			// {
-			// 	printf("flags[%d]: %s\n", i, data->exec[index]->flags[i]);
-			// 	i++;
-			// }
-			// printf("nb_in: %d\n", data->exec[index]->in_nb);
-			// printf("nb_out: %d\n", data->exec[index]->out_nb);
-			if (data->pipes_nb == 0 && index == 0
+			if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
 				&& check_builtin(data, data->exec[index]) == 1)
 			{
 				if (exec_builtin(data, data->exec[index]) == 1)
