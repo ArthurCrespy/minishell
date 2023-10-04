@@ -60,6 +60,8 @@ void	ft_dollar_replace(t_data *data, t_parsing *parsing)
 		&& parsing->command[parsing->i] != '\"')
 		var_value[k++] = parsing->command[parsing->i++];
 	var_value[k] = '\0';
+	if (k == 0)
+		parsing->tmp[parsing->j++] = parsing->command[parsing->i - 1];
 	if (ft_tabchr(data->env, var_value))
 	{
 		f = ft_strlen(var_value) + 1;
@@ -109,7 +111,7 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing)
 	while (parsing->command[parsing->i])
 	{
 		if (parsing->command[parsing->i] == '$'
-			&& ft_quotes_enclosed_simple(parsing, 0, 0, 0))
+			&& !ft_quotes_enclosed_simple(parsing, 0, 0, 0))
 			ft_dollar_check(data, parsing);
 		else
 			parsing->tmp[parsing->j++] = parsing->command[parsing->i++];
