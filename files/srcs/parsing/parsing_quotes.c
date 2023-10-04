@@ -53,9 +53,9 @@ void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 				qts->opened_single = !qts->opened_single;
 			else if (exec->args[i][qts->j] == '\"' && !qts->opened_single)
 				qts->opened_double = !qts->opened_double;
-			else if (exec->args[i][qts->j] == '\'' && qts->opened_double)
+			else if (exec->args[i][qts->j] == '\'' && !qts->opened_double)
 				qts->closed_single = !qts->closed_single;
-			else if (exec->args[i][qts->j] == '\"' && qts->opened_single)
+			else if (exec->args[i][qts->j] == '\"' && !qts->opened_single)
 				qts->closed_double = !qts->closed_double;
 			else
 				qts->tmp[qts->k++] = exec->args[i][qts->j];
