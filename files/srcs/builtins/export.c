@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:42 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/02 18:10:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 12:36:17 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	builtin_export(t_data *data, t_exec *exec)
 	char	*value;
 	char	*variable;
 
+	if (exec->flags_nb != 0)
+		return (0);
 	if (exec->args_nb == 0)
 		builtin_env(data);
 	index_args = 0;
