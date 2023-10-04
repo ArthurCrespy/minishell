@@ -41,12 +41,13 @@ typedef struct s_quotes
 
 typedef struct s_exec
 {
-	int				fdin;
-	int				fdout;
-	char			**cmd_exec;
-	char			*path_cmd;
-	int				pipefd[2];
 	int				id_exec;
+	int				fdin;
+	int				fdin_next;
+	int				fdout;
+	int				pipefd[2];
+	char			*cmd_path;
+	char			**cmd_exec;
 	char			*cmd;
 	char			**flags;
 	char			**args;
@@ -60,7 +61,6 @@ typedef struct s_exec
 	int				out_nb;
 	int				out_append_nb;
 	int				delimiter_nb;
-	int				fdin_next;
 }				t_exec;
 
 typedef struct s_data

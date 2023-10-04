@@ -38,7 +38,7 @@ int	exec_launch(t_data *data, t_exec *exec)
 	if (check_builtin(data, exec) == 0)
 	{
 		free(exec->cmd_exec);
-		free(exec->path_cmd);
+		free(exec->cmd_path);
 	}
 	else
 		waitpid(pid, &data->return_value, 0);
@@ -58,9 +58,9 @@ void	exec_child(t_data *data, t_exec *exec)
 		if (exec_builtin(data, exec) == 0)
 			exit(0);
 	}
-	else if (exec->path_cmd)
+	else if (exec->cmd_path)
 	{
-		if (execve(exec->path_cmd, exec->cmd_exec, data->env) == -1)
+		if (execve(exec->cmd_path, exec->cmd_exec, data->env) == -1)
 			perror("execve");
 	}
 	exit(1);

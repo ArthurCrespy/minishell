@@ -24,7 +24,7 @@ void	ft_exec_node_create2(t_exec *exec)
 	exec->pipefd[0] = -1;
 	exec->pipefd[1] = -1;
 	exec->cmd_exec = NULL;
-	exec->path_cmd = NULL;
+	exec->cmd_path = NULL;
 }
 
 // Create a new node for exec

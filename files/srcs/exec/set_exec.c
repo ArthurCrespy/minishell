@@ -98,11 +98,11 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (ft_strchr(exec->cmd, '/'))
-		exec->path_cmd = exec->cmd;
+		exec->cmd_path = exec->cmd;
 	else
 	{
-		exec->path_cmd = path_find_cmd(data, exec);
-		if (!exec->path_cmd)
+		exec->cmd_path = path_find_cmd(data, exec);
+		if (!exec->cmd_path)
 			return (1);
 	}
 	return (0);
