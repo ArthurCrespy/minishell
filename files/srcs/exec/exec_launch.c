@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/03 17:23:14 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/04 15:05:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	exec_launch(t_data *data, t_exec *exec)
 		free(exec->cmd_exec);
 		free(exec->path_cmd);
 	}
+	else
+		waitpid(pid, &data->return_value, 0);
 	return (0);
 }
 
