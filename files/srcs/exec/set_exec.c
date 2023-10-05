@@ -111,7 +111,7 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (ft_strchr(exec->cmd, '/'))
-		exec->cmd_path = exec->cmd;
+		exec->cmd_path = ft_strdup(data, exec->cmd);
 	else
 	{
 		exec->cmd_path = path_find_cmd(data, exec);
