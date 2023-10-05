@@ -30,32 +30,23 @@ static int	ft_is_a_num(char *nb_args)
 
 int	builtin_exit(t_data *data, t_exec *exec)
 {
-	if (exec->args_nb && !exec->flags_nb)
+	if ((exec->args_nb > 1) || (exec->args_nb && exec->flags_nb))
+		return (ft_putstr_fd("exit: too many arguments\n", 2), 1);
+	if (exec->args_nb)
 	{
-		if (exec->args_nb > 1)
-			return (ft_putstr_fd("exit: too many arguments\n", 2), 1);
 		if (!ft_is_a_num(exec->args[0]))
 			ft_exit(data, ft_atoi(exec->args[0]) % 256, EXIT, NULL);
-		else
-		{
-			ft_putstr_fd("exit: numeric argument required\n", 2);
-			ft_exit(data, 2, EXIT, NULL);
-		}
 	}
-	else if (!exec->args_nb && exec->flags_nb)
+	else if (exec->flags_nb)
 	{
-		if (exec->flags_nb > 1)
-			return (ft_putstr_fd("exit: too many arguments\n", 2), 1);
 		if (!ft_is_a_num(exec->flags[0]))
 			ft_exit(data, ft_atoi(exec->flags[0]) % 256, EXIT, NULL);
-		else
-		{
-			ft_putstr_fd("exit: numeric argument required\n", 2);
-			ft_exit(data, 2, EXIT, NULL);
-		}
 	}
-	else if (exec->args_nb && exec->flags_nb)
-		return (ft_putstr_fd("exit: too many arguments\n", 2), 1);
+	if (exec->args_nb || exec->flags_nb)
+	{
+		ft_putstr_fd("exit: numeric argument required\n", 2);
+		ft_exit(data, 2, EXIT, NULL);
+	}
 	ft_exit(data, 0, EXIT, NULL);
 	return (1);
 }
