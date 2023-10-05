@@ -21,7 +21,7 @@ int	exec_run(t_data *data)
 
 	if (data->exec_launch == false)
 	{
-		printf("minishell: parse error\n");
+		ft_putstr_fd("minishell: parse error\n", 2);
 		return (1);
 	}
 	index = 0;

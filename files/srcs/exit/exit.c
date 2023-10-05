@@ -44,7 +44,13 @@ void	ft_exit(t_data *data, int code, int error, char *origin)
 	if (data)
 		ft_free(data);
 	if (error && origin)
-		printf("minishell exited with code %d: %s at %s\n", code,
-			ft_return_error(error), origin);
+	{
+		ft_putstr_fd("minishell exited with code ", 2);
+		ft_putstr_fd(ft_itoa(code), 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(ft_return_error(error), 2);
+		ft_putstr_fd(" at ", 2);
+		ft_putstr_fd(origin, 2);
+	}
 	exit(code);
 }

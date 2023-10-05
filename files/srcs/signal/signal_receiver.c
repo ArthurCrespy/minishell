@@ -34,7 +34,7 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	{
 		signal_status(SIGINT, 0);
 		rl_on_new_line();
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}

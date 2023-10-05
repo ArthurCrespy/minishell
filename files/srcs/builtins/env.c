@@ -20,15 +20,15 @@ int	builtin_env(t_data *data)
 	index = 0;
 	while (data->env[index])
 	{
-		printf("%s", data->env[index]);
+		ft_putstr_fd(data->env[index], STDOUT_FILENO);
 		pnt = ft_strchr(data->env[index], '=');
 		if (pnt)
 		{
 			if (*(pnt + 1) == '\0')
-				printf("''");
+				ft_putstr_fd("''", STDOUT_FILENO);
 		}
 		if (data->env[index])
-			printf("\n");
+			ft_putstr_fd("\n", STDOUT_FILENO);
 		index++;
 	}
 	return (0);
