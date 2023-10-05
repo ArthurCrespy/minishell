@@ -39,9 +39,12 @@ int	exec_launch(t_data *data, t_exec *exec)
 	{
 		free(exec->cmd_exec);
 		free(exec->cmd_path);
+		exec->cmd_exec = NULL;
+		exec->cmd_path = NULL;
 	}
 	else
 		waitpid(pid, &data->return_value, 0);
+	waitpid(-1, NULL, 0);
 	return (0);
 }
 
