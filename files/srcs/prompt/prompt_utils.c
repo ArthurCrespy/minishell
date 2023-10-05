@@ -18,11 +18,15 @@ char	*prompt_device_info(t_data *data)
 	char	*tmp;
 	char	*path;
 	char	*device;
+	char	*user;
 	char	*result;
 
 	path = path_find(data);
 	device = device_find(data);
-	result = ft_strjoin(env_return(data, "USER"), "@");
+	user = env_return(data, "USER");
+	if (!user)
+		user = "user";
+	result = ft_strjoin(user, "@");
 	tmp = ft_strjoin(result, device);
 	free(result);
 	result = ft_strjoin(tmp, ":");
@@ -30,8 +34,5 @@ char	*prompt_device_info(t_data *data)
 	tmp = ft_strjoin(result, path);
 	free(result);
 	result = ft_strjoin(tmp, "> ");
-	free(tmp);
-	free(path);
-	free(device);
-	return (result);
+	return (free(tmp), free(path), free(device), result);
 }
