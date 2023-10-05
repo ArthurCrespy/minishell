@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/04 18:40:05 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 20:57:30 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	exec_run(t_data *data)
 {
 	int		index;
-	int		status;
+	//int		status;
 
 	if (data->exec_launch == false)
 	{
@@ -42,13 +42,45 @@ int	exec_run(t_data *data)
 					return (1);
 			}
 		}
+		else
+		{
+			if (data->pipes_nb > 0)
+			{
+				data->pipes_nb--;
+				close(data->exec[index]->pipefd[1]);
+			}
+			data->return_value = 1;
+		}
 		index++;
 	}
-	if (index > 1)
+	wait_all(data);
+	if (data->exec[--index]->fdout == -1)
+		data->return_value = 1;
+	return (0);
+}
+
+int	wait_all(t_data *data)
+{
+	int		status;
+	int		index;
+
+	index = 0;
+	while (data->exec[index])
 	{
-		while (wait(&status) != -1)
-			continue ;
-		data->return_value = WEXITSTATUS(status);
+		waitpid(-1, &status, 0);
+		if (WIFEXITED(status))
+			data->return_value = WEXITSTATUS(status);
+		index++;
 	}
 	return (0);
 }
+
+	// if (index > 1)
+	// {
+	// 	while (wait(&status) != -1)
+	// 		continue ;
+	// 	if (WIFEXITED(status))
+	// 		data->return_value = WEXITSTATUS(status);
+	// }
+	// else
+	// 	waitpid(-1, &status, 0);

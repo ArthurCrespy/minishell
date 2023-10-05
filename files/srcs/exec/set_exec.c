@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/04 18:56:54 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 20:36:12 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_set_in(t_data *data, t_exec *exec)
 		{
 			exec->fdin = open(exec->in[index], O_RDONLY);
 			if (exec->fdin == -1)
-				return (perror("open failed"), 1);
+				return (1);
 			if (index < exec->in_nb -1)
 				close(exec->fdin);
 			index++;
@@ -64,6 +64,8 @@ int	exec_set_out(t_data *data, t_exec *exec)
 		while (index < exec->out_nb)
 		{
 			exec->fdout = open(exec->out[index], O_CREAT | O_RDWR | O_TRUNC, 0777);
+			if (exec->fdout == -1)
+				return (1);
 			if (index < exec->out_nb -1)
 				close(exec->fdout);
 			index++;
@@ -124,18 +126,29 @@ int	exec_set_path(t_data *data, t_exec *exec)
 // set les fdin et fdout de chaque commande
 int	exec_set_all(t_data *data, t_exec *exec)
 {
+	int	return_value;
+
+	return_value = 0;
 	if (!check_builtin(data, exec))
 	{
 		if (exec_set_cmd(data, exec))
-			return (perror("exec_set_cmd failed"), 1);
+			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
 		if (exec_set_path(data, exec))
-			return (perror("exec_set_path failed"), 1);
+			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
 	}
 	if (set_pipe(data, exec))
 		return (perror("pipe_set failed"), 1);
 	if (exec_set_in(data, exec))
-		return (perror("exec_set_in failed"), 1);
+	{
+		ft_putstr_fd(exec->in[0], 2);
+		perror(" ");
+		return_value = 1;
+	}
 	if (exec_set_out(data, exec))
-		return (perror("exec_set_out failed"), 1);
-	return (0);
+	{
+		ft_putstr_fd(exec->out[0], 2);
+		perror(" ");
+		return_value = 1;
+	}
+	return (return_value);
 }
