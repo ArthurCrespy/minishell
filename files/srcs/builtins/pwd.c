@@ -22,6 +22,9 @@ int	builtin_pwd(t_data *data)
 	if (!working_directory)
 		return (1);
 	else
+	{
 		ft_putstr_fd(working_directory, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	}
 	return (0);
 }
