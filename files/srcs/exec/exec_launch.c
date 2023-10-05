@@ -37,14 +37,16 @@ int	exec_launch(t_data *data, t_exec *exec)
 		unlink(".heredoc");
 	if (check_builtin(data, exec) == 0)
 	{
+		// if (exec->fdin != STDIN_FILENO)
+		// 	waitpid(pid, &data->return_value, 0);
 		free(exec->cmd_exec);
 		free(exec->cmd_path);
 		exec->cmd_exec = NULL;
 		exec->cmd_path = NULL;
 	}
-	else
-		waitpid(pid, &data->return_value, 0);
-	waitpid(-1, NULL, 0);
+	// else
+	// 	waitpid(pid, &data->return_value, 0);
+	// waitpid(pid, &data->return_value, 0);
 	return (0);
 }
 
