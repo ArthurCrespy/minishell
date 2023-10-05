@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/05 20:36:12 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 21:24:03 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	exec_set_out(t_data *data, t_exec *exec)
 		index = 0;
 		while (index < exec->out_nb)
 		{
-			exec->fdout = open(exec->out[index], O_CREAT | O_RDWR | O_TRUNC, 0777);
+			exec->fdout = open(exec->out[index],
+					O_CREAT | O_RDWR | O_TRUNC, 0777);
 			if (exec->fdout == -1)
 				return (1);
 			if (index < exec->out_nb -1)

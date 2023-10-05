@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/05 20:57:30 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 21:23:28 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	exec_run(t_data *data)
 {
 	int		index;
-	//int		status;
 
 	if (data->exec_launch == false)
 	{
@@ -30,17 +29,8 @@ int	exec_run(t_data *data)
 		data->exec[index]->id_exec = index;
 		if (exec_set_all(data, data->exec[index]) == 0)
 		{
-			if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
-				&& check_builtin(data, data->exec[index]) == 1)
-			{
-				if (exec_builtin(data, data->exec[index]) == 1)
-					return (1);
-			}
-			else
-			{
-				if (exec_launch(data, data->exec[index]) == 1)
-					return (1);
-			}
+			if (exec_set_ok(data, data->exec[index], index) == 1)
+				return (1);
 		}
 		else
 		{
@@ -56,6 +46,23 @@ int	exec_run(t_data *data)
 	wait_all(data);
 	if (data->exec[--index]->fdout == -1)
 		data->return_value = 1;
+	return (0);
+}
+
+int	exec_set_ok(t_data *data, t_exec *exec, int index)
+{
+	(void)exec;
+	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
+		&& check_builtin(data, data->exec[index]) == 1)
+	{
+		if (exec_builtin(data, data->exec[index]) == 1)
+			return (1);
+	}
+	else
+	{
+		if (exec_launch(data, data->exec[index]) == 1)
+			return (1);
+	}
 	return (0);
 }
 
