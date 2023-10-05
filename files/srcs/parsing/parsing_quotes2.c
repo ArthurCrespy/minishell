@@ -81,7 +81,7 @@ void	ft_init_quotes(t_data *data, t_quotes **quotes, int size)
 	(*quotes)->opened_double = 0;
 	(*quotes)->closed_single = 0;
 	(*quotes)->closed_double = 0;
-	(*quotes)->tmp = (char *)malloc(sizeof(char) * (size + 1));
+	(*quotes)->tmp = (char *)calloc(sizeof(char), (size + 1));
 	if (!(*quotes)->tmp)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_init_quotes");
 }

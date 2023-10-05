@@ -61,6 +61,8 @@ void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 			qts->j++;
 		}
 		qts->tmp[qts->j] = '\0';
+		if (qts->tmp[qts->j - 1] == '\0')
+			qts->tmp[qts->j - 1] = '\n';
 		free(exec->args[i]);
 		exec->args[i] = qts->tmp;
 		free(qts);
