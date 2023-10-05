@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/04 19:00:01 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 16:17:23 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ int	exec_launch(t_data *data, t_exec *exec)
 		unlink(".heredoc");
 	if (check_builtin(data, exec) == 0)
 	{
+		// if (exec->fdin != STDIN_FILENO)
+		// 	waitpid(pid, &data->return_value, 0);
 		free(exec->cmd_exec);
 		free(exec->cmd_path);
 	}
-	else
-		waitpid(pid, &data->return_value, 0);
+	// else
+	// 	waitpid(pid, &data->return_value, 0);
+	// waitpid(pid, &data->return_value, 0);
 	return (0);
 }
 
