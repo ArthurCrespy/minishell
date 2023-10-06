@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/05 21:40:07 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:28:34 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,8 @@ char	*prompt_device_info(t_data *data);
 // ----------- SIGNAL ---------- //
 int		signal_status(int status, int set);
 void	signal_handle(t_data *data);
+
+// ----------- ERROR ----------- //
+void	handle_open_error(void);
 
 #endif

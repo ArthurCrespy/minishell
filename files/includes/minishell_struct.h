@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/01 02:23:39 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 15:15:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_quotes
 typedef struct s_exec
 {
 	int				id_exec;
+	pid_t			pid;
 	int				fdin;
 	int				fdin_next;
 	int				fdout;

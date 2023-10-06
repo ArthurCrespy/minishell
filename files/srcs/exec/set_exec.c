@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/05 21:24:03 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:29:08 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,10 @@
 //					heredoc
 int	exec_set_in(t_data *data, t_exec *exec)
 {
-	int	index;
-
-	(void)data;
-	index = 0;
-	if (exec->delimiter_nb)
+	if (exec->in_nb != 0)
 	{
-		heredoc(exec);
-		exec->fdin = open(".heredoc", O_RDONLY);
-	}
-	else if (exec->in_nb != 0)
-	{
-		while (index < exec->in_nb)
-		{
-			exec->fdin = open(exec->in[index], O_RDONLY);
-			if (exec->fdin == -1)
-				return (1);
-			if (index < exec->in_nb -1)
-				close(exec->fdin);
-			index++;
-		}
+		if (if_redir_in(exec) == 1)
+			return (1);
 	}
 	else if (exec->id_exec == 0)
 		exec->fdin = STDIN_FILENO;
@@ -56,21 +40,10 @@ int	exec_set_in(t_data *data, t_exec *exec)
 //					pipefd[1]
 int	exec_set_out(t_data *data, t_exec *exec)
 {
-	int	index;
-
-	if (exec->out_nb != 0)
+	if (exec->out_nb != 0 || exec->out_append_nb != 0)
 	{
-		index = 0;
-		while (index < exec->out_nb)
-		{
-			exec->fdout = open(exec->out[index],
-					O_CREAT | O_RDWR | O_TRUNC, 0777);
-			if (exec->fdout == -1)
-				return (1);
-			if (index < exec->out_nb -1)
-				close(exec->fdout);
-			index++;
-		}
+		if (if_redir_out(exec) == 1)
+			return (1);
 	}
 	else if (data->pipes_nb != 0)
 	{
