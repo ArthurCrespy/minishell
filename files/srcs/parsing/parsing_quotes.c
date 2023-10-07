@@ -12,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exec_quotes_utils(char *tmp, char *arg, int j, int i)
+void	ft_exec_quotes_utils(t_quotes *qts, t_exec *exec, int i)
 {
-	tmp[j] = '\0';
-	if (tmp[j - 1] == '\0')
-		tmp[j - 1] = '\n';
-	free(arg);
-	arg = tmp;
-	free(tmp);
+	qts->tmp[qts->j] = '\0';
+	if (qts->tmp[qts->j - 1] == '\0')
+		qts->tmp[qts->j - 1] = '\n';
+	free(exec->args[i]);
+	exec->args[i] = qts->tmp;
+	free(qts);
 }
 
 void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
@@ -70,7 +70,7 @@ void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 				qts->tmp[qts->k++] = exec->args[i][qts->j];
 			qts->j++;
 		}
-		ft_exec_quotes_utils(qts->tmp, exec->args[i], qts->k, qts->j);
+		ft_exec_quotes_utils(qts, exec, i);
 		i++;
 	}
 }
