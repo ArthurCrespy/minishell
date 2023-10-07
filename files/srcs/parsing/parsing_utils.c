@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:52:18 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/02 16:41:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/05 20:43:52 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 	if (data->command[(*i) - 1][0] == '<' && data->command[(*i) - 1][1] == '<')
 	{
 		exec->delimiter[exec->delimiter_nb++] = ft_strdup(data,
-			data->command[(*i)]);
+				data->command[(*i)]);
 		exec->in[exec->in_nb++] = ft_strdup(data, "heredoc");
 	}
 	else
