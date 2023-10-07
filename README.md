@@ -77,7 +77,6 @@ For now, all rights are reserved.
 <p align="center">
     <a href="https://github.com/ArthurCrespy"> <img alt="Made by ArthurCrespy" src="https://img.shields.io/badge/made%20by-ArthurCrespy-blue"></a>
     <a href="https://github.com/arm-and-b"> <img alt="Made by armandb" src="https://img.shields.io/badge/made%20by-armandb-blue"></a>
-    <a href="https://github.com/kavishan59"> <img alt="Made by kavishan59" src="https://img.shields.io/badge/made%20by-kavishan59-blue"></a>
     <a href="https://42.fr"><img alt="42 Website" src="https://img.shields.io/badge/website-42.fr-blue"></a>
     <br>
     Github <a href="https://github.com/ArthurCrespy" target="_blank">@Thur'</a> |
