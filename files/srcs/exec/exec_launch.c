@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/04 19:00:01 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 15:17:27 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	exec_launch(t_data *data, t_exec *exec)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
+	exec->pid = pid;
 	if (pid == 0)
 	{
 		exec_child(data, exec);
@@ -84,7 +85,7 @@ int	change_fdin(t_exec *exec)
 	{
 		dup2(exec->fdin, STDIN_FILENO);
 		if (close(exec->fdin) == -1)
-			perror("close fdin child");
+			return (1);
 	}
 	return (0);
 }
@@ -95,7 +96,7 @@ int	change_fdout(t_exec *exec)
 	{
 		dup2(exec->fdout, STDOUT_FILENO);
 		if (close(exec->fdout) == -1)
-			perror("close fdout child");
+			return (1);
 	}
 	return (0);
 }

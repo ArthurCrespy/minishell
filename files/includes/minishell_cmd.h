@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/02 19:24:15 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:28:34 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		exec_builtin(t_data *data, t_exec *exec);
 int		heredoc(t_exec *exec);
 int		set_pipe(t_data *data, t_exec *exec);
 int		exec_launch(t_data *data, t_exec *exec);
+int		exec_set_ok(t_data *data, t_exec *exec, int index);
+int		exec_set_ko(t_data *data, t_exec *exec, int index);
 
 // ------------ EXIT ----------- //
 void	ft_exit(t_data *data, int code, int error, char *origin);
@@ -71,5 +73,8 @@ char	*prompt_device_info(t_data *data);
 // ----------- SIGNAL ---------- //
 int		signal_status(int status, int set);
 void	signal_handle(t_data *data);
+
+// ----------- ERROR ----------- //
+void	handle_open_error(void);
 
 #endif
