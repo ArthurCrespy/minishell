@@ -12,8 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-// verifie que le launch s'affiche bien
-// boucle pour lancer chaque commande a la suite
+// Launch the exec
+// Loop to launch each command in a row
 int	exec_run(t_data *data)
 {
 	int		index;
@@ -30,7 +30,8 @@ int	exec_run(t_data *data)
 		data->exec[index]->id_exec = index;
 		if (exec_set_all(data, data->exec[index]) == 0)
 		{
-			if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
+			if (data->pipes_nb == 0 && index == 0
+				&& data->exec[index]->out_nb == 0
 				&& check_builtin(data, data->exec[index]) == 1)
 			{
 				if (exec_builtin(data, data->exec[index]) == 1)

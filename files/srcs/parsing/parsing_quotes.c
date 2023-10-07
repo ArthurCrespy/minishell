@@ -12,6 +12,16 @@
 
 #include "../../includes/minishell.h"
 
+void	ft_exec_quotes_utils(char *tmp, char *arg, int j, int i)
+{
+	tmp[j] = '\0';
+	if (tmp[j - 1] == '\0')
+		tmp[j - 1] = '\n';
+	free(arg);
+	arg = tmp;
+	free(tmp);
+}
+
 void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
 {
 	t_quotes	*qts;
@@ -60,12 +70,7 @@ void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i)
 				qts->tmp[qts->k++] = exec->args[i][qts->j];
 			qts->j++;
 		}
-		qts->tmp[qts->j] = '\0';
-		if (qts->tmp[qts->j - 1] == '\0')
-			qts->tmp[qts->j - 1] = '\n';
-		free(exec->args[i]);
-		exec->args[i] = qts->tmp;
-		free(qts);
+		ft_exec_quotes_utils(qts->tmp, exec->args[i], qts->k, qts->j);
 		i++;
 	}
 }
@@ -123,35 +128,6 @@ void	ft_exec_quotes_in(t_data *data, t_exec *exec, int i)
 		qts->tmp[qts->j] = '\0';
 		free(exec->in[i]);
 		exec->in[i] = qts->tmp;
-		free(qts);
-		i++;
-	}
-}
-
-void	ft_exec_quotes_out(t_data *data, t_exec *exec, int i)
-{
-	t_quotes	*qts;
-
-	while (exec->out[i])
-	{
-		ft_init_quotes(data, &qts, ft_strlen(exec->out[i]));
-		while (exec->out[i][qts->j])
-		{
-			if (exec->out[i][qts->j] == '\'' && !qts->opened_double)
-				qts->opened_single = !qts->opened_single;
-			else if (exec->out[i][qts->j] == '\"' && !qts->opened_single)
-				qts->opened_double = !qts->opened_double;
-			else if (exec->out[i][qts->j] == '\'' && qts->opened_double)
-				qts->closed_single = !qts->closed_single;
-			else if (exec->out[i][qts->j] == '\"' && qts->opened_single)
-				qts->closed_double = !qts->closed_double;
-			else
-				qts->tmp[qts->k++] = exec->out[i][qts->j];
-			qts->j++;
-		}
-		qts->tmp[qts->j] = '\0';
-		free(exec->out[i]);
-		exec->out[i] = qts->tmp;
 		free(qts);
 		i++;
 	}

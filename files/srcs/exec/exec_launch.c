@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-//fork puis donne les instructions pour les process enfants et parent
+// Fork, set the pipes, and call the function to launch the exec in the child
 int	exec_launch(t_data *data, t_exec *exec)
 {
 	pid_t	pid;
@@ -37,21 +37,28 @@ int	exec_launch(t_data *data, t_exec *exec)
 		unlink(".heredoc");
 	if (check_builtin(data, exec) == 0)
 	{
-		// if (exec->fdin != STDIN_FILENO)
-		// 	waitpid(pid, &data->return_value, 0);
 		free(exec->cmd_exec);
 		free(exec->cmd_path);
 		exec->cmd_exec = NULL;
 		exec->cmd_path = NULL;
 	}
-	// else
-	// 	waitpid(pid, &data->return_value, 0);
-	// waitpid(pid, &data->return_value, 0);
 	return (0);
 }
 
-// remplace les stdin et stdout par les fdin et fdout correspondants
-// lance l'exec
+/*	if (check_builtin(data, exec) == 0)
+	{
+		 if (exec->fdin != STDIN_FILENO)
+		 	waitpid(pid, &data->return_value, 0);
+		free(exec->cmd_exec);
+		free(exec->cmd_path);
+		exec->cmd_exec = NULL;
+		exec->cmd_path = NULL;
+	}
+	 else
+	 	waitpid(pid, &data->return_value, 0);
+	 waitpid(pid, &data->return_value, 0);*/
+
+// Set the pipes then launch the execve/builtins in the child
 void	exec_child(t_data *data, t_exec *exec)
 {
 	change_fdin(exec);
