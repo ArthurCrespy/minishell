@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/07 19:56:22 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/06 19:11:56 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int		ft_quotes_enclosed_double(t_parsing *parsing, int open_b,
 t_exec	**ft_exec_quotes(t_data *data);
 void	ft_init_quotes(t_data *data, t_quotes **quotes, int size);
 void	ft_exec_quotes_cmd(t_data *data, t_exec *exec);
-void	ft_exec_quotes_replace(t_data *data, t_exec *exec, char **input,
-			int size);
 t_exec	*ft_exec_node_create(t_data *data);
 t_exec	*ft_exec_node_null(t_exec *exec);
 void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i);
