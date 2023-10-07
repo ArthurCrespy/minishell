@@ -25,7 +25,7 @@ void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 	{
 		exec->delimiter[exec->delimiter_nb++] = ft_strdup(data,
 			data->command[(*i)]);
-		exec->in[exec->in_nb++] = ft_strdup(data, "heredoc");
+		exec->in[exec->in_nb++] = ft_strdup(data, "\x1Eheredoc\x1E");
 	}
 	else
 		exec->in[exec->in_nb++] = ft_strdup(data, data->command[(*i)]);
@@ -41,8 +41,11 @@ void	ft_exec_token_output(t_data *data, t_exec *exec, int *i)
 		return ;
 	}
 	if (data->command[*i - 1][0] == '>' && data->command[*i - 1][1] == '>')
+	{
 		exec->out_append[exec->out_append_nb++] = ft_strdup(data,
 				data->command[*i]);
+		exec->out_append[exec->out_append_nb++] = ft_strdup(data, "\x1Eout_append\x1E");
+	}
 	else
 		exec->out[exec->out_nb++] = ft_strdup(data, data->command[*i]);
 }

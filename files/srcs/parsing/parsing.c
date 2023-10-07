@@ -86,9 +86,6 @@ void	parsing_input(t_data *data, char *command)
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
 	ft_exec_quotes(data);
-//	parsing->command = ft_quotes_replace(data, parsing, '\"');
-//	parsing->command = ft_quotes_replace(data, parsing, '\'');
-//	data->exec = ft_exec_quotes(data);
 	free(parsing->command);
 	free(parsing);
 }
