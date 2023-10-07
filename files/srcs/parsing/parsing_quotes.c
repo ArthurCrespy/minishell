@@ -65,9 +65,9 @@ void ft_exec_quotes_replace(t_data *data, t_exec *exec, char **input, int size)
                 qts->opened_single = !qts->opened_single;
             else if (input[i][qts->j] == '\"' && !qts->opened_single)
                 qts->opened_double = !qts->opened_double;
-            else if (input[i][qts->j] == '\'' && qts->opened_double)
+            else if (input[i][qts->j] == '\'' && !qts->opened_double)
                 qts->closed_single = !qts->closed_single;
-            else if (input[i][qts->j] == '\"' && qts->opened_single)
+            else if (input[i][qts->j] == '\"' && !qts->opened_single)
                 qts->closed_double = !qts->closed_double;
             else
                 qts->tmp[qts->k++] = input[i][qts->j];
