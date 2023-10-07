@@ -12,11 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-//definit le fdin :
-//					stdin
-//					fichier
-//					pipefd[0]
-//					heredoc
+// Define the fdin
+//  -> stdin
+//  -> file
+//  -> pipefd[0]
+//  -> heredoc
 int	exec_set_in(t_data *data, t_exec *exec)
 {
 	if (exec->in_nb != 0)
@@ -34,10 +34,10 @@ int	exec_set_in(t_data *data, t_exec *exec)
 	return (0);
 }
 
-//definit le fdout:
-//					stdout
-//					fichier
-//					pipefd[1]
+// Define the fdout
+//  -> stdout
+//  -> file
+//  -> pipefd[1]
 int	exec_set_out(t_data *data, t_exec *exec)
 {
 	if (exec->out_nb != 0 || exec->out_append_nb != 0)
@@ -55,7 +55,7 @@ int	exec_set_out(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// definit les commandes
+// Define the command to execute
 int	exec_set_cmd(t_data *data, t_exec *exec)
 {
 	int	len;
@@ -83,7 +83,7 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// definit le path des commandes
+// Define the path of the command
 int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (ft_strchr(exec->cmd, '/'))
@@ -97,7 +97,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// set les fdin et fdout de chaque commande
+// Catch the cmd and his path then set the fdin, fdout and pipefd
 int	exec_set_all(t_data *data, t_exec *exec)
 {
 	int	return_value;

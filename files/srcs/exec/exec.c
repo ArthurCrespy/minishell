@@ -12,8 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-// verifie que le launch s'affiche bien
-// boucle pour lancer chaque commande a la suite
+// Launch the exec
+// Loop to launch each command in a row
 int	exec_run(t_data *data)
 {
 	int		index;

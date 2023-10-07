@@ -27,6 +27,7 @@ void	ft_operators_separate(t_parsing *parsing)
 	}
 	while (count % 2 == 0 && count > 0)
 	{
+		parsing->tmp[parsing->j++] = '\x1F';
 		parsing->tmp[parsing->j++] = c;
 		parsing->tmp[parsing->j++] = c;
 		parsing->tmp[parsing->j++] = '\x1F';
@@ -34,6 +35,7 @@ void	ft_operators_separate(t_parsing *parsing)
 	}
 	if (count % 2 == 1)
 	{
+		parsing->tmp[parsing->j++] = '\x1F';
 		parsing->tmp[parsing->j++] = c;
 		parsing->tmp[parsing->j++] = '\x1F';
 	}

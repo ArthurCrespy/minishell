@@ -12,6 +12,35 @@
 
 #include "../../includes/minishell.h"
 
+void	ft_exec_quotes_out(t_data *data, t_exec *exec, int i)
+{
+	t_quotes	*qts;
+
+	while (exec->out[i])
+	{
+		ft_init_quotes(data, &qts, ft_strlen(exec->out[i]));
+		while (exec->out[i][qts->j])
+		{
+			if (exec->out[i][qts->j] == '\'' && !qts->opened_double)
+				qts->opened_single = !qts->opened_single;
+			else if (exec->out[i][qts->j] == '\"' && !qts->opened_single)
+				qts->opened_double = !qts->opened_double;
+			else if (exec->out[i][qts->j] == '\'' && qts->opened_double)
+				qts->closed_single = !qts->closed_single;
+			else if (exec->out[i][qts->j] == '\"' && qts->opened_single)
+				qts->closed_double = !qts->closed_double;
+			else
+				qts->tmp[qts->k++] = exec->out[i][qts->j];
+			qts->j++;
+		}
+		qts->tmp[qts->j] = '\0';
+		free(exec->out[i]);
+		exec->out[i] = qts->tmp;
+		free(qts);
+		i++;
+	}
+}
+
 void	ft_exec_quotes_out_append(t_data *data, t_exec *exec, int i)
 {
 	t_quotes	*qts;
