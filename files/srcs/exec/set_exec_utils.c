@@ -6,11 +6,54 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/06 21:30:54 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/07 17:08:29 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// Define the fdin
+//  -> stdin
+//  -> file
+//  -> pipefd[0]
+//  -> heredoc
+int	exec_set_in(t_data *data, t_exec *exec)
+{
+	if (exec->in_nb != 0)
+	{
+		if (if_redir_in(exec) == 1)
+			return (1);
+	}
+	else if (exec->id_exec == 0)
+		exec->fdin = STDIN_FILENO;
+	else if (exec->id_exec != 0)
+	{
+		if (data->exec[exec->id_exec - 1])
+			exec->fdin = data->exec[exec->id_exec - 1]->fdin_next;
+	}
+	return (0);
+}
+
+// Define the fdout
+//  -> stdout
+//  -> file
+//  -> pipefd[1]
+int	exec_set_out(t_data *data, t_exec *exec)
+{
+	if (exec->out_nb != 0 || exec->out_append_nb != 0)
+	{
+		if (if_redir_out(exec) == 1)
+			return (1);
+	}
+	else if (data->pipes_nb != 0)
+	{
+			exec->fdout = exec->pipefd[1];
+			exec->fdin_next = exec->pipefd[0];
+	}
+	else
+		exec->fdout = STDOUT_FILENO;
+	return (0);
+}
 
 int	if_redir_in(t_exec *exec)
 {
