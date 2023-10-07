@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/07 17:51:41 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/07 20:38:16 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,34 @@ int	set_pipe(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// int	set_in_and_out(t_data *data, t_exec *exec)
-// {
-// 	int	index;
-// 	int	type;
+// Define fdin and fdout
+int	set_in_and_out(t_data *data, t_exec *exec)
+{
+	int	index;
+	int	type;
 
-// 	index = 0;
-// 	while (index < exec->ref_nb)
-// 	{
-// 		type = exec->content[index];
-// 		if (type == REDIR_IN || type == DELIMITER)
-// 		{
-// 			if (if_redir_in(exec))
-// 				return (1);
-// 		}
-// 		if (type == REDIR_OUT || type == REDIR_APPEND)
-// 		{
-// 			if (if_redir_out(exec))
-// 				return (1);
-// 		}
-// 	}
-// 	if (!exec->in_nb && exec->id_exec == 0)
-// 		exec->fdin = STDIN_FILENO;
-// }
+	index = 0;
+	while (index < exec->ref_nb)
+	{
+		type = exec->type[index];
+		if (type == REDIR_IN || type == DELIMITER)
+		{
+			if (if_redir_in(exec, index) == 1)
+				return (1);
+		}
+		if (type == REDIR_OUT || type == REDIR_APPEND)
+		{
+			if (if_redir_out(exec, index) == 1)
+				return (1);
+		}
+		index++;
+	}
+	if (!exec->in_nb && !exec->delimiter_nb)
+		exec_set_in(data, exec);
+	if (!exec->out_nb && !exec->out_append_nb)
+		exec_set_out(data, exec);
+	return (0);
+}
 
 // Catch the cmd and his path then set the fdin, fdout and pipefd
 int	exec_set_all(t_data *data, t_exec *exec)
@@ -106,15 +111,8 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	}
 	if (set_pipe(data, exec))
 		return (perror("pipe_set failed"), 1);
-	if (exec_set_in(data, exec))
+	if (set_in_and_out(data, exec) == 1)
 	{
-		ft_putstr_fd(exec->in[0], 2);
-		perror(" ");
-		return_value = 1;
-	}
-	if (exec_set_out(data, exec))
-	{
-		ft_putstr_fd(exec->out[0], 2);
 		perror(" ");
 		return_value = 1;
 	}
