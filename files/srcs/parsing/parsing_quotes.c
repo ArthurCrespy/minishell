@@ -12,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-void    ft_exec_quotes_end(t_quotes *qts, char **input, int i)
+void	ft_exec_quotes_end(t_quotes *qts, char **input, int i)
 {
-    qts->tmp[qts->j] = '\0';
-    if (qts->tmp[qts->j - 1] == '\0')
-        qts->tmp[qts->j - 1] = '\n';
-    free(input[i]);
-    input[i] = qts->tmp;
-    free(qts);
+	qts->tmp[qts->j] = '\0';
+	if (qts->tmp[qts->j - 1] == '\0')
+		qts->tmp[qts->j - 1] = '\n';
+	free(input[i]);
+	input[i] = qts->tmp;
+	free(qts);
 }
 
 void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
@@ -49,33 +49,32 @@ void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
 	free(qts);
 }
 
-void ft_exec_quotes_replace(t_data *data, t_exec *exec, char **input, int size)
+void	ft_exec_quotes_replace(t_data *data, char **input, int size)
 {
-	int     i;
-    t_quotes *qts;
+	int			i;
+	t_quotes	*qts;
 
 	i = 0;
-	(void)exec;
-    while (i != size && input[i])
-    {
-        ft_init_quotes(data, &qts, ft_strlen(input[i]));
-        while (input[i][qts->j])
-        {
-            if (input[i][qts->j] == '\'' && !qts->opened_double)
-                qts->opened_single = !qts->opened_single;
-            else if (input[i][qts->j] == '\"' && !qts->opened_single)
-                qts->opened_double = !qts->opened_double;
-            else if (input[i][qts->j] == '\'' && !qts->opened_double)
-                qts->closed_single = !qts->closed_single;
-            else if (input[i][qts->j] == '\"' && !qts->opened_single)
-                qts->closed_double = !qts->closed_double;
-            else
-                qts->tmp[qts->k++] = input[i][qts->j];
-            qts->j++;
-        }
+	while (i != size && input[i])
+	{
+		ft_init_quotes(data, &qts, ft_strlen(input[i]));
+		while (input[i][qts->j])
+		{
+			if (input[i][qts->j] == '\'' && !qts->opened_double)
+				qts->opened_single = !qts->opened_single;
+			else if (input[i][qts->j] == '\"' && !qts->opened_single)
+				qts->opened_double = !qts->opened_double;
+			else if (input[i][qts->j] == '\'' && !qts->opened_double)
+				qts->closed_single = !qts->closed_single;
+			else if (input[i][qts->j] == '\"' && !qts->opened_single)
+				qts->closed_double = !qts->closed_double;
+			else
+				qts->tmp[qts->k++] = input[i][qts->j];
+			qts->j++;
+		}
 		ft_exec_quotes_end(qts, input, i);
 		i++;
-    }
+	}
 }
 
 void	ft_init_quotes(t_data *data, t_quotes **quotes, int size)
@@ -104,17 +103,17 @@ t_exec	**ft_exec_quotes(t_data *data)
 		if (data->exec[i] == NULL)
 			return (data->exec);
 		ft_exec_quotes_cmd(data, data->exec[i]);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->flags,
+		ft_exec_quotes_replace(data, data->exec[i]->flags,
 			data->exec[i]->flags_nb);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->args,
+		ft_exec_quotes_replace(data, data->exec[i]->args,
 			data->exec[i]->args_nb);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->in,
+		ft_exec_quotes_replace(data, data->exec[i]->in,
 			data->exec[i]->in_nb);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->out,
+		ft_exec_quotes_replace(data, data->exec[i]->out,
 			data->exec[i]->out_nb);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->out_append,
+		ft_exec_quotes_replace(data, data->exec[i]->out_append,
 			data->exec[i]->out_append_nb);
-		ft_exec_quotes_replace(data, data->exec[i], data->exec[i]->content,
+		ft_exec_quotes_replace(data, data->exec[i]->content,
 			data->exec[i]->ref_nb);
 		i++;
 	}
