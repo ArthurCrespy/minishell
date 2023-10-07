@@ -42,10 +42,13 @@ t_exec	*ft_exec_node_create(t_data *data)
 	exec->out = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->out_append = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
 	exec->delimiter = malloc(sizeof(char *) * (ft_tabslen(data->command) + 1));
+	exec->type = malloc(sizeof(int) * (ft_tabslen(data->command) + 1));
+	exec->content = malloc(sizeof(int) * (ft_tabslen(data->command) + 1));
 	exec->flags_nb = 0;
 	exec->args_nb = 0;
 	exec->in_nb = 0;
 	exec->out_nb = 0;
+	exec->ref_nb = 0;
 	ft_exec_node_create2(exec);
 	return (exec);
 }

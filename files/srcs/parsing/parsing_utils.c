@@ -25,10 +25,15 @@ void	ft_exec_token_input(t_data *data, t_exec *exec, int *i)
 	{
 		exec->delimiter[exec->delimiter_nb++] = ft_strdup(data,
 				data->command[(*i)]);
-		exec->in[exec->in_nb++] = ft_strdup(data, "\x1Eheredoc\x1E");
+		exec->type[exec->ref_nb] = DELIMITER;
+		exec->content[exec->ref_nb++] = ft_strdup(data, data->command[(*i)]);
 	}
 	else
+	{
 		exec->in[exec->in_nb++] = ft_strdup(data, data->command[(*i)]);
+		exec->type[exec->ref_nb] = REDIR_IN;
+		exec->content[exec->ref_nb++] = ft_strdup(data, data->command[(*i)]);
+	}
 }
 
 // Parse output tokens
@@ -44,11 +49,15 @@ void	ft_exec_token_output(t_data *data, t_exec *exec, int *i)
 	{
 		exec->out_append[exec->out_append_nb++] = ft_strdup(data,
 				data->command[*i]);
-		exec->out_append[exec->out_append_nb++] = ft_strdup(data,
-				"\x1Eout_append\x1E");
+		exec->type[exec->ref_nb] = REDIR_APPEND;
+		exec->content[exec->ref_nb++] = ft_strdup(data, data->command[*i]);
 	}
 	else
+	{
 		exec->out[exec->out_nb++] = ft_strdup(data, data->command[*i]);
+		exec->type[exec->ref_nb] = REDIR_OUT;
+		exec->content[exec->ref_nb++] = ft_strdup(data, data->command[*i]);
+	}
 }
 
 // Parse tokens

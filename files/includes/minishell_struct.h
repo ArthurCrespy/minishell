@@ -55,12 +55,15 @@ typedef struct s_exec
 	char			**out;
 	char			**out_append;
 	char			**delimiter;
+	int             *type;
+	char			**content;
 	int				flags_nb;
 	int				args_nb;
 	int				in_nb;
 	int				out_nb;
 	int				out_append_nb;
 	int				delimiter_nb;
+	int             ref_nb;
 }				t_exec;
 
 typedef struct s_data
