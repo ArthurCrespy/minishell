@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/07 20:38:16 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:27:49 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,22 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (ft_strchr(exec->cmd, '/'))
-		exec->cmd_path = ft_strdup(data, exec->cmd);
+	{
+		if (check_directory(exec->cmd) == 1)
+		{
+			data->return_value = 126;
+			return (1);
+		}
+		if (access(exec->cmd, F_OK) == 0)
+			exec->cmd_path = ft_strdup(data, exec->cmd);
+		else
+			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
+	}
 	else
 	{
 		exec->cmd_path = path_find_cmd(data, exec);
 		if (!exec->cmd_path)
-			return (1);
+			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
 	}
 	return (0);
 }
@@ -105,15 +115,19 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	if (!check_builtin(data, exec))
 	{
 		if (exec_set_cmd(data, exec))
-			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
+		{
+			ft_putstr_fd(exec->cmd, 2);
+			perror(" ");
+			return_value = 1;
+		}
 		if (exec_set_path(data, exec))
-			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
+			return_value = 1;
 	}
 	if (set_pipe(data, exec))
 		return (perror("pipe_set failed"), 1);
 	if (set_in_and_out(data, exec) == 1)
 	{
-		perror(" ");
+		perror("redirect failed");
 		return_value = 1;
 	}
 	return (return_value);

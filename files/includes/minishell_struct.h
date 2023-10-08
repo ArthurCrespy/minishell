@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/07 17:57:24 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:21:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_exec
 {
 	int				id_exec;
 	pid_t			pid;
+	bool			is_pid;
 	int				fdin;
-	int				fdin_next;
 	int				fdout;
 	int				pipefd[2];
 	char			*cmd_path;

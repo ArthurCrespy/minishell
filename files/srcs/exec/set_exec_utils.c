@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/07 20:42:13 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:33:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	exec_set_in(t_data *data, t_exec *exec)
 int	exec_set_out(t_data *data, t_exec *exec)
 {
 	if (data->pipes_nb != 0)
-	{
 			exec->fdout = exec->pipefd[1];
-			//exec->fdin_next = exec->pipefd[0];
-	}
 	else
 		exec->fdout = STDOUT_FILENO;
 	return (0);
@@ -88,11 +85,25 @@ int	if_redir_out(t_exec *exec, int index)
 	return (0);
 }
 
-void	handle_open_error(void)
+int	check_directory(char *cmd)
 {
-	// if (errno == ENOENT)
-	// 	perror(" ");
-	// if (errno == EACCES)
-	// 	perror(" ");
-	// if (errno == EISDIR)
+	int	fd;
+
+	fd = open(cmd, O_RDONLY);
+	if (fd != -1)
+	{
+		ft_putstr_fd(" Is a directory\n", 2);
+		return (1);
+	}
+	else
+		return (0);
 }
+
+// void	handle_open_error(void)
+// {
+// 	// if (errno == ENOENT)
+// 	// 	perror(" ");
+// 	// if (errno == EACCES)
+// 	// 	perror(" ");
+// 	// if (errno == EISDIR)
+// }

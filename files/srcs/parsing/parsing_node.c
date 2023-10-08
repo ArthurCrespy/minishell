@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:15:01 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/06 21:39:37 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:21:37 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_exec_node_create2(t_exec *exec)
 	exec->delimiter_nb = 0;
 	exec->fdin = -1;
 	exec->fdout = -1;
-	exec->fdin_next = -1;
 	exec->id_exec = 0;
+	exec->is_pid = false;
 	exec->pipefd[0] = -1;
 	exec->pipefd[1] = -1;
 	exec->cmd_exec = NULL;

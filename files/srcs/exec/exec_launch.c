@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/06 15:17:27 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:22:30 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ int	exec_launch(t_data *data, t_exec *exec)
 	if (pid == -1)
 		return (perror("fork"), 1);
 	exec->pid = pid;
+	exec->is_pid = true;
 	if (pid == 0)
-	{
 		exec_child(data, exec);
-		perror("execve");
-	}
 	if (exec->fdin != STDIN_FILENO)
 		close(exec->fdin);
 	if (data->pipes_nb != 0)
@@ -45,19 +43,6 @@ int	exec_launch(t_data *data, t_exec *exec)
 	}
 	return (0);
 }
-
-/*	if (check_builtin(data, exec) == 0)
-	{
-		 if (exec->fdin != STDIN_FILENO)
-		 	waitpid(pid, &data->return_value, 0);
-		free(exec->cmd_exec);
-		free(exec->cmd_path);
-		exec->cmd_exec = NULL;
-		exec->cmd_path = NULL;
-	}
-	 else
-	 	waitpid(pid, &data->return_value, 0);
-	 waitpid(pid, &data->return_value, 0);*/
 
 // Set the pipes then launch the execve/builtins in the child
 void	exec_child(t_data *data, t_exec *exec)
