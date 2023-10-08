@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1 || argv[1])
 		ft_exit(NULL, -1, ARG_ERROR, "main");
 	env_save(&data, argc, argv, envp);
-	signal_handle(&data);
+	signal_handle(&data, 0);
 	prompt_run(&data);
 	ft_free(&data);
 	return (0);

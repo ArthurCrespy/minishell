@@ -17,6 +17,7 @@ int	exec_launch(t_data *data, t_exec *exec)
 {
 	pid_t	pid;
 
+	signal_handle(data, 1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
@@ -45,19 +46,6 @@ int	exec_launch(t_data *data, t_exec *exec)
 	}
 	return (0);
 }
-
-/*	if (check_builtin(data, exec) == 0)
-	{
-		 if (exec->fdin != STDIN_FILENO)
-		 	waitpid(pid, &data->return_value, 0);
-		free(exec->cmd_exec);
-		free(exec->cmd_path);
-		exec->cmd_exec = NULL;
-		exec->cmd_path = NULL;
-	}
-	 else
-	 	waitpid(pid, &data->return_value, 0);
-	 waitpid(pid, &data->return_value, 0);*/
 
 // Set the pipes then launch the execve/builtins in the child
 void	exec_child(t_data *data, t_exec *exec)
