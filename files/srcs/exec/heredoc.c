@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:29:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/09/26 20:51:45 by acrespy          ###   ########.fr       */
+/*   Updated: 2023/10/09 00:52:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	heredoc(t_exec *exec)
 
 	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_temp == -1)
-		ft_exit(NULL, -1, OPEN_ERROR, "heredoc");
+		return (-1);
 	while (1)
 	{
 		input = readline("heredoc> ");
@@ -34,7 +34,10 @@ int	heredoc(t_exec *exec)
 			ft_putstr_fd("\n", fd_temp);
 		}
 		else if (!ft_strcmp(input, exec->delimiter[0]))
+		{
+			free(input);
 			break ;
+		}
 		free(input);
 	}
 	close(fd_temp);

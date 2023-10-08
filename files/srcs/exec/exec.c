@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/06 21:42:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 23:48:46 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,24 @@ int	exec_run(t_data *data)
 				return (1);
 		}
 		else
-		{
-			if (data->pipes_nb > 0)
-			{
-				data->pipes_nb--;
-				close(data->exec[index]->pipefd[1]);
-			}
-			data->return_value = 1;
-		}
+			exec_set_ko(data, data->exec[index]);
 		index++;
 	}
-	if (check_builtin(data, data->exec[0]) == 0 || index > 1)
+	if (data->exec[index - 1]->is_pid == true)
 		wait_all(data);
-	if (data->exec[--index]->fdout == -1)
+	if (data->exec[index - 1]->fdout == -1)
 		data->return_value = 1;
+	return (0);
+}
+
+int	exec_set_ko(t_data *data, t_exec *exec)
+{
+	if (data->pipes_nb > 0)
+	{
+		data->pipes_nb--;
+		close(exec->pipefd[1]);
+	}
+	data->return_value = 1;
 	return (0);
 }
 
@@ -73,6 +77,7 @@ int	wait_all(t_data *data)
 	int		index;
 
 	index = 0;
+	status = 0;
 	while (data->exec[index])
 	{
 		waitpid(data->exec[index]->pid, &status, 0);

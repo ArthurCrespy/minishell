@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/07 17:53:03 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 17:49:36 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		heredoc(t_exec *exec);
 int		set_pipe(t_data *data, t_exec *exec);
 int		exec_launch(t_data *data, t_exec *exec);
 int		exec_set_ok(t_data *data, t_exec *exec, int index);
-int		exec_set_ko(t_data *data, t_exec *exec, int index);
+int		exec_set_ko(t_data *data, t_exec *exec);
 int		exec_set_in(t_data *data, t_exec *exec);
 int		exec_set_out(t_data *data, t_exec *exec);
 

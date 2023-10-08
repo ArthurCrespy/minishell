@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/06 19:11:56 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:14:33 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing);
 int		change_fdin(t_exec *exec);
 int		change_fdout(t_exec *exec);
 int		wait_all(t_data *data);
-int		if_redir_in(t_exec *exec);
-int		if_redir_out(t_exec *exec);
+int		if_redir_in(t_exec *exec, int index);
+int		if_redir_out(t_exec *exec, int index);
+int		check_directory(char *cmd);
 
 // ---------- PARSING ---------- //
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);
@@ -37,10 +38,6 @@ int		ft_quotes_enclosed_double(t_parsing *parsing, int open_b,
 t_exec	**ft_exec_quotes(t_data *data);
 void	ft_init_quotes(t_data *data, t_quotes **quotes, int size);
 void	ft_exec_quotes_cmd(t_data *data, t_exec *exec);
-void	ft_exec_quotes_args(t_data *data, t_exec *exec, int i);
-void	ft_exec_quotes_flags(t_data *data, t_exec *exec, int i);
-void	ft_exec_quotes_in(t_data *data, t_exec *exec, int i);
-void	ft_exec_quotes_out(t_data *data, t_exec *exec, int i);
 t_exec	*ft_exec_node_create(t_data *data);
 t_exec	*ft_exec_node_null(t_exec *exec);
 void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i);
