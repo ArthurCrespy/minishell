@@ -51,7 +51,7 @@ void	signal_processing_child(int sig, siginfo_t *siginfo, void *content)
 
 // Signal handle
 // Note: SIGQUIT sa_handler is set to SIG_IGN to ignore the signal
-void signal_handle(t_data *data, int child)
+void	signal_handle(t_data *data, int child)
 {
 	if (child)
 	{
@@ -61,7 +61,6 @@ void signal_handle(t_data *data, int child)
 		sigaction(SIGINT, &data->sig, NULL);
 		sigaction(SIGQUIT, &data->sig, NULL);
 		sigaction(SIGTERM, &data->sig, NULL);
-
 	}
 	else
 	{
