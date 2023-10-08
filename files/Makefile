@@ -35,6 +35,7 @@ SRCS := \
 			exec/exec_builtins.c \
 			exit/exit.c \
 			free/free.c \
+			free/free_utils.c \
 			parsing/parsing.c \
 			parsing/parsing_node.c \
 			parsing/parsing_quotes.c \

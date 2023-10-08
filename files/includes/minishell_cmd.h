@@ -48,12 +48,10 @@ int		exec_set_ko(t_data *data, t_exec *exec, int index);
 int		exec_set_in(t_data *data, t_exec *exec);
 int		exec_set_out(t_data *data, t_exec *exec);
 
-
 // ------------ EXIT ----------- //
 void	ft_exit(t_data *data, int code, int error, char *origin);
 
 // ------------ FREE ----------- //
-void	ft_free_tab(char **tab);
 void	ft_free_exec(t_data *data);
 void	ft_free(t_data *data);
 
@@ -75,7 +73,7 @@ char	*prompt_device_info(t_data *data);
 
 // ----------- SIGNAL ---------- //
 int		signal_status(int status, int set);
-void	signal_handle(t_data *data);
+void	signal_handle(t_data *data, int child);
 
 // ----------- ERROR ----------- //
 void	handle_open_error(void);

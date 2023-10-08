@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_global.h                                 :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 15:46:33 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/13 11:08:17 by acrespy          ###   ########.fr       */
+/*   Created: 2023/10/09 00:40:53 by acrespy           #+#    #+#             */
+/*   Updated: 2023/10/09 00:40:53 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_GLOBAL_H
-# define MINISHELL_GLOBAL_H
+#include "../../includes/minishell.h"
 
-static int	g_status;
+void	ft_free_tab(char **tab)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (!tab || !tab[0])
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+// Note: The tab passed as parameter is not freed
+void	ft_free_tab_little(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab || !tab[0])
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+}

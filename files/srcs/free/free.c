@@ -12,34 +12,16 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_free_tab(char **tab)
+void	ft_free_exec3(t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
-	if (!tab || !tab[0])
-		return ;
-	while (tab[i])
+	if (data->exec[i]->content)
 	{
-		free(tab[i]);
-		i++;
+		ft_free_tab_little(data->exec[i]->content);
+		free(data->exec[i]->content);
 	}
-	free(tab);
-}
-
-// Note: The tab passed as parameter is not freed
-void	ft_free_tab_little(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab || !tab[0])
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
+	if (data->exec[i]->type)
+		free(data->exec[i]->type);
+	free(data->exec[i]);
 }
 
 void	ft_free_exec2(t_data *data, int i)
@@ -64,7 +46,7 @@ void	ft_free_exec2(t_data *data, int i)
 		ft_free_tab_little(data->exec[i]->delimiter);
 		free(data->exec[i]->delimiter);
 	}
-	free(data->exec[i]);
+	ft_free_exec3(data, i);
 }
 
 void	ft_free_exec(t_data *data)

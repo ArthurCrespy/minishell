@@ -76,6 +76,7 @@ int	wait_all(t_data *data)
 	while (data->exec[index])
 	{
 		waitpid(data->exec[index]->pid, &status, 0);
+		signal_handle(data, 0);
 		if (WIFEXITED(status))
 			data->return_value = WEXITSTATUS(status);
 		index++;

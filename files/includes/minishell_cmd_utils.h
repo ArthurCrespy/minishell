@@ -45,6 +45,10 @@ t_exec	*ft_exec_node_create(t_data *data);
 t_exec	*ft_exec_node_null(t_exec *exec);
 void	ft_exec_token_parser(t_data *data, t_exec *exec, int *i);
 
+// ----------- FREE ------------ //
+void	ft_free_tab(char **tab);
+void	ft_free_tab_little(char **tab);
+
 // ----------- UTILS ----------- //
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);

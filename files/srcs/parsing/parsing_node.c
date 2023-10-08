@@ -62,5 +62,7 @@ t_exec	*ft_exec_node_null(t_exec *exec)
 	exec->out[exec->out_nb] = NULL;
 	exec->out_append[exec->out_append_nb] = NULL;
 	exec->delimiter[exec->delimiter_nb] = NULL;
+	exec->content[exec->ref_nb] = 0;
+	exec->type[exec->ref_nb] = 0;
 	return (exec);
 }
