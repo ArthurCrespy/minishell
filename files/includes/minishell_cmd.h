@@ -53,7 +53,6 @@ int		exec_set_out(t_data *data, t_exec *exec);
 void	ft_exit(t_data *data, int code, int error, char *origin);
 
 // ------------ FREE ----------- //
-void	ft_free_tab(char **tab);
 void	ft_free_exec(t_data *data);
 void	ft_free(t_data *data);
 
