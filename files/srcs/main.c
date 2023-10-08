@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data		data;
 
-	g_data_access = &data;
+	g_status = -1;
 	data.history = NULL;
 	data.exec = NULL;
 	data.command = NULL;
