@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:29:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/08 18:33:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 00:52:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	heredoc(t_exec *exec)
 	char	*input;
 	size_t	len;
 
-	printf("heredoc\n");
 	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_temp == -1)
 		return (-1);
@@ -35,7 +34,10 @@ int	heredoc(t_exec *exec)
 			ft_putstr_fd("\n", fd_temp);
 		}
 		else if (!ft_strcmp(input, exec->delimiter[0]))
+		{
+			free(input);
 			break ;
+		}
 		free(input);
 	}
 	close(fd_temp);

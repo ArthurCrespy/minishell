@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 20:27:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/08 23:18:15 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 // Define the path of the command
 int	exec_set_path(t_data *data, t_exec *exec)
 {
+	if (!exec->cmd)
+		return (0);
 	if (ft_strchr(exec->cmd, '/'))
 	{
 		if (check_directory(exec->cmd) == 1)
