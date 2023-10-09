@@ -21,6 +21,8 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
+	if (data->env_custom)
+		return ;
 	if (!envp || !*envp || !envp[0])
 		ft_exit(data, -1, ENV_ERROR, "env_save");
 	data->env = malloc(sizeof(char *) * ft_tablen(envp) + 8);
@@ -32,6 +34,10 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 		i++;
 	}
 	data->env[i] = NULL;
+	if (ft_tabchr(data->env, "PATH") - 1 < 0)
+		env_add(data, "PATH", "/mnt/nfs/homes/acrespy/bin:/usr/local/sbin:"
+		"/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:"
+		"/usr/local/games:/snap/bin");
 	data->return_value = 0;
 }
 
