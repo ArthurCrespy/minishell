@@ -17,20 +17,28 @@ char	*path_find(t_data *data)
 {
 	char	*home;
 	char	*path;
+	char	*pgcwd;
 	char	*result;
 
 	if (!data->env)
 		return (NULL);
 	home = env_return(data, "HOME");
 	path = env_return(data, "PWD");
+	pgcwd = NULL;
 	if (!path)
-		path = getcwd(NULL, 0);
+		pgcwd = getcwd(NULL, 0);
 	if (home && path && ft_strncmp(home, path, ft_strlen(home)) == 0)
 		result = ft_strjoin("~", path + ft_strlen(home));
 	else if (path)
 		result = ft_strdup(data, path);
+	else if (home && pgcwd && ft_strncmp(home, pgcwd, ft_strlen(home)) == 0)
+		result = ft_strjoin("~", pgcwd + ft_strlen(home));
+	else if (pgcwd)
+		result = ft_strdup(data, pgcwd);
 	else
 		result = ft_strdup(data, "local");
+	if (pgcwd)
+		free(pgcwd);
 	return (result);
 }
 

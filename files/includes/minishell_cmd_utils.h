@@ -20,11 +20,12 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing);
 int		change_fdin(t_exec *exec);
 int		change_fdout(t_exec *exec);
 int		wait_all(t_data *data);
-int		if_redir_in(t_exec *exec, int index);
+int		if_redir_in(t_data *data, t_exec *exec, int index);
 int		if_redir_out(t_exec *exec, int index);
 int		check_directory(t_data *data, char *cmd);
 int		check_cmd(t_data *data, char *cmd);
 int		check_access(t_data *data, t_exec *exec);
+void	heredoc_while(t_data *data, t_exec *exec, int fd_temp);
 int		close_n_free_parent(t_exec *exec);
 
 // ---------- PARSING ---------- //

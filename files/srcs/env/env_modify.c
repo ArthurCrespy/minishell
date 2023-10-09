@@ -16,23 +16,27 @@
 void	env_update(t_data *data, char *name, char *value)
 {
 	int		i;
+	char	*tmp;
 	char	*name_tmp;
 	char	*value_tmp;
 
 	if (!name)
 		return ;
 	name_tmp = ft_strjoin(name, "=");
+	tmp = ft_strdup(data, value);
 	if (!value)
 		value_tmp = ft_strdup(data, name);
 	else
-		value_tmp = ft_strjoin(name_tmp, value);
+		value_tmp = ft_strjoin(name_tmp, tmp);
 	i = ft_tabchr(data->env, name);
 	if (i != 0)
 	{
 		free(data->env[i - 1]);
-		data->env[i - 1] = value_tmp;
-		free(name_tmp);
+		data->env[i - 1] = ft_strdup(data, value_tmp);
 	}
+	free(name_tmp);
+	free(value_tmp);
+	free(tmp);
 }
 
 // Add a new environment variable

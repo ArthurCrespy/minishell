@@ -12,11 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-static void	heredoc_while(t_exec *exec, int fd_temp)
+static void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
 {
 	size_t	len;
 	char	*input;
 
+  signal_handle(data, 1);
 	while (1)
 	{
 		input = readline("> ");
@@ -37,16 +38,17 @@ static void	heredoc_while(t_exec *exec, int fd_temp)
 		}
 		free(input);
 	}
+  signal_handle(data, 1);
 }
 
-int	heredoc(t_exec *exec)
+int	heredoc(t_data *data, t_exec *exec)
 {
 	int		fd_temp;
 
 	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_temp == -1)
 		return (-1);
-	heredoc_while(exec, fd_temp);
+	heredoc_while(data, exec, fd_temp);
 	close(fd_temp);
 	exec->fdin = open(".heredoc", O_RDONLY, 0777);
 	return (0);

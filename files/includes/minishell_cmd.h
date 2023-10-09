@@ -41,7 +41,7 @@ void	exec_child(t_data *data, t_exec *exec);
 int		exec_builtins_part1(t_data *data, t_exec *exec);
 int		exec_builtins_part2(t_data *data, t_exec *exec);
 int		exec_builtin(t_data *data, t_exec *exec);
-int		heredoc(t_exec *exec);
+int		heredoc(t_data *data, t_exec *exec);
 int		set_pipe(t_data *data, t_exec *exec);
 int		exec_launch(t_data *data, t_exec *exec);
 int		exec_set_ok(t_data *data, t_exec *exec, int index);

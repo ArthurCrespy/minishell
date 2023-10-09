@@ -95,7 +95,7 @@ int	set_in_and_out(t_data *data, t_exec *exec)
 		type = exec->type[index];
 		if (type == REDIR_IN || type == DELIMITER)
 		{
-			if (if_redir_in(exec, index) == 1)
+			if (if_redir_in(data, exec, index) == 1)
 				return (1);
 		}
 		if (type == REDIR_OUT || type == REDIR_APPEND)
