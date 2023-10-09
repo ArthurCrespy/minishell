@@ -21,9 +21,7 @@ int	builtin_pwd(t_data *data)
 	pwd_getcwd = NULL;
 	if (!pwd)
 		pwd_getcwd = getcwd(NULL, 0);
-	if (!pwd_getcwd)
-		return (1);
-	else if (pwd)
+	if (pwd)
 	{
 		ft_putstr_fd(pwd, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
