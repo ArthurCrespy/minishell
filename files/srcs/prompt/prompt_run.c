@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:23:57 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 15:12:17 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:38:32 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	prompt_run(t_data *data)
 			add_history(input);
 			parsing_input(data, input);
 			exec_run(data);
-			// (exec_run(data) == 1)
-			// 	data->return_value = 1;
 			ft_free_exec(data);
 			ft_free_tab(data->command);
 		}

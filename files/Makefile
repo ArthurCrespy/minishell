@@ -6,7 +6,7 @@
 #    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/10/06 16:24:52 by abinet           ###   ########.fr        #
+#    Updated: 2023/10/09 17:22:02 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS := \
 			exec/pipe.c \
 			exec/set_exec.c \
 			exec/set_exec_utils.c \
+			exec/exec_check.c \
 			exec/exec_launch.c \
 			exec/exec_builtins.c \
 			exit/exit.c \
