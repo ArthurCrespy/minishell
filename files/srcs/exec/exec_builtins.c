@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:35:09 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 20:49:42 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 21:54:45 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_builtins_part2(t_data *data, t_exec *exec)
 	}
 	else if (!ft_strcmp(cmd, "env"))
 	{
-		if (builtin_env(data, false) == 1)
+		if (builtin_env(data) == 1)
 			return (1);
 	}
 	return (0);

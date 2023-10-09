@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 17:09:06 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:22:37 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	exec_child(t_data *data, t_exec *exec)
 	if (check_builtin(data, exec) == 1)
 	{
 		if (exec_builtin(data, exec) == 0)
-			exit(0);
+			ft_exit(data, 0, EXIT, NULL);
 	}
 	else if (exec->cmd_path)
 	{
 		if (execve(exec->cmd_path, exec->cmd_exec, data->env) == -1)
 			perror("execve");
 	}
-	exit(1);
+	ft_exit(data, 1, EXIT, NULL);
 }
 
 // change fdin
