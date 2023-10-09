@@ -23,9 +23,9 @@ void	env_create(t_data *data)
 	data->env[0] = ft_strdup(data, "_=/usr/bin/env");
 	tmp = getcwd(NULL, 0);
 	data->env[1] = ft_strjoin("PWD=", tmp);
-	data->env[2] = ft_strdup(data, "PATH=/mnt/nfs/homes/acrespy/bin:/usr/local/sbin:"
-		"/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:"
-		"/usr/local/games:/snap/bin");
+	data->env[2] = ft_strdup(data, "PATH=/mnt/nfs/homes/acrespy/bin:"
+			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
+			"/usr/games:/usr/local/games:/snap/bin");
 	data->env[3] = NULL;
 	free(tmp);
 }
