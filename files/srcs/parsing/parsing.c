@@ -29,7 +29,8 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 	}
 	while (data->command[(*i)] && (data->command[(*i)][0] == '<' || data->command[(*i)][0] == '>'))
 		ft_exec_token_parser(data, exec[(*j)], i);
-	exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
+	if (data->command[(*i)] && data->command[(*i)][0] != '|')
+		exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);
 	if (exec[(*j)]->cmd != NULL)
 		(*i)++;
 	while (data->command[(*i)] && data->command[(*i)][0] == '-')
