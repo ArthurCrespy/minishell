@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 15:29:52 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 17:38:16 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	builtin_exit(t_data *data, t_exec *exec)
 {
 	if ((exec->args_nb > 1) || (exec->args_nb && exec->flags_nb))
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		data->return_value = 1;
 		return (1);
 	}
@@ -48,7 +48,7 @@ int	builtin_exit(t_data *data, t_exec *exec)
 	}
 	if (exec->args_nb || exec->flags_nb)
 	{
-		ft_putstr_fd("exit: numeric argument required\n", 2);
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		ft_exit(data, 2, EXIT, NULL);
 	}
 	ft_exit(data, 0, EXIT, NULL);
