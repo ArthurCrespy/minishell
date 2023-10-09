@@ -40,7 +40,6 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 	while (data->command[(*i)] && data->command[(*i)][0] != '|')
 		ft_exec_token_parser(data, exec[(*j)], i);
 	exec[(*j)] = ft_exec_node_null(exec[(*j)]);
-	(*j)++;
 }
 
 // Prepare the data->exec array and launch the process
@@ -59,7 +58,10 @@ t_exec	**ft_exec_data_set(t_data *data)
 	data->exec_launch = true;
 	data->pipes_nb = 0;
 	while (data->command[i] && data->exec_launch)
+	{
 		ft_exec_data_process(data, exec, &i, &j);
+		j++;
+	}
 	exec[j] = NULL;
 	return (exec);
 }
