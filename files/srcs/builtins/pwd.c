@@ -14,17 +14,25 @@
 
 int	builtin_pwd(t_data *data)
 {
-	char	*working_directory;
+	char	*pwd;
+	char	*pwd_getcwd;
 
-	working_directory = env_return(data, "PWD");
-	if (!working_directory)
-		working_directory = getcwd(NULL, 0);
-	if (!working_directory)
+	pwd = env_return(data, "PWD");
+	pwd_getcwd = NULL;
+	if (!pwd)
+		pwd_getcwd = getcwd(NULL, 0);
+	if (!pwd_getcwd)
 		return (1);
+	else if (pwd)
+	{
+		ft_putstr_fd(pwd, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	}
 	else
 	{
-		ft_putstr_fd(working_directory, STDOUT_FILENO);
+		ft_putstr_fd(pwd_getcwd, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
+		free(pwd_getcwd);
 	}
 	return (0);
 }
