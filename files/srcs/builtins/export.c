@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:42 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/04 12:36:17 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 15:27:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,20 @@ static char	*export_get_var(t_data *data, char *arg)
 	variable = NULL;
 	if (ft_strlen(arg) == 0 || arg[0] == '=' || check_if_a_letter(arg) == 1)
 	{
-		ft_putstr_fd("minishell: export: not a valid identifier\n", 2);
+		ft_putstr_fd("minishell: export: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		data->return_value = 1;
 		return (NULL);
 	}
 	while (arg[index] && arg[index] != '=')
 	{
 		if (check_name_var(arg[index]) == 1)
 		{
-			ft_putstr_fd("minishell: export: not a valid identifier\n", 2);
+			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			data->return_value = 1;
 			return (NULL);
 		}
 		index++;

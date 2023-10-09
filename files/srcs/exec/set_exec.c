@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 02:49:18 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:33:00 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,23 @@ int	exec_set_path(t_data *data, t_exec *exec)
 		if (access(exec->cmd, F_OK) == 0)
 			exec->cmd_path = ft_strdup(data, exec->cmd);
 		else
-			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
+		{
+			ft_putstr_fd(exec->cmd, 2);
+			perror(" ");
+			data->return_value = 127;
+			return (1);
+		}
 	}
 	else
 	{
 		exec->cmd_path = path_find_cmd(data, exec);
 		if (!exec->cmd_path)
-			return (ft_putstr_fd(exec->cmd, 2), perror(" "), 1);
+		{
+			ft_putstr_fd(exec->cmd, 2);
+			perror(" ");
+			data->return_value = 127;
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -112,7 +122,7 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	int	return_value;
 
 	return_value = 0;
-	if (!check_builtin(data, exec) && exec->cmd)
+	if (!check_builtin(data, exec) && exec->cmd != NULL)
 	{
 		if (exec_set_cmd(data, exec))
 		{
