@@ -25,3 +25,21 @@ int	ft_isdigit(char c)
 		return (1);
 	return (0);
 }
+
+int	ft_is_minishell(t_data *data, char *cmd)
+{
+	char	*str;
+
+	if (!cmd)
+		return (0);
+	if (ft_strlen(cmd) < 9)
+		return (1);
+	str = ft_substr(data, cmd, ft_strlen(cmd) - 9, 9);
+	if (ft_strcmp(str, "minishell") == 0)
+	{
+		free(str);
+		return (1);
+	}
+	free(str);
+	return (0);
+}

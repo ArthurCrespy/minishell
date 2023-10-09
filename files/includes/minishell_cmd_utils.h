@@ -71,5 +71,6 @@ int		ft_tabcount(char **tab, const char c);
 int		ft_istoken(char *str);
 int		ft_isalpha(char c);
 int		ft_isdigit(char c);
+int		ft_is_minishell(t_data *data, char *cmd);
 
 #endif
