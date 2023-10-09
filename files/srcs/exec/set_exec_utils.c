@@ -42,7 +42,7 @@ int	exec_set_out(t_data *data, t_exec *exec)
 // define redir in
 //  -> filein
 //  -> heredoc
-int	if_redir_in(t_exec *exec, int index)
+int if_redir_in(t_data *data, t_exec *exec, int index)
 {
 	int	type;
 
@@ -52,7 +52,7 @@ int	if_redir_in(t_exec *exec, int index)
 	if (type == REDIR_IN)
 		exec->fdin = open(exec->content[index], O_RDWR, 644);
 	if (type == DELIMITER)
-		heredoc(exec);
+		heredoc(data, exec);
 	if (exec->fdin == -1)
 		return (1);
 	return (0);
