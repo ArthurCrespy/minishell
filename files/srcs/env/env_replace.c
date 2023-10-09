@@ -43,21 +43,20 @@ int	ft_env_size(t_data *data, char *command, int i, int j)
 }
 
 // Replace the environment variable in the command
-void	ft_dollar_replace(t_data *data, t_parsing *parsing)
+void	ft_dollar_replace(t_data *data, t_parsing *parsing, int k)
 {
-	int		k;
 	int		f;
 	char	*var_value;
 	char	*command_value;
 
-	k = 0;
 	var_value = malloc(sizeof(char) * (ft_strlen(parsing->command) + 1));
 	if (!var_value)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_dollar_replace");
 	while (parsing->command[parsing->i] && parsing->command[parsing->i]
 		!= ' ' && parsing->command[parsing->i] != '\x1F'
 		&& parsing->command[parsing->i] != '\''
-		&& parsing->command[parsing->i] != '\"')
+		&& parsing->command[parsing->i] != '\"'
+		&& parsing->command[parsing->i] != '$')
 		var_value[k++] = parsing->command[parsing->i++];
 	var_value[k] = '\0';
 	if (k == 0)
@@ -95,7 +94,7 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 			parsing->tmp[parsing->j++] = return_value[k++];
 	}
 	else
-		ft_dollar_replace(data, parsing);
+		ft_dollar_replace(data, parsing, 0);
 	free(var_value);
 }
 

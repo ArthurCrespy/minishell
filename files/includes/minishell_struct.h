@@ -77,6 +77,7 @@ typedef struct s_data
 	bool		exec_launch;
 	char		**command;
 	char		**env;
+	int			env_custom;
 	int			return_value;
 }				t_data;
 
