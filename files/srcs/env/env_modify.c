@@ -19,11 +19,14 @@ void	env_update(t_data *data, char *name, char *value)
 	char	*name_tmp;
 	char	*value_tmp;
 
-	if (!name || !value)
+	if (!name)
 		return ;
-	i = ft_tabchr(data->env, name);
 	name_tmp = ft_strjoin(name, "=");
-	value_tmp = ft_strjoin(name_tmp, value);
+	if (!value)
+		value_tmp = ft_strdup(data, name);
+	else
+		value_tmp = ft_strjoin(name_tmp, value);
+	i = ft_tabchr(data->env, name);
 	if (i != 0)
 	{
 		free(data->env[i - 1]);
@@ -34,18 +37,19 @@ void	env_update(t_data *data, char *name, char *value)
 
 // Add a new environment variable
 // Note: If the variable already exists, its value will be updated
-void	env_add(t_data *data, char *name, char *value)
+void	env_add(t_data *data, char *name, char *value, int i)
 {
-	int		i;
 	char	*name_tmp;
 	char	*value_tmp;
 	char	**new_env;
 
-	i = 0;
 	if (ft_tabchr(data->env, name))
 		return (env_update(data, name, value));
 	name_tmp = ft_strjoin(name, "=");
-	value_tmp = ft_strjoin(name_tmp, value);
+	if (!value)
+		value_tmp = ft_strdup(data, name);
+	else
+		value_tmp = ft_strjoin(name_tmp, value);
 	new_env = malloc(sizeof(char *) * (ft_tablen(data->env) + 10));
 	if (!new_env)
 		ft_exit(data, -1, MALLOC_ERROR, "env_add");

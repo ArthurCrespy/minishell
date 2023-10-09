@@ -23,6 +23,7 @@ SRCS := \
 			builtins/pwd.c \
 			builtins/unset.c \
 			device/device.c \
+			env/env_create.c \
 			env/env_modify.c \
 			env/env_replace.c \
 			env/env_utils.c \

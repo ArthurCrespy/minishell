@@ -20,10 +20,11 @@ int	main(int argc, char **argv, char **envp)
 	data.history = NULL;
 	data.exec = NULL;
 	data.command = NULL;
+	data.env_custom = 0;
 	if (!*envp)
-		ft_exit(NULL, -1, ENV_ERROR, "main");
-	// if (isatty(0) != 1 || isatty(2) != 1)
-	// 	ft_exit(NULL, -1, TTY_ERROR, "main");
+		env_create(&data);
+	if (isatty(0) != 1 || isatty(2) != 1)
+		ft_exit(NULL, -1, TTY_ERROR, "main");
 	if (argc != 1 || argv[1])
 		ft_exit(NULL, -1, ARG_ERROR, "main");
 	env_save(&data, argc, argv, envp);

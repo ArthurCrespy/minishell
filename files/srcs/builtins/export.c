@@ -82,9 +82,9 @@ int	builtin_export(t_data *data, t_exec *exec)
 			return (1);
 		value = ft_strchr(exec->args[index_args], '=');
 		if (!value)
-			env_add(data, exec->args[index_args], NULL);
+			env_add(data, exec->args[index_args], NULL, 0);
 		else
-			env_add(data, variable, value + 1);
+			env_add(data, variable, value + 1, 0);
 		index_args++;
 		free(variable);
 	}
