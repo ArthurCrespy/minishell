@@ -15,13 +15,13 @@
 // Parse the command and store it in data->exec
 void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 {
+	exec[(*j)] = ft_exec_node_create(data);
 	if (ft_istoken(data->command[ft_tablen(data->command) - 1])
-		|| ft_istoken(data->command[0]) == PIPE)
+		|| data->command[0][0] == '|')
 	{
 		data->exec_launch = false;
 		return ;
 	}
-	exec[(*j)] = ft_exec_node_create(data);
 	if ((*i) > 0 && data->command[(*i)][0] == '|')
 	{
 		data->pipes_nb++;
@@ -39,7 +39,6 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 				data->command[(*i)++]);
 	while (data->command[(*i)] && data->command[(*i)][0] != '|')
 		ft_exec_token_parser(data, exec[(*j)], i);
-	exec[(*j)] = ft_exec_node_null(exec[(*j)]);
 }
 
 // Prepare the data->exec array and launch the process
@@ -60,6 +59,7 @@ t_exec	**ft_exec_data_set(t_data *data)
 	while (data->command[i] && data->exec_launch)
 	{
 		ft_exec_data_process(data, exec, &i, &j);
+		exec[j] = ft_exec_node_null(exec[j]);
 		j++;
 	}
 	exec[j] = NULL;
