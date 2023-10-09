@@ -26,9 +26,9 @@ void	ft_exec_quotes_cmd(t_data *data, t_exec *exec)
 {
 	t_quotes	*qts;
 
-	ft_init_quotes(data, &qts, ft_strlen(exec->cmd));
 	if (!exec->cmd)
 		return ;
+	ft_init_quotes(data, &qts, ft_strlen(exec->cmd));
 	while (exec->cmd[qts->j])
 	{
 		if (exec->cmd[qts->j] == '\'' && !qts->opened_double)
