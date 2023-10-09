@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:59:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 17:49:36 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 20:36:32 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // ---------- BUILTINS --------- //
 int		builtin_cd(t_data *data, t_exec *exec);
 int		builtin_echo(t_data *data, t_exec *exec);
-int		builtin_env(t_data *data);
+int		builtin_env(t_data *data, bool export);
 int		builtin_exit(t_data *data, t_exec *exec);
 int		builtin_export(t_data *data, t_exec *exec);
 int		builtin_pwd(t_data *data);
