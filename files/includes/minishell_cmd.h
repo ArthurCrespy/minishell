@@ -29,7 +29,7 @@ char	*device_find(t_data *data);
 // ------------ ENV ------------ //
 void	env_create(t_data *data);
 void	env_update(t_data *data, char *name, char *value);
-void	env_add(t_data *data, char *name, char *value);
+void	env_add(t_data *data, char *name, char *value, int i);
 void	env_delete(t_data *data, char *name);
 void	env_save(t_data *data, int argc, char **argv, char **envp);
 char	*env_return(t_data *data, char *name);

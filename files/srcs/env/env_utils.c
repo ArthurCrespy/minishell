@@ -37,7 +37,7 @@ void	env_save(t_data *data, int argc, char **argv, char **envp)
 	if (ft_tabchr(data->env, "PATH") - 1 < 0)
 		env_add(data, "PATH", "/mnt/nfs/homes/acrespy/bin:/usr/local/sbin:"
 			"/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:"
-			"/usr/local/games:/snap/bin");
+			"/usr/local/games:/snap/bin", 0);
 	data->return_value = 0;
 }
 
