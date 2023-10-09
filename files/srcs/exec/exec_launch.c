@@ -12,12 +12,33 @@
 
 #include "../../includes/minishell.h"
 
+int ft_is_minishell(t_data *data, char *cmd)
+{
+	char *str;
+
+	if (!cmd)
+		return (0);
+	if (ft_strlen(cmd) < 9)
+		return (1);
+	str = ft_substr(data, cmd, ft_strlen(cmd) - 9, 9);
+	if (ft_strcmp(str, "minishell") == 0)
+	{
+		free(str);
+		return (1);
+	}
+	free(str);
+	return (0);
+}
+
 // Fork, get the pid, and call the function to launch the exec in the child
 int	exec_launch(t_data *data, t_exec *exec)
 {
 	pid_t	pid;
 
-	signal_handle(data, 1);
+	if (ft_is_minishell(data, exec->cmd))
+		signal_handle(data, 2);
+	else
+		signal_handle(data, 1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);

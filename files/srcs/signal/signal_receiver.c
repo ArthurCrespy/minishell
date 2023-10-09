@@ -49,15 +49,38 @@ void	signal_processing_child(int sig, siginfo_t *siginfo, void *content)
 		g_status = 143;
 }
 
+void	signal_processing_nested(int sig, siginfo_t *siginfo, void *content)
+{
+	(void)siginfo;
+	(void)content;
+	printf("nested signal: %d\n", sig);
+	if (sig == SIGINT)
+		g_status = 130;
+	else if (sig == SIGQUIT)
+		g_status = 131;
+	else if (sig == SIGTERM)
+		g_status = 143;
+}
+
 // Signal handle
 // Note: SIGQUIT sa_handler is set to SIG_IGN to ignore the signal
 void	signal_handle(t_data *data, int child)
 {
-	if (child)
+	if (child == 1)
 	{
 		data->sig.sa_sigaction = signal_processing_child;
 		sigemptyset(&data->sig.sa_mask);
 		data->sig.sa_flags = SA_SIGINFO;
+		sigaction(SIGINT, &data->sig, NULL);
+		sigaction(SIGQUIT, &data->sig, NULL);
+		sigaction(SIGTERM, &data->sig, NULL);
+	}
+	else if (child == 2)
+	{
+		data->sig.sa_sigaction = signal_processing_nested;
+		sigemptyset(&data->sig.sa_mask);
+		data->sig.sa_flags = SA_SIGINFO;
+		data->sig_quit.sa_handler = SIG_IGN;
 		sigaction(SIGINT, &data->sig, NULL);
 		sigaction(SIGQUIT, &data->sig, NULL);
 		sigaction(SIGTERM, &data->sig, NULL);
