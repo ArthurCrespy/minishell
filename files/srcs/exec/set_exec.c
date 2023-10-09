@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 01:03:34 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:49:18 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (ft_strchr(exec->cmd, '/'))
 	{
-		if (check_directory(exec->cmd) == 1)
+		if (check_directory(data, exec->cmd) == 1)
 		{
 			data->return_value = 126;
 			return (1);

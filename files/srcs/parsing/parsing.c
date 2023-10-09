@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:52:24 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 02:08:22 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:33:49 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_exec_data_process(t_data *data, t_exec **exec, int *i, int *j)
 		data->pipes_nb++;
 		(*i)++;
 	}
-	while (data->command[(*i)] && (data->command[(*i)][0] == '<' || data->command[(*i)][0] == '>'))
+	while (data->command[(*i)] && (data->command[(*i)][0] == '<'
+		|| data->command[(*i)][0] == '>'))
 		ft_exec_token_parser(data, exec[(*j)], i);
 	if (data->command[(*i)] && data->command[(*i)][0] != '|')
 		exec[(*j)]->cmd = ft_strdup(data, data->command[(*i)]);

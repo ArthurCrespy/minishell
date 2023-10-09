@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 02:03:12 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:27:11 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	exec_run(t_data *data)
 	}
 	if (data->exec[index - 1]->is_pid == true)
 		wait_all(data);
-	if (data->exec[index - 1]->fdout == -1)
-		data->return_value = 1;
 	return (0);
 }
 
@@ -81,9 +79,9 @@ int	wait_all(t_data *data)
 	while (data->exec[index])
 	{
 		waitpid(data->exec[index]->pid, &status, 0);
-		signal_handle(data, 0);
 		if (WIFEXITED(status))
 			data->return_value = WEXITSTATUS(status);
+		signal_handle(data, 0);
 		index++;
 	}
 	return (0);

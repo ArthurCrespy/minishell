@@ -6,13 +6,13 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 00:51:59 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:39:57 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Fork, set the pipes, and call the function to launch the exec in the child
+// Fork, get the pid, and call the function to launch the exec in the child
 int	exec_launch(t_data *data, t_exec *exec)
 {
 	pid_t	pid;
@@ -25,25 +25,8 @@ int	exec_launch(t_data *data, t_exec *exec)
 	exec->is_pid = true;
 	if (pid == 0)
 		exec_child(data, exec);
-	if (exec->fdin != STDIN_FILENO)
-		close(exec->fdin);
-	if (data->pipes_nb != 0)
-		close(exec->pipefd[1]);
-	if (exec->id_exec != 0)
-		close(data->exec[exec->id_exec - 1]->pipefd[0]);
-	if (data->pipes_nb)
-		data->pipes_nb--;
-	if (exec->delimiter_nb)
-		unlink(".heredoc");
-	if (check_builtin(data, exec) == 0)
-	{
-		free(exec->cmd_exec);
-		free(exec->cmd_path);
-		exec->cmd_exec = NULL;
-		exec->cmd_path = NULL;
-	}
-	if (exec->delimiter_nb)
-		waitpid(-1, NULL, 0);
+	close_n_free_parent(exec);
+	data->pipes_nb--;
 	return (0);
 }
 
@@ -67,6 +50,7 @@ void	exec_child(t_data *data, t_exec *exec)
 	exit(1);
 }
 
+// change fdin
 int	change_fdin(t_exec *exec)
 {
 	if (exec->fdin != STDIN_FILENO)
@@ -78,6 +62,7 @@ int	change_fdin(t_exec *exec)
 	return (0);
 }
 
+//change fdout
 int	change_fdout(t_exec *exec)
 {
 	if (exec->fdout != STDOUT_FILENO)
@@ -86,5 +71,21 @@ int	change_fdout(t_exec *exec)
 		if (close(exec->fdout) == -1)
 			return (1);
 	}
+	return (0);
+}
+
+// close and free
+int	close_n_free_parent(t_exec *exec)
+{
+	if (exec->fdin != STDIN_FILENO)
+		close(exec->fdin);
+	if (exec->fdout != STDOUT_FILENO)
+		close(exec->fdout);
+	if (exec->cmd_path)
+		free(exec->cmd_path);
+	if (exec->cmd_exec)
+		free(exec->cmd_exec);
+	if (exec->delimiter_nb)
+		unlink(".heredoc");
 	return (0);
 }
