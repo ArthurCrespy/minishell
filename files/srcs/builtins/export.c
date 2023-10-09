@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:42 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 15:27:55 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 20:59:38 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 // Return the variable name from the argument
 // Note: The returned value must be freed
 
-static int	check_if_a_letter(char *str)
-{
-	int		index;
+// static int	check_if_a_letter(char *str)
+// {
+// 	int		index;
 
-	index = 0;
-	while (str[index])
-	{
-		if (ft_isalpha(str[index]) == 1)
-			return (0);
-		index++;
-	}
-	return (1);
-}
+// 	index = 0;
+// 	while (str[index])
+// 	{
+// 		if (ft_isalpha(str[index]) == 1)
+// 			return (0);
+// 		index++;
+// 	}
+// 	return (1);
+// }
 
 static int	check_name_var(char c)
 {
@@ -41,7 +41,7 @@ static char	*export_get_var(t_data *data, char *arg)
 	int		index;
 
 	index = 0;
-	if (ft_strlen(arg) == 0 || arg[0] == '=' || check_if_a_letter(arg) == 1)
+	if (ft_strlen(arg) == 0 || arg[0] == '=' || ft_isalpha(arg[0]) == 0)
 	{
 		ft_putstr_fd("minishell: export: ", 2);
 		ft_putstr_fd(arg, 2);
@@ -73,7 +73,7 @@ int	builtin_export(t_data *data, t_exec *exec)
 	if (exec->flags_nb != 0)
 		return (0);
 	if (exec->args_nb == 0)
-		builtin_env(data);
+		builtin_env(data, true);
 	index_args = 0;
 	while (index_args < exec->args_nb)
 	{
