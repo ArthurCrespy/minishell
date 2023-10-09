@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/10 00:21:28 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:22:37 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	exec_child(t_data *data, t_exec *exec)
 	{
 		if (exec_builtin(data, exec) == 0)
 			ft_exit(data, 0, EXIT, NULL);
-
 	}
 	else if (exec->cmd_path)
 	{

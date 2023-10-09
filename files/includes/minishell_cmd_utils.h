@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:03:52 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 17:21:16 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 00:39:21 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		if_redir_out(t_exec *exec, int index);
 int		check_directory(t_data *data, char *cmd);
 int		check_cmd(t_data *data, char *cmd);
 int		check_access(t_data *data, t_exec *exec);
-void	heredoc_while(t_exec *exec, int fd_temp);
 int		close_n_free_parent(t_exec *exec);
 
 // ---------- PARSING ---------- //

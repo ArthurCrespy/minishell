@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 16:52:42 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:20:40 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	exec_set_ok(t_data *data, t_exec *exec, int index)
 	}
 	else
 	{
+		if (data->pipes_nb && exec->fdout != exec->pipefd[1])
+			close(exec->pipefd[1]);
 		if (exec->cmd == NULL)
 		{
 			if (exec->delimiter_nb)

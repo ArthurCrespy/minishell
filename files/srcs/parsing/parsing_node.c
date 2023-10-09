@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:15:01 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 20:21:37 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 00:46:09 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_exec_node_create2(t_exec *exec)
 {
 	exec->out_append_nb = 0;
 	exec->delimiter_nb = 0;
+	exec->delimiter_num = 0;
 	exec->fdin = -1;
 	exec->fdout = -1;
 	exec->id_exec = 0;
