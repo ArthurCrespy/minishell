@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:29:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 00:52:11 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 01:59:46 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int	heredoc(t_exec *exec)
 		free(input);
 	}
 	close(fd_temp);
-	return (fd_temp);
+	exec->fdin = open(".heredoc", O_RDONLY, 0777);
+	return (0);
 }

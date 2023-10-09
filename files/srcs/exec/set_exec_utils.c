@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/08 19:33:11 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 01:56:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int	if_redir_in(t_exec *exec, int index)
 	if (exec->fdin != -1)
 		close(exec->fdin);
 	if (type == REDIR_IN)
-	{
 		exec->fdin = open(exec->content[index], O_RDWR, 644);
-	}
 	if (type == DELIMITER)
-		exec->fdin = heredoc(exec);
+		heredoc(exec);
 	if (exec->fdin == -1)
 		return (1);
 	return (0);

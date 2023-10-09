@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 23:48:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:03:12 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 int	exec_set_ok(t_data *data, t_exec *exec, int index)
 {
 	(void)exec;
-	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
+	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->ref_nb == 0
 		&& check_builtin(data, data->exec[index]) == 1)
 	{
 		if (exec_builtin(data, data->exec[index]) == 1)
