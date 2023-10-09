@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/08 19:33:11 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 02:48:58 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int	if_redir_in(t_exec *exec, int index)
 	if (exec->fdin != -1)
 		close(exec->fdin);
 	if (type == REDIR_IN)
-	{
 		exec->fdin = open(exec->content[index], O_RDWR, 644);
-	}
 	if (type == DELIMITER)
-		exec->fdin = heredoc(exec);
+		heredoc(exec);
 	if (exec->fdin == -1)
 		return (1);
 	return (0);
@@ -85,14 +83,16 @@ int	if_redir_out(t_exec *exec, int index)
 	return (0);
 }
 
-int	check_directory(char *cmd)
+int	check_directory(t_data *data, char *cmd)
 {
 	int	fd;
 
-	fd = open(cmd, O_RDONLY);
-	if (fd != -1)
+	fd = open(cmd, O_DIRECTORY);
+	if (fd >= 0)
 	{
-		ft_putstr_fd(" Is a directory\n", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		data->return_value = 126;
 		return (1);
 	}
 	else

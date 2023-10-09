@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 23:48:46 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 13:08:48 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ int	exec_run(t_data *data)
 			exec_set_ko(data, data->exec[index]);
 		index++;
 	}
-	if (data->exec[index - 1]->is_pid == true)
+	if (index > 0 && data->exec[index - 1]->is_pid == true)
 		wait_all(data);
-	if (data->exec[index - 1]->fdout == -1)
-		data->return_value = 1;
 	return (0);
 }
 
@@ -57,7 +55,7 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 int	exec_set_ok(t_data *data, t_exec *exec, int index)
 {
 	(void)exec;
-	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->out_nb == 0
+	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->ref_nb == 0
 		&& check_builtin(data, data->exec[index]) == 1)
 	{
 		if (exec_builtin(data, data->exec[index]) == 1)
@@ -81,9 +79,9 @@ int	wait_all(t_data *data)
 	while (data->exec[index])
 	{
 		waitpid(data->exec[index]->pid, &status, 0);
-		signal_handle(data, 0);
 		if (WIFEXITED(status))
 			data->return_value = WEXITSTATUS(status);
+		signal_handle(data, 0);
 		index++;
 	}
 	return (0);
