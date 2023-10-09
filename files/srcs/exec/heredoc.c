@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
+void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
 {
 	size_t	len;
 	char	*input;
