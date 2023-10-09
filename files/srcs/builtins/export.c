@@ -39,10 +39,8 @@ static int	check_name_var(char c)
 static char	*export_get_var(t_data *data, char *arg)
 {
 	int		index;
-	char	*variable;
 
 	index = 0;
-	variable = NULL;
 	if (ft_strlen(arg) == 0 || arg[0] == '=' || check_if_a_letter(arg) == 1)
 	{
 		ft_putstr_fd("minishell: export: ", 2);
@@ -63,8 +61,7 @@ static char	*export_get_var(t_data *data, char *arg)
 		}
 		index++;
 	}
-	variable = ft_substr(data, arg, 0, index);
-	return (variable);
+	return (ft_substr(data, arg, 0, index));
 }
 
 int	builtin_export(t_data *data, t_exec *exec)
