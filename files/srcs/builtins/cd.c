@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:16:03 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/02 18:18:44 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 15:36:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ int	builtin_cd(t_data *data, t_exec *exec)
 			env_update(data, "PWD", getcwd(NULL, 0));
 		}
 		else
+		{
+			data->return_value = 1;
 			return (perror("cd"), 1);
+		}
 	}
 	else
+	{
+		data->return_value = 1;
 		return (ft_putstr_fd("minishell: cd: too many arguments\n", 2), 1);
+	}
 	return (0);
 }

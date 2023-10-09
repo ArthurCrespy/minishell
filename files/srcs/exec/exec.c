@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 13:08:48 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:33:27 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 		data->pipes_nb--;
 		close(exec->pipefd[1]);
 	}
-	data->return_value = 1;
+	if (data->return_value == 0)
+		data->return_value = 1;
 	return (0);
 }
 
@@ -63,6 +64,12 @@ int	exec_set_ok(t_data *data, t_exec *exec, int index)
 	}
 	else
 	{
+		if (exec->cmd == NULL)
+		{
+			if (exec->delimiter_nb)
+				unlink(".heredoc");
+			return (0);
+		}
 		if (exec_launch(data, data->exec[index]) == 1)
 			return (1);
 	}

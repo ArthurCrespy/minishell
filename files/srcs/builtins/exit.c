@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:17:31 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/02 19:03:16 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/09 15:29:52 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static int	ft_is_a_num(char *nb_args)
 int	builtin_exit(t_data *data, t_exec *exec)
 {
 	if ((exec->args_nb > 1) || (exec->args_nb && exec->flags_nb))
-		return (ft_putstr_fd("exit: too many arguments\n", 2), 1);
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		data->return_value = 1;
+		return (1);
+	}
 	if (exec->args_nb)
 	{
 		if (!ft_is_a_num(exec->args[0]))
