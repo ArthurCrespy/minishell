@@ -71,6 +71,6 @@ char	**ft_strsplit(t_data *data, char const *s, char c)
 		i += size;
 		j++;
 	}
-	strs[j] = 0;
+	strs[j] = NULL;
 	return (strs);
 }
