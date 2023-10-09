@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:55:15 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/08 20:21:55 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 00:44:10 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_exec
 	int				out_nb;
 	int				out_append_nb;
 	int				delimiter_nb;
+	int				delimiter_num;
 	int				ref_nb;
 }				t_exec;
 
