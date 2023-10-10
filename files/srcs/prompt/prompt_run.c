@@ -19,7 +19,6 @@ void	prompt_run(t_data *data)
 	char	*input;
 
 	data->history = NULL;
-	g_status = 0;
 	while (1)
 	{
 		data->command = NULL;

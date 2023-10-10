@@ -28,7 +28,7 @@ void	signal_processing(int sig, siginfo_t *siginfo, void *content)
 	else if (sig == SIGQUIT)
 		g_status = 131;
 	else if (sig == SIGTERM)
-		g_status = 143;
+		g_status = 0;
 }
 
 void	signal_processing_child(int sig, siginfo_t *siginfo, void *content)
@@ -46,7 +46,7 @@ void	signal_processing_child(int sig, siginfo_t *siginfo, void *content)
 		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
 	}
 	else if (sig == SIGTERM)
-		g_status = 143;
+		g_status = 0;
 }
 
 // Signal handle
