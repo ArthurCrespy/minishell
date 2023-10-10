@@ -13,6 +13,6 @@
 #ifndef MINISHELL_GLOBAL_H
 # define MINISHELL_GLOBAL_H
 
-static int	g_status;
+extern int	g_status;
 
 #endif
