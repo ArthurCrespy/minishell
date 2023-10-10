@@ -42,7 +42,7 @@ int	exec_set_out(t_data *data, t_exec *exec)
 // define redir in
 //  -> filein
 //  -> heredoc
-int if_redir_in(t_data *data, t_exec *exec, int index)
+int	if_redir_in(t_data *data, t_exec *exec, int index)
 {
 	int	type;
 

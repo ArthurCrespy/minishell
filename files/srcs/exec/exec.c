@@ -24,6 +24,7 @@ int	exec_run(t_data *data)
 		return (1);
 	}
 	index = 0;
+	g_status = -1;
 	while (data->exec[index])
 	{
 		data->exec[index]->id_exec = index;
@@ -88,8 +89,12 @@ int	wait_all(t_data *data)
 	while (data->exec[index])
 	{
 		waitpid(data->exec[index]->pid, &status, 0);
-		if (WIFEXITED(status))
+		if (g_status > 0)
+			data->return_value = g_status;
+		else if (WEXITSTATUS(status))
 			data->return_value = WEXITSTATUS(status);
+		else if (WIFEXITED(status))
+			data->return_value = 0;
 		signal_handle(data, 0);
 		index++;
 	}

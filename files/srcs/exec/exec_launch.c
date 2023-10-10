@@ -18,7 +18,7 @@ int	exec_launch(t_data *data, t_exec *exec)
 	pid_t	pid;
 
 	if (ft_is_minishell(data, exec->cmd))
-		signal_handle(data, 2);
+		signal_handle(data, 3);
 	else
 		signal_handle(data, 1);
 	pid = fork();
