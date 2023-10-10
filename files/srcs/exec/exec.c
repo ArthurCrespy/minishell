@@ -92,7 +92,7 @@ int	wait_all(t_data *data)
 		if (g_status > 0)
 			data->return_value = g_status;
 		else if (WEXITSTATUS(status))
-			data->return_value = WEXITSTATUS(status) + 128;
+			data->return_value = WEXITSTATUS(status);
 		else if (WIFEXITED(status))
 			data->return_value = 0;
 		signal_handle(data, 0);
