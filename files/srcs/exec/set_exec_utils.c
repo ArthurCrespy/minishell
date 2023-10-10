@@ -33,7 +33,7 @@ int	exec_set_in(t_data *data, t_exec *exec)
 int	exec_set_out(t_data *data, t_exec *exec)
 {
 	if (data->pipes_nb != 0)
-			exec->fdout = exec->pipefd[1];
+		exec->fdout = exec->pipefd[1];
 	else
 		exec->fdout = STDOUT_FILENO;
 	return (0);
