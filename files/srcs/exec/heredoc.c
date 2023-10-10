@@ -17,7 +17,7 @@ void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
 	size_t	len;
 	char	*input;
 
-  signal_handle(data, 1);
+	signal_handle(data, 2);
 	while (1)
 	{
 		input = readline("> ");
@@ -38,7 +38,7 @@ void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
 		}
 		free(input);
 	}
-  signal_handle(data, 1);
+	signal_handle(data, 1);
 }
 
 int	heredoc(t_data *data, t_exec *exec)
