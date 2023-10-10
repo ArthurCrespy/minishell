@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 01:20:40 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 16:14:53 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 
 int	exec_set_ok(t_data *data, t_exec *exec, int index)
 {
-	(void)exec;
 	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->ref_nb == 0
 		&& check_builtin(data, data->exec[index]) == 1)
 	{
@@ -65,16 +64,17 @@ int	exec_set_ok(t_data *data, t_exec *exec, int index)
 	}
 	else
 	{
-		if (data->pipes_nb && exec->fdout != exec->pipefd[1])
-			close(exec->pipefd[1]);
 		if (exec->cmd == NULL)
 		{
+			if (data->pipes_nb && (exec->fdout != exec->pipefd[1]
+					|| exec->fdin != exec->pipefd[0]))
+				close(exec->pipefd[1]);
 			if (exec->delimiter_nb)
 				unlink(".heredoc");
-			return (0);
 		}
-		if (exec_launch(data, data->exec[index]) == 1)
+		else if (exec_launch(data, data->exec[index]) == 1)
 			return (1);
+		data->pipes_nb--;
 	}
 	return (0);
 }

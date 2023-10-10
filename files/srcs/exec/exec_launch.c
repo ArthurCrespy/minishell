@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/10 01:22:37 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 15:47:30 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	exec_launch(t_data *data, t_exec *exec)
 	if (pid == 0)
 		exec_child(data, exec);
 	close_n_free_parent(exec);
-	data->pipes_nb--;
 	return (0);
 }
 
@@ -40,6 +39,7 @@ void	exec_child(t_data *data, t_exec *exec)
 	if (data->pipes_nb != 0)
 		close(exec->pipefd[0]);
 	change_fdout(exec);
+	g_status = 10;
 	if (check_builtin(data, exec) == 1)
 	{
 		if (exec_builtin(data, exec) == 0)

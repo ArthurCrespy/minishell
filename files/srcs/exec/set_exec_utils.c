@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/10 00:44:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 16:09:13 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	if_redir_in(t_data *data, t_exec *exec, int index)
 	}
 	if (exec->fdin == -1)
 		return (1);
+	if (exec->cmd == NULL)
+		close (exec->fdin);
 	return (0);
 }
 
@@ -83,6 +85,8 @@ int	if_redir_out(t_exec *exec, int index)
 	}
 	if (exec->fdout == -1)
 		return (1);
+	if (exec->cmd == NULL)
+		close (exec->fdout);
 	return (0);
 }
 
