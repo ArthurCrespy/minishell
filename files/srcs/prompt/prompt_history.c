@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	history_add(t_data *data, char *cmd)
 {
 	t_history	*ptr;
 	t_history	*new;
 
-	new = (t_history *) malloc(sizeof(t_history));
+	new = (t_history *)malloc(sizeof(t_history));
 	if (!new)
-		ft_exit(data, MALLOC_ERROR, "history_add malloc error");
-	new->id = 0;
-	new->cmd = ft_strdup(*data, cmd);
+		ft_exit(data, -1, MALLOC_ERROR, "history_add");
+	new->cmd = ft_strdup(data, cmd);
 	new->prev = NULL;
 	new->next = NULL;
 	if (!data->history)
@@ -31,7 +30,6 @@ void	history_add(t_data *data, char *cmd)
 		ptr = data->history;
 		while (ptr->next != NULL)
 			ptr = ptr->next;
-		new->id = ptr->id + 1;
 		new->prev = ptr;
 		ptr->next = new;
 	}
@@ -49,8 +47,9 @@ void	history_free(t_data *data)
 	while (ptr != NULL)
 	{
 		tmp = ptr;
+		if (ptr->next == NULL)
+			break ;
 		ptr = ptr->next;
-		free(tmp->cmd);
 		free(tmp);
 	}
 	data->history = NULL;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+         #
+#    By: abinet <abinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 14:54:39 by acrespy           #+#    #+#              #
-#    Updated: 2023/05/16 15:01:53 by acrespy          ###   ########.fr        #
+#    Updated: 2023/10/10 14:59:27 by abinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,50 @@ NAME        := minishell
 
 SRC_DIR     := srcs
 SRCS := \
-			free.c \
 			main.c \
-			prompt_history.c \
-			prompt_keys.c \
-			prompt_launch.c \
-			utils_str.c \
+			builtins/cd.c \
+			builtins/echo.c \
+			builtins/env.c \
+			builtins/exit.c \
+			builtins/export.c \
+			builtins/pwd.c \
+			builtins/unset.c \
+			device/device.c \
+			env/env_create.c \
+			env/env_modify.c \
+			env/env_replace.c \
+			env/env_utils.c \
+			exec/exec.c \
+			exec/heredoc.c \
+			exec/set_exec.c \
+			exec/set_exec_utils.c \
+			exec/exec_check.c \
+			exec/exec_launch.c \
+			exec/exec_builtins.c \
+			exit/exit.c \
+			free/free.c \
+			free/free_utils.c \
+			parsing/parsing.c \
+			parsing/parsing_node.c \
+			parsing/parsing_quotes.c \
+			parsing/parsing_replace.c \
+			parsing/parsing_replace_utils.c \
+			parsing/parsing_utils.c \
+			path/path.c \
+			prompt/prompt_history.c \
+			prompt/prompt_keys.c \
+			prompt/prompt_run.c \
+			prompt/prompt_utils.c \
+			signal/signal_receiver.c \
+			utils/utils_atoi.c \
+			utils/utils_gnl.c \
+			utils/utils_put.c \
+			utils/utils_split.c \
+			utils/utils_str.c \
+			utils/utils_str_mem.c \
+			utils/utils_tab.c \
+			utils/utils_token.c \
+			utils/utils_check.c \
 
 SRCS := ${SRCS:%=${SRC_DIR}/%}
 
@@ -36,13 +74,13 @@ DIR_DUP     = mkdir -p ${@D}
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${OBJS} -o ${NAME} -lreadline
+	${CC} ${OBJS} -o ${NAME} -lreadline -L/usr/local/opt/readline/lib
 	${info EXECUTABLE CREATED: ${NAME}}
 
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	${DIR_DUP}
-	${CC} ${CFLAGS} -c -o $@ $<
+	${CC} ${CFLAGS} -c -o $@ $< -I/usr/local/opt/readline/include
 	${info OBJECT CREATED: $@}
 
 clean:

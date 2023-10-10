@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 12:31:36 by acrespy           #+#    #+#             */
-/*   Updated: 2023/06/13 13:26:08 by acrespy          ###   ########.fr       */
+/*   Created: 2023/10/09 00:40:53 by acrespy           #+#    #+#             */
+/*   Updated: 2023/10/09 00:40:53 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/minishell.h"
 
-# include "./minishell_include.h"
-# include "./minishell_define.h"
-# include "./minishell_typedef.h"
-# include "./minishell_struct.h"
-# include "./minishell_global.h"
-# include "./minishell_cmd.h"
-# include "./minishell_cmd_utils.h"
+void	ft_free_tab(char **tab)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (!tab || !tab[0])
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+// Note: The tab passed as parameter is not freed
+void	ft_free_tab_little(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab || !tab[0])
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+}

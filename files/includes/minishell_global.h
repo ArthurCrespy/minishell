@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   minishell_global.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 13:34:40 by acrespy           #+#    #+#             */
-/*   Updated: 2023/05/19 13:34:40 by acrespy          ###   ########.fr       */
+/*   Created: 2023/06/06 15:46:33 by acrespy           #+#    #+#             */
+/*   Updated: 2023/10/10 02:04:34 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef MINISHELL_GLOBAL_H
+# define MINISHELL_GLOBAL_H
 
-void	ft_exit(t_data *data, int status, char *msg)
-{
-	if (data)
-		ft_free(*data);
-	printf("CODE: %d - ERROR: %s\n", status, msg);
-	exit(status);
-}
+extern int	g_status;
 
-void	ft_free(t_data data)
-{
-	history_free(&data);
-}
+#endif

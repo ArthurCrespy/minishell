@@ -10,25 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	key_read(void)
 {
 	char			c;
-	struct termios	old_termios;
-	struct termios	new_termios;
+	struct termios	attr_old;
+	struct termios	attr_new;
 
-	if (!tcgetattr(STDIN_FILENO, &old_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
-	new_termios = old_termios;
-	new_termios.c_lflag &= ~(ICANON | ECHO);
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &new_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
+	if (tcgetattr(STDIN_FILENO, &attr_old) != 0)
+		ft_exit(NULL, -1, TCGETATTR_ERROR, "key_read");
+	attr_new = attr_old;
+	attr_new.c_lflag &= ~(ICANON | ECHO);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_new) != 0)
+		ft_exit(NULL, -1, TCSETATTR_ERROR, "key_read");
 	if (read(STDIN_FILENO, &c, 1) == -1)
 		c = 0;
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &old_termios))
-		ft_exit(NULL, TERMIOS_ERROR, "tcgetattr error");
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &attr_old) != 0)
+		ft_exit(NULL, -1, TCGETATTR_ERROR, "key_read");
 	return (c);
+}
+
+void	key_others(t_data *data)
+{
+	if (data->history != NULL)
+	{
+		rl_replace_line("", 1);
+		rl_redisplay();
+		data->history = NULL;
+	}
 }
 
 void	key_arrows(t_data *data, int key)
@@ -76,16 +86,8 @@ void	key_operators(t_data *data, int key)
 	}
 }
 
-void	key_others(t_data *data)
-{
-	if (data->history != NULL)
-	{
-		rl_replace_line("", 1);
-		rl_redisplay();
-		data->history = NULL;
-	}
-}
-
+// Allowing to use the arrows and the enter key
+// Note: Function needed only when running on iMac's
 void	key_processing(t_data *data, int key)
 {
 	if (key == 27)
