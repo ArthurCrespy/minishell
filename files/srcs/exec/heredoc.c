@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:29:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/10 15:51:59 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 18:02:58 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,23 @@ void	heredoc_while(t_data *data, t_exec *exec, int fd_temp)
 int	heredoc(t_data *data, t_exec *exec)
 {
 	int		fd_temp;
+	int		fd_stdin;
 
 	fd_temp = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0777);
 	if (fd_temp == -1)
 		return (-1);
+	fd_stdin = dup(STDIN_FILENO);
 	heredoc_while(data, exec, fd_temp);
+	if (g_status == 130)
+	{
+		dup2(fd_stdin, STDIN_FILENO);
+		close (fd_stdin);
+		close(fd_temp);
+		unlink(".heredoc");
+		return (1);
+	}
+	else
+		close (fd_stdin);
 	close(fd_temp);
 	exec->fdin = open(".heredoc", O_RDONLY, 0777);
 	return (0);

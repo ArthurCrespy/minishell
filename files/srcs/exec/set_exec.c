@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 16:09:43 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 17:58:22 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int	exec_set_all(t_data *data, t_exec *exec)
 		return (1);
 	if (set_in_and_out(data, exec) == 1)
 	{
-		perror("redirect failed");
+		if (g_status != 130)
+			perror("redirect failed");
 		return_value = 1;
 	}
 	return (return_value);

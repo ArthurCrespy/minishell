@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 16:14:53 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 17:55:23 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 		data->pipes_nb--;
 		close(exec->pipefd[1]);
 	}
-	if (data->return_value == 0)
+	if (g_status > 0)
+		data->return_value = g_status;
+	else if (data->return_value == 0)
 		data->return_value = 1;
 	return (0);
 }
