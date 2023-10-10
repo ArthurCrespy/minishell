@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:15:01 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 00:46:09 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 16:21:07 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_exec_node_create2(t_exec *exec)
 	exec->pipefd[1] = -1;
 	exec->cmd_exec = NULL;
 	exec->cmd_path = NULL;
+	exec->pid = 0;
 }
 
 // Create a new node for exec

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:16:22 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/09 17:39:51 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:41:10 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_cmd(t_data *data, char *cmd)
 		return (1);
 	}
 	else
-		close(fd);
+		close (fd);
 	return (0);
 }
 

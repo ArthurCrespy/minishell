@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:06:28 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/02 18:06:51 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:43:01 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_isdigit(char c)
 	return (0);
 }
 
-int ft_is_minishell(t_data *data, char *cmd)
+int	ft_is_minishell(t_data *data, char *cmd)
 {
-	char *str;
+	char	*str;
 
 	if (!cmd || ft_strlen(cmd) < 9)
 		return (0);
