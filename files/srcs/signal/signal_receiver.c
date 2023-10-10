@@ -49,6 +49,20 @@ void	signal_processing_child(int sig, siginfo_t *siginfo, void *content)
 		g_status = 0;
 }
 
+void	ft_signal_handle(t_data *data)
+{
+	data->sig.sa_sigaction = signal_processing;
+	data->sig_quit.sa_sigaction = signal_processing;
+	sigemptyset(&data->sig.sa_mask);
+	sigemptyset(&data->sig_quit.sa_mask);
+	data->sig.sa_flags = SA_SIGINFO;
+	data->sig_quit.sa_flags = SA_SIGINFO;
+	data->sig_quit.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &data->sig, NULL);
+	sigaction(SIGQUIT, &data->sig_quit, NULL);
+	sigaction(SIGTERM, &data->sig, NULL);
+}
+
 // Signal handle
 // Note: SIGQUIT sa_handler is set to SIG_IGN to ignore the signal
 void	signal_handle(t_data *data, int child)
@@ -69,16 +83,5 @@ void	signal_handle(t_data *data, int child)
 		sigaction(SIGTERM, &data->sig_quit, NULL);
 	}
 	else
-	{
-		data->sig.sa_sigaction = signal_processing;
-		data->sig_quit.sa_sigaction = signal_processing;
-		sigemptyset(&data->sig.sa_mask);
-		sigemptyset(&data->sig_quit.sa_mask);
-		data->sig.sa_flags = SA_SIGINFO;
-		data->sig_quit.sa_flags = SA_SIGINFO;
-		data->sig_quit.sa_handler = SIG_IGN;
-		sigaction(SIGINT, &data->sig, NULL);
-		sigaction(SIGQUIT, &data->sig_quit, NULL);
-		sigaction(SIGTERM, &data->sig, NULL);
-	}
+		ft_signal_handle(data);
 }
