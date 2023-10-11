@@ -26,7 +26,7 @@ int	check_cmd(t_data *data, char *cmd)
 		return (1);
 	}
 	else
-		close (fd);
+		close(fd);
 	return (0);
 }
 
@@ -41,6 +41,7 @@ int	check_directory(t_data *data, char *cmd)
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": Is a directory\n", 2);
 		data->return_value = 126;
+		close(fd);
 		return (1);
 	}
 	else
