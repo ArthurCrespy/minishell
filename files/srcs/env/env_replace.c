@@ -92,6 +92,7 @@ void	ft_dollar_check(t_data *data, t_parsing *parsing)
 		return_value = ft_itoa(data->return_value);
 		while (return_value[k])
 			parsing->tmp[parsing->j++] = return_value[k++];
+		free(return_value);
 	}
 	else
 		ft_dollar_replace(data, parsing, 0);
