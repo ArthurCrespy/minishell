@@ -27,6 +27,7 @@ int	exec_run(t_data *data)
 	g_status = -1;
 	while (data->exec[index])
 	{
+		data->return_value = 0;
 		data->exec[index]->id_exec = index;
 		if (exec_set_all(data, data->exec[index]) == 0)
 		{
@@ -104,7 +105,8 @@ int	wait_all(t_data *data)
 			data->return_value = g_status;
 		else if (data->exec[index]->is_pid == true && WEXITSTATUS(status))
 			data->return_value = WEXITSTATUS(status);
-		else if (data->exec[index]->is_pid == true && WIFEXITED(status))
+		else if (data->exec[index]->is_pid == true && data->return_value != 1
+			&& WIFEXITED(status))
 			data->return_value = 0;
 		signal_handle(data, 0);
 		index++;
