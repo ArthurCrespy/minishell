@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 17:58:22 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/11 12:23:32 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 // Define the path of the command
 int	exec_set_path(t_data *data, t_exec *exec)
 {
+	if (exec->cmd[0] == '\0')
+		return (ft_putstr_fd("minishell: command not found\n", 2), 1);
 	if (ft_strchr(exec->cmd, '/'))
 	{
 		if (check_directory(data, exec->cmd) == 1)
