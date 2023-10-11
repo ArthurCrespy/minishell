@@ -41,16 +41,21 @@ char	*ft_return_error(int error)
 // Free the data structure and exit the program
 void	ft_exit(t_data *data, int code, int error, char *origin)
 {
+	char	*code_char;
+
+	code_char = NULL;
 	if (data)
 		ft_free(data);
 	if (error && origin)
 	{
+		code_char = ft_itoa(code);
 		ft_putstr_fd("minishell exited with code ", 2);
-		ft_putstr_fd(ft_itoa(code), 2);
+		ft_putstr_fd(code_char, 2);
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(ft_return_error(error), 2);
 		ft_putstr_fd(" at ", 2);
 		ft_putstr_fd(origin, 2);
+		free(code_char);
 	}
 	exit(code);
 }

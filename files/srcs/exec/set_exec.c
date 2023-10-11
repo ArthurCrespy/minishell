@@ -45,7 +45,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (exec->cmd[0] == '\0')
 		return (ft_putstr_fd("minishell: command not found\n", 2), 1);
-	if (ft_strchr(exec->cmd, '/'))
+	if (ft_strchr(exec->cmd, '/') || exec->cmd[0] == '.')
 	{
 		if (check_directory(data, exec->cmd) == 1)
 			return (1);
