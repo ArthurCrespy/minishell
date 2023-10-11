@@ -34,6 +34,5 @@ int	main(int argc, char **argv, char **envp)
 	signal_handle(&data, 0);
 	prompt_run(&data);
 	ft_free(&data);
-	ft_putstr_fd("\033[0;35m -- BYE MINISHELL -- \033[0m\n", 1);
 	return (0);
 }
