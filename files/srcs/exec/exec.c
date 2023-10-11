@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 17:55:23 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/11 13:48:52 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	exec_run(t_data *data)
 			exec_set_ko(data, data->exec[index]);
 		index++;
 	}
-	if (index > 0 && data->exec[index - 1]->is_pid == true)
+	if (index > 0)
 		wait_all(data);
 	return (0);
 }
@@ -48,7 +48,15 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 	{
 		data->pipes_nb--;
 		close(exec->pipefd[1]);
+		if (exec->cmd_path == NULL)
+			close(exec->pipefd[0]);
 	}
+	if (exec->id_exec > 0 && data->exec[exec->id_exec - 1]->cmd_path == NULL)
+		close(exec->fdin);
+	if (exec->cmd_path)
+		free(exec->cmd_path);
+	if (exec->cmd_exec)
+		free(exec->cmd_exec);
 	if (g_status > 0)
 		data->return_value = g_status;
 	else if (data->return_value == 0)
@@ -90,12 +98,13 @@ int	wait_all(t_data *data)
 	status = 0;
 	while (data->exec[index])
 	{
-		waitpid(data->exec[index]->pid, &status, 0);
+		if (data->exec[index]->is_pid == true)
+			waitpid(data->exec[index]->pid, &status, 0);
 		if (g_status > 0)
 			data->return_value = g_status;
-		else if (WEXITSTATUS(status))
+		else if (data->exec[index]->is_pid == true && WEXITSTATUS(status))
 			data->return_value = WEXITSTATUS(status);
-		else if (WIFEXITED(status))
+		else if (data->exec[index]->is_pid == true && WIFEXITED(status))
 			data->return_value = 0;
 		signal_handle(data, 0);
 		index++;
