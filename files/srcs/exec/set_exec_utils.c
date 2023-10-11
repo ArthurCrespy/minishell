@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-// define fdin if :
+// Define fdin if:
 //  -> stdin
 //  -> pipefd[0]
 int	exec_set_in(t_data *data, t_exec *exec)
@@ -27,7 +27,7 @@ int	exec_set_in(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// define the fdout
+// Define fdout:
 //  -> stdout
 //  -> pipefd[1]
 int	exec_set_out(t_data *data, t_exec *exec)
@@ -39,7 +39,7 @@ int	exec_set_out(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// define redir in
+// Define redir in:
 //  -> filein
 //  -> heredoc
 int	if_redir_in(t_data *data, t_exec *exec, int index)
@@ -66,7 +66,7 @@ int	if_redir_in(t_data *data, t_exec *exec, int index)
 	return (0);
 }
 
-// define fdout
+// Define fdout:
 //  -> filout
 //  -> append
 int	if_redir_out(t_exec *exec, int index)

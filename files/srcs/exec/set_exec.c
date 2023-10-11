@@ -67,7 +67,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 	return (0);
 }
 
-// cree le nombre de pipes necessaires
+// Setup the right nb of pipes
 int	set_pipe(t_data *data, t_exec *exec)
 {
 	if (data->pipes_nb == 0)

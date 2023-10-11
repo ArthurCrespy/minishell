@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-// execute les builtins qui sont appeles
+// Launch the builtins
 int	exec_builtin(t_data *data, t_exec *exec)
 {
 	if (exec_builtins_part1(data, exec) == 1)

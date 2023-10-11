@@ -53,7 +53,7 @@ void	exec_child(t_data *data, t_exec *exec)
 	ft_exit(data, 1, EXIT, NULL);
 }
 
-// change fdin
+// Change the fdin
 int	change_fdin(t_exec *exec)
 {
 	if (exec->fdin != STDIN_FILENO)
@@ -65,7 +65,7 @@ int	change_fdin(t_exec *exec)
 	return (0);
 }
 
-//change fdout
+// Change the fdout
 int	change_fdout(t_exec *exec)
 {
 	if (exec->fdout != STDOUT_FILENO)
@@ -77,7 +77,7 @@ int	change_fdout(t_exec *exec)
 	return (0);
 }
 
-// close and free
+// Close fdin, fdout and free cmd variables
 int	close_n_free_parent(t_exec *exec)
 {
 	if (exec->fdin != STDIN_FILENO)
