@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:52:24 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/09 02:33:49 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/11 14:31:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ void	parsing_input(t_data *data, char *command)
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
 	ft_exec_quotes(data);
+	ft_free_tab_little(data->command);
+	free(data->command);
+	data->command = NULL;
 	free(parsing->command);
 	free(parsing);
 }
