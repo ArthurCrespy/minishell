@@ -54,13 +54,13 @@ int	heredoc(t_data *data, t_exec *exec)
 	if (g_status == 130)
 	{
 		dup2(fd_stdin, STDIN_FILENO);
-		close (fd_stdin);
+		close(fd_stdin);
 		close(fd_temp);
 		unlink(".heredoc");
 		return (1);
 	}
 	else
-		close (fd_stdin);
+		close(fd_stdin);
 	close(fd_temp);
 	exec->fdin = open(".heredoc", O_RDONLY, 0777);
 	return (0);

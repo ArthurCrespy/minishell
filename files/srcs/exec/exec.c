@@ -48,11 +48,12 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 	if (data->pipes_nb > 0)
 	{
 		data->pipes_nb--;
-		close(exec->pipefd[1]);
-		if (exec->cmd_path == NULL)
+		if (exec->pipefd[1] != -1)
+			close(exec->pipefd[1]);
+		if (exec->pipefd[0] != -1 && exec->cmd_path == NULL)
 			close(exec->pipefd[0]);
 	}
-	if (exec->id_exec > 0 && data->exec[exec->id_exec - 1]->cmd_path == NULL)
+	if (exec->fdin != -1 && exec->id_exec > 0 && data->exec[exec->id_exec - 1]->cmd_path == NULL)
 		close(exec->fdin);
 	if (exec->cmd_path)
 		free(exec->cmd_path);
@@ -77,7 +78,7 @@ int	exec_set_ok(t_data *data, t_exec *exec, int index)
 	{
 		if (exec->cmd == NULL)
 		{
-			if (data->pipes_nb && (exec->fdout != exec->pipefd[1]
+			if (data->pipes_nb && exec->pipefd[1] != -1 && (exec->fdout != exec->pipefd[1]
 					|| exec->fdin != exec->pipefd[0]))
 				close(exec->pipefd[1]);
 			if (exec->delimiter_nb)

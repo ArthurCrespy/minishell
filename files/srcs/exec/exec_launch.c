@@ -36,7 +36,7 @@ int	exec_launch(t_data *data, t_exec *exec)
 void	exec_child(t_data *data, t_exec *exec)
 {
 	change_fdin(exec);
-	if (data->pipes_nb != 0)
+	if (data->pipes_nb != 0 && exec->pipefd[0] != -1)
 		close(exec->pipefd[0]);
 	change_fdout(exec);
 	g_status = 10;
@@ -80,9 +80,9 @@ int	change_fdout(t_exec *exec)
 // Close fdin, fdout and free cmd variables
 int	close_n_free_parent(t_exec *exec)
 {
-	if (exec->fdin != STDIN_FILENO)
+	if (exec->fdin != -1 && exec->fdin != STDIN_FILENO)
 		close(exec->fdin);
-	if (exec->fdout != STDOUT_FILENO)
+	if (exec->fdout != -1 && exec->fdout != STDOUT_FILENO)
 		close(exec->fdout);
 	if (exec->cmd_path)
 		free(exec->cmd_path);

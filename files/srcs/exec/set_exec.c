@@ -41,7 +41,7 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 }
 
 // Define the path of the command
-int	exec_set_path(t_data *data, t_exec *exec)
+int	    exec_set_path(t_data *data, t_exec *exec)
 {
 	if (exec->cmd[0] == '\0')
 		return (ft_putstr_fd("minishell: command not found\n", 2), 1);
@@ -63,6 +63,11 @@ int	exec_set_path(t_data *data, t_exec *exec)
 			ft_putstr_fd(exec->cmd, 2);
 			ft_putstr_fd(": command not found\n", 2);
 			data->return_value = 127;
+			if (exec->id_exec != 0 && data->exec[exec->id_exec - 1]->pipefd[0] != -1)
+			{
+				waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
+				close(data->exec[exec->id_exec - 1]->pipefd[0]);
+			}
 			return (1);
 		}
 	}
@@ -123,7 +128,7 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	if (!check_builtin(data, exec) && exec->cmd != NULL)
 	{
 		if (exec_set_path(data, exec) == 1)
-			return_value = 1;
+			return (1);
 		else if (exec_set_cmd(data, exec))
 		{
 			ft_putstr_fd("minishell: ", 2);
@@ -138,7 +143,12 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	{
 		if (g_status != 130)
 			perror("redirect failed");
-		return_value = 1;
+		if (exec->id_exec != 0 && data->exec[exec->id_exec - 1]->pipefd[0] != -1)
+		{
+			waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
+			close(data->exec[exec->id_exec - 1]->pipefd[0]);
+		}
+		return (1);
 	}
 	return (return_value);
 }

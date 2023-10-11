@@ -61,8 +61,8 @@ int	if_redir_in(t_data *data, t_exec *exec, int index)
 	}
 	if (exec->fdin == -1)
 		return (1);
-	if (exec->cmd == NULL)
-		close (exec->fdin);
+	if (exec->fdin != -1 && exec->cmd == NULL)
+		close(exec->fdin);
 	return (0);
 }
 
@@ -88,8 +88,8 @@ int	if_redir_out(t_exec *exec, int index)
 	}
 	if (exec->fdout == -1)
 		return (1);
-	if (exec->cmd == NULL)
-		close (exec->fdout);
+	if (exec->fdout != -1 && exec->cmd == NULL)
+		close(exec->fdout);
 	return (0);
 }
 
