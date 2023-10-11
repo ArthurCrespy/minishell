@@ -105,7 +105,7 @@ char	*ft_env_replace(t_data *data, t_parsing *parsing)
 	parsing->i = 0;
 	parsing->j = 0;
 	parsing->tmp = ft_calloc(sizeof(char),
-			(ft_env_size(data, parsing->command, 0, 0) * 10));
+			(ft_strlen(parsing->command) + 1) + (ft_tabslen(data->env)) * 2);
 	if (!parsing->tmp)
 		ft_exit(data, -1, MALLOC_ERROR, "ft_env_replace");
 	while (parsing->command[parsing->i])
