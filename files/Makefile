@@ -33,6 +33,8 @@ SRCS := \
 			exec/set_exec_utils.c \
 			exec/exec_check.c \
 			exec/exec_launch.c \
+			exec/exec_utils.c \
+			exec/exec_wait.c \
 			exec/exec_builtins.c \
 			exit/exit.c \
 			free/free.c \

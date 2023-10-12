@@ -47,11 +47,7 @@ int	exec_set_path(t_data *data, t_exec *exec)
 		return (ft_putstr_fd("minishell: command not found\n", 2), 1);
 	if (ft_strchr(exec->cmd, '/') || exec->cmd[0] == '.')
 	{
-		if (check_directory(data, exec->cmd) == 1)
-			return (1);
-		if (check_access(data, exec) == 1)
-			return (1);
-		if (check_cmd(data, exec->cmd) == 1)
+		if (ft_check_access(data, exec) == 1)
 			return (1);
 	}
 	else
@@ -59,11 +55,10 @@ int	exec_set_path(t_data *data, t_exec *exec)
 		exec->cmd_path = path_find_cmd(data, exec);
 		if (!exec->cmd_path)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(exec->cmd, 2);
-			ft_putstr_fd(": command not found\n", 2);
+			ft_put_error(exec, ": command not found\n");
 			data->return_value = 127;
-			if (exec->id_exec != 0 && data->exec[exec->id_exec - 1]->pipefd[0] != -1)
+			if (exec->id_exec != 0
+				&& data->exec[exec->id_exec - 1]->pipefd[0] != -1)
 			{
 				waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
 				close(data->exec[exec->id_exec - 1]->pipefd[0]);
@@ -123,20 +118,12 @@ int	set_in_and_out(t_data *data, t_exec *exec)
 // Catch the cmd and his path then set the fdin, fdout and pipefd
 int	exec_set_all(t_data *data, t_exec *exec)
 {
-	int	return_value;
-
-	return_value = 0;
 	if (!check_builtin(data, exec) && exec->cmd != NULL)
 	{
 		if (exec_set_path(data, exec) == 1)
 			return (1);
 		else if (exec_set_cmd(data, exec))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(exec->cmd, 2);
-			perror(" ");
-			return_value = 1;
-		}
+			return (ft_put_error(exec, NULL));
 	}
 	if (set_pipe(data, exec) == 1)
 		return (1);
@@ -144,7 +131,8 @@ int	exec_set_all(t_data *data, t_exec *exec)
 	{
 		if (g_status != 130)
 			perror("redirect failed");
-		if (exec->id_exec != 0 && data->exec[exec->id_exec - 1]->pipefd[0] != -1)
+		if (exec->id_exec != 0
+			&& data->exec[exec->id_exec - 1]->pipefd[0] != -1)
 		{
 			waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
 			close(data->exec[exec->id_exec - 1]->pipefd[0]);
@@ -152,5 +140,5 @@ int	exec_set_all(t_data *data, t_exec *exec)
 		}
 		return (1);
 	}
-	return (return_value);
+	return (0);
 }

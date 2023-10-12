@@ -28,6 +28,8 @@ int		check_access(t_data *data, t_exec *exec);
 void	heredoc_while(t_data *data, t_exec *exec, int fd_temp);
 int		close_n_free_parent(t_exec *exec);
 void	heredoc_handle_error(int fd_stdin);
+int		ft_check_access(t_data *data, t_exec *exec);
+int		ft_put_error(t_exec *exec, char *error);
 
 // ---------- PARSING ---------- //
 char	*ft_char_replace(t_data *data, t_parsing *parsing, int c);
