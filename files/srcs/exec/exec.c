@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/11 13:48:52 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 11:32:07 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,21 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 	{
 		data->pipes_nb--;
 		if (exec->pipefd[1] != -1)
+		{
 			close(exec->pipefd[1]);
+			exec->pipefd[1] = -1;
+		}
 		if (exec->pipefd[0] != -1 && exec->cmd_path == NULL)
+		{
 			close(exec->pipefd[0]);
+			exec->pipefd[0] = -1;
+		}
 	}
 	if (exec->fdin != -1 && exec->id_exec > 0 && data->exec[exec->id_exec - 1]->cmd_path == NULL)
+	{
 		close(exec->fdin);
+		exec->fdin = -1;
+	}
 	if (exec->cmd_path)
 		free(exec->cmd_path);
 	if (exec->cmd_exec)
@@ -68,6 +77,11 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 
 int	exec_set_ok(t_data *data, t_exec *exec, int index)
 {
+	if (exec->cmd == NULL)
+	{
+		close(data->exec[exec->id_exec -1]->pipefd[0]);
+		data->exec[exec->id_exec -1]->pipefd[0] = -1;
+	}
 	if (data->pipes_nb == 0 && index == 0 && data->exec[index]->ref_nb == 0
 		&& check_builtin(data, data->exec[index]) == 1)
 	{
@@ -78,9 +92,11 @@ int	exec_set_ok(t_data *data, t_exec *exec, int index)
 	{
 		if (exec->cmd == NULL)
 		{
-			if (data->pipes_nb && exec->pipefd[1] != -1 && (exec->fdout != exec->pipefd[1]
-					|| exec->fdin != exec->pipefd[0]))
+			if (data->pipes_nb && exec->pipefd[1] != -1 && (exec->fdout != exec->pipefd[1]))
+			{
 				close(exec->pipefd[1]);
+				exec->pipefd[1] = -1;
+			}
 			if (exec->delimiter_nb)
 				unlink(".heredoc");
 		}

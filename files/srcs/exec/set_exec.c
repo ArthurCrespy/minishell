@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/11 12:23:32 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 11:34:13 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exec_set_cmd(t_data *data, t_exec *exec)
 }
 
 // Define the path of the command
-int	    exec_set_path(t_data *data, t_exec *exec)
+int	exec_set_path(t_data *data, t_exec *exec)
 {
 	if (exec->cmd[0] == '\0')
 		return (ft_putstr_fd("minishell: command not found\n", 2), 1);
@@ -67,6 +67,7 @@ int	    exec_set_path(t_data *data, t_exec *exec)
 			{
 				waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
 				close(data->exec[exec->id_exec - 1]->pipefd[0]);
+				data->exec[exec->id_exec - 1]->pipefd[0] = -1;
 			}
 			return (1);
 		}
@@ -147,6 +148,7 @@ int	exec_set_all(t_data *data, t_exec *exec)
 		{
 			waitpid(data->exec[exec->id_exec - 1]->pid, &g_status, 0);
 			close(data->exec[exec->id_exec - 1]->pipefd[0]);
+			data->exec[exec->id_exec - 1]->pipefd[0] = -1;
 		}
 		return (1);
 	}
