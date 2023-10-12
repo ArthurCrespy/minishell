@@ -66,6 +66,15 @@ t_exec	**ft_exec_data_set(t_data *data)
 	return (exec);
 }
 
+void	ft_free_parsing(t_data *data, t_parsing *parsing)
+{
+	ft_free_tab_little(data->command);
+	free(data->command);
+	data->command = NULL;
+	free(parsing->command);
+	free(parsing);
+}
+
 // Parse the input command and store it in data->exec and in data->command
 void	parsing_input(t_data *data, char *command)
 {
@@ -91,9 +100,5 @@ void	parsing_input(t_data *data, char *command)
 	data->command = ft_strsplit(data, parsing->command, '\x1F');
 	data->exec = ft_exec_data_set(data);
 	ft_exec_quotes(data);
-	ft_free_tab_little(data->command);
-	free(data->command);
-	data->command = NULL;
-	free(parsing->command);
-	free(parsing);
+	ft_free_parsing(data, parsing);
 }
