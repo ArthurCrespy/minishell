@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:27:02 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/10 17:38:23 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 11:38:47 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!*envp)
 		env_create(&data);
 	if (isatty(0) != 1 || isatty(2) != 1)
-		ft_exit(NULL, -1, TTY_ERROR, "main");
+	ft_exit(NULL, -1, TTY_ERROR, "main");
 	if (argc != 1 || argv[1])
 		ft_exit(NULL, -1, ARG_ERROR, "main");
 	ft_putstr_fd("\033[0;35m -- WELCOME IN MINISHELL -- \033[0m\n", 1);
