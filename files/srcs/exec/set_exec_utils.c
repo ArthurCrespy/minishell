@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:23:27 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/12 10:56:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 13:15:50 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,30 @@ int	exec_set_out(t_data *data, t_exec *exec)
 //  -> heredoc
 int	if_redir_in(t_data *data, t_exec *exec, int index)
 {
-	int	type;
-
-	type = exec->type[index];
 	if (exec->fdin != -1)
+	{
 		close(exec->fdin);
-	if (type == REDIR_IN)
+		exec->fdin = -1;
+	}
+	if (exec->id_exec > 0 && data->exec[exec->id_exec - 1]->pipefd[0] != -1)
+	{
+		close(data->exec[exec->id_exec - 1]->pipefd[0]);
+		data->exec[exec->id_exec - 1]->pipefd[0] = -1;
+	}
+	if (exec->type[index] == REDIR_IN)
 		exec->fdin = open(exec->content[index], O_RDWR, 644);
-	if (type == DELIMITER)
+	if (exec->type[index] == DELIMITER)
 	{
 		if (heredoc(data, exec) == 1)
-		{
-			exec->delimiter_num++;
-			return (1);
-		}
+			return (exec->delimiter_num++, 1);
 	}
 	if (exec->fdin == -1)
 		return (1);
-	if (exec->fdin != -1 && exec->cmd == NULL)
+	if (exec->fdin != -1 && (exec->cmd_path == NULL || exec->cmd == NULL))
+	{
 		close(exec->fdin);
+		exec->fdin = -1;
+	}
 	return (0);
 }
 
@@ -75,21 +80,23 @@ int	if_redir_out(t_exec *exec, int index)
 
 	type = exec->type[index];
 	if (exec->fdout != -1)
-		close(exec->fdout);
-	if (type == REDIR_APPEND)
 	{
+		close(exec->fdout);
+		exec->fdout = -1;
+	}
+	if (type == REDIR_APPEND)
 		exec->fdout = open(exec->content[index],
 				O_CREAT | O_RDWR | O_APPEND, 0644);
-	}
 	if (type == REDIR_OUT)
-	{
 		exec->fdout = open(exec->content[index],
 				O_CREAT | O_RDWR | O_TRUNC, 0644);
-	}
 	if (exec->fdout == -1)
 		return (1);
 	if (exec->fdout != -1 && exec->cmd == NULL)
+	{
 		close(exec->fdout);
+		exec->fdout = -1;
+	}
 	return (0);
 }
 

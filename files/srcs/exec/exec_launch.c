@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:59:38 by abinet            #+#    #+#             */
-/*   Updated: 2023/10/12 10:08:21 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 12:56:50 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	exec_child(t_data *data, t_exec *exec)
 {
 	change_fdin(exec);
 	if (data->pipes_nb != 0 && exec->pipefd[0] != -1)
+	{
 		close(exec->pipefd[0]);
+		exec->pipefd[0] = -1;
+	}
 	change_fdout(exec);
 	g_status = 10;
 	if (check_builtin(data, exec) == 1)
@@ -61,6 +64,8 @@ int	change_fdin(t_exec *exec)
 		dup2(exec->fdin, STDIN_FILENO);
 		if (close(exec->fdin) == -1)
 			return (1);
+		else
+			exec->fdin = -1;
 	}
 	return (0);
 }
@@ -73,6 +78,8 @@ int	change_fdout(t_exec *exec)
 		dup2(exec->fdout, STDOUT_FILENO);
 		if (close(exec->fdout) == -1)
 			return (1);
+		else
+			exec->fdout = -1;
 	}
 	return (0);
 }
@@ -81,9 +88,15 @@ int	change_fdout(t_exec *exec)
 int	close_n_free_parent(t_exec *exec)
 {
 	if (exec->fdin != -1 && exec->fdin != STDIN_FILENO)
+	{
 		close(exec->fdin);
+		exec->fdin = -1;
+	}
 	if (exec->fdout != -1 && exec->fdout != STDOUT_FILENO)
+	{
 		close(exec->fdout);
+		exec->fdout = -1;
+	}
 	if (exec->cmd_path)
 		free(exec->cmd_path);
 	if (exec->cmd_exec)
