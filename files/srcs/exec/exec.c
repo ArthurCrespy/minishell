@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:35 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/12 11:32:07 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 17:21:36 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,14 @@ int	exec_set_ko(t_data *data, t_exec *exec)
 		close(exec->fdin);
 		exec->fdin = -1;
 	}
+	if (exec->cmd == NULL)
+	{
+		if (exec->fdout != -1)
+		{
+			close(exec->fdout);
+			exec->fdout = -1;
+		}
+	}
 	if (exec->cmd_path)
 		free(exec->cmd_path);
 	if (exec->cmd_exec)
@@ -93,7 +101,7 @@ void	ft_exec_delimiter(t_data *data, t_exec *exec)
 
 int	exec_set_ok(t_data *data, t_exec *exec, int index)
 {
-	if (exec->cmd == NULL)
+	if (exec->cmd == NULL && exec->id_exec != 0)
 	{
 		close(data->exec[exec->id_exec -1]->pipefd[0]);
 		data->exec[exec->id_exec -1]->pipefd[0] = -1;

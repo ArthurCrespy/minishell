@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 20:51:54 by acrespy           #+#    #+#             */
-/*   Updated: 2023/10/12 11:34:13 by abinet           ###   ########.fr       */
+/*   Updated: 2023/10/12 17:42:17 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ int	set_pipe(t_data *data, t_exec *exec)
 			perror("minishell: pipe failed: ");
 			return (1);
 		}
+	}
+	if (exec->cmd == NULL)
+	{
+		close(exec->pipefd[1]);
+		exec->pipefd[1] = -1;
 	}
 	return (0);
 }
