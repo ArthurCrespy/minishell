@@ -17,7 +17,7 @@ You will learn a lot about processes and file descriptors.</a></h4>
     <a href="https://github.com/ArthurCrespy/minishell"> <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/ArthurCrespy/minishell"></a>
     <a href="https://github.com/ArthurCrespy/minishell/commits"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ArthurCrespy/minishell?color=yellow"></a>
     <a href="https://github.com/ArthurCrespy/minishell/watchers"> <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/ArthurCrespy/minishell?color=ff69b4"></a>
-    <a href="https://projects.intra.42.fr/42cursus-minishell/acrespy"> <img alt="Result: NA/100" src="https://img.shields.io/badge/result-NA/100-brightgreen"></a>
+    <a href="https://projects.intra.42.fr/42cursus-minishell/acrespy"> <img alt="Result: NA/100" src="https://img.shields.io/badge/result-100/100-brightgreen"></a>
 
 </p>
 
